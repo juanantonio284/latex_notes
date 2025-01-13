@@ -1,13 +1,21 @@
-<!-- tutorial 1 -->
-# Simple Typesetting
+# Notes on LaTeX Tutorials: A Primer
 
-## Spaces
+All these notes come from the book *LaTeX Tutorials: A Primer* (September 2003) by the [Indian TeX
+Users Group][tug_india]
+
+[tug_india]: http://www.tug.org.in
+
+# Tutorial I: The Basics
+
+## Simple Typesetting
+
+### Spaces
 
 In traditional typesetting, a little extra space is added to periods which end sentences and TeX
 also follows this custom. But how does TeX know whether a period ends a sentence or not? It assumes
 that every period not following an upper case letter ends a sentence. 
 
-### Extra space after period needed (sentence ends with uppercase letter)
+**Extra space after period needed (sentence ends with uppercase letter)**
 
 There are instances where a sentence ends in an upper case letter. **Add an extra space after the
 period with `\@`.**
@@ -25,10 +33,11 @@ Carrots are good for your eyes, since they contain Vitamin A\@. Have you ever se
 glasses?
 ```
 
-### Extra space after period not needed (period does not mark end a sentence)
+**Extra space after period not needed (period does not mark end a sentence)**
 
 There are instances where a period following a lowercase letter does not end a sentence. **Enter an
-escaped space `\ ` so that the compiler focuses on that and not on the period.**
+escaped space (\ ` `) so that the compiler focuses on that and not on the period.**
+
 <!-- **Remove the extra space with a backslash and a space `\ `. (This is an escaped space.)** -->
 
 For example:
@@ -45,9 +54,9 @@ The numbers 1, 2, 3, etc.\ are called natural numbers. According to Kronecker, t
 God; all else being the works of Man.
 ```
 
-### Space needed (after a command the following space is not inserted at all)
+**Space needed (after a command the following space is not inserted at all)**
 
-TeX gobbles up all spaces after a command. **Enter an escaped space `\ ` so that the compiler
+TeX gobbles up all spaces after a command. **Enter an escaped space \ ` ` so that the compiler
 focuses on that and not on the command.**
 
 For example, to properly display the sentence: `I think LaTeX is fun` you should write:
@@ -61,35 +70,62 @@ I think \LaTeX\ is fun
 <!-- ## Text alignment -->
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-# Fonts
+## Fonts
 
-The actual letters and symbols (collectively called type) that LaTeX (or any other typesetting
-system) produces are characterized by their style and size. For example, in this book emphasized
-text is given in italic style and the example inputs are given in typewriter style. We can also
-produce smaller and bigger types. A set of types of a particular style and size is called a font.
+The actual letters and symbols (collectively called *type*) that LaTeX (or any other typesetting
+system) produces are characterized by their *style* and *size*. For example, in this book
+emphasized text is given in *italic style* and the example inputs are given in `typewriter style`.
 
-## Type style
+A set of types of a particular style and size is called a *font*.
 
-In LaTeX, a type style is specified by family, series, and shape. Any type style in the output is a
-combination of these three characteristics.
+### Type style
 
-<!-- See table 1.1 on page 14 -->
+In LaTeX, a *type style* is specified by a combination of *family*, *series*, and *shape*.
 
-### Commands vs. declarations
+#### Styles
 
-Each of these type style changing commands has an alternate form as a declaration.
+* **Families**: roman, sans serif, typewriter
+    - commands: `\textrm{}`, `\textsf{}`, `\texttt{}`
+    - declarations: `{\rmfamily text...}`, `{\sffamily text...}`, `{\ttfamily text...}`,
+* **Series**: medium, boldface
+    - commands: `\textmd{}`, `\textbf{}`
+    - declarations: `{\mdseries text...}`, `{\bfseries text...}`
+* **Shape**: upright, italic, slanted, small cap
+    - commands: `\textup{}`, `\textit{}`, `\textsl{}`, `\textsc{}`
+    - declarations: `{\upshape text...}`, `{\itshape text...}`, `{\slshape text...}`, 
+      ` {\scshape text...}`
 
-A command is `\textbf{boldface}`, a declaration is `{\bfseries boldface}`. Declarations seem to end
-in "shape", "series", or "family"—e.g. `upshape`, `mdseries`, `ttfamily`. (See table on page 15)
+**By default** we get **roman family, medium series, upright shape** type style in a LaTeX output.
+  Thus, for instance:
 
-`\bfseries{triangle}` would not work (both the declaration and the text need to be in the braces).
+* the `\textit` command produces roman family, medium series, italic shape type
+* the `\textbf` command produces roman family, boldface series, upright shape type
 
-## Type size
+We can combine these commands to produce a wide variety of type styles. For example:
+
+```latex
+\textsf{\textbf{this text is sans serif family, boldface series, upright shape}} # the upright is default
+\textrm{\textsl{roman family, medium series, slanted shape}} # the medium is default
+```
+
+**Note: commands vs. declarations**
+
+Each of these type style changing commands has an alternate form as a declaration. A command is
+`\textbf{boldface}`, a declaration is `{\bfseries boldface}`. Thus `\bfseries{triangle}` would not
+work (both the declaration and the text need to be in the braces).
+
+(Notice that declarations seem to end in the words 'shape', 'series', or 'family'—e.g. `upshape`,
+`mdseries`, `ttfamily`.) 
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+### Type size
 
 Traditionally, type size is measured in (printer) points. The default type that TeX produces is of
-10 pt size. There are 10 **declarations** provided in LaTeX for changing the type size:
+10 pt size. 
 
-```
+There are 10 **declarations** provided in LaTeX for changing the type size:
+
+```latex
 {\tiny size}
 {\scriptsize size}
 {\footnotesize size}
@@ -103,38 +139,38 @@ Traditionally, type size is measured in (printer) points. The default type that 
 ```
 
 Note that the `\normalsize` corresponds to the size we get by default and the sizes form an ordered
-sequence with `\tiny` producing the smallest and `\Huge` producing the largest. Unlike the style
-changing commands, there are no command-with-one-argument forms for these declarations.
+sequence with `\tiny` producing the smallest and `\Huge` producing the largest. **Note** that these
+are only in declaration form, there are no commands.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-<!-- tutorial 2 -->
-# The Document
+# Tutorial II: The Document
 
 ## \documentclass
 
-In addition to specifying the type of document (which we must do, since LaTeX has no default
+In addition to specifying the type of document (which we *must* do, since LaTeX has no default
 document class), we can also specify some options which modify the overall appearance that the
 document has by default. Thus the actual syntax of the `\documentclass` command is `\documentclass
 [options]{class}`
 
-Note that options are given in square brackets and not braces. (This is often the case with LaTeX
-commands—options are specified within square brackets, after which mandatory arguments are given
-within braces.)
+Note that options are specified within square brackets, after which mandatory arguments are given
+within braces. (This is often the case with LaTeX commands.)
 
 ### Font size
 
 We can select the size of the font for the normal text in the entire document with one of the
-options 10pt 11pt 12pt. Thus we can say `\documentclass[11pt]{article}` to set the normal text in
-our document to 11pt size. (The default is 10pt).
+options `10pt`, `11pt`, or `12pt`. Thus we can say `\documentclass[11pt]{article}` to set the
+normal text in our document to `11pt` size. (The default is `10pt`).
 
 ### Paper size
 
 We know that LaTeX has its own method of breaking lines to make paragraphs. It also has methods to
 make vertical breaks to produce different pages of output. For these breaks to work properly, it
-must know the width and height of the paper used. The various options for selecting the paper size
-are given below:
+must know the width and height of the paper used. 
+
+The various options for selecting the paper size are given below. Normally, the longer dimension is
+the vertical one, i.e. the height of the page. The default is `letterpaper`.
 
 |    **command**   |   **size**   |
 |:----------------:|:------------:|
@@ -145,23 +181,49 @@ are given below:
 |     `a5paper`    |  21×14.8 in  |
 |     `b5paper`    |  25×17.6 in  |
 
-Normally, the longer dimension is the vertical one—that is, the height of the page. The default is
-letterpaper.
-
 ### Page formats
 
+**Columns**
+
 There are options for setting the contents of each page in a single column (as is usual) or in two
-columns (as in most dictionaries). This is set by the options: `onecolumn` and `twocolumn` (the
-default is `onecolumn`).
+columns (as seen in articles or dictionaries). The options are `onecolumn` and `twocolumn`
+(the default is `onecolumn`).
 
-There is also an option to specify whether the document will be finally printed on just one side of
-each paper or on both sides. The names of the options are `oneside` and `twoside`. One of the
-differences is that with the `twoside` option, page numbers are printed on the right on
+There are also options to specify whether the document will be finally printed on one or both sides
+of each paper. The options are `oneside` and `twoside`. 
+
+**Sides**
+
+One of the differences is that with the `twoside` option, page numbers are printed on the right on
 odd-numbered pages and on the left on even numbered pages, so that when these printed back to back,
-the numbers are always on the outside, for better visibility. The default is `oneside` for article,
-report and letter and `twoside` for book.
+the numbers are always on the outside, for better visibility. The default is `oneside` for the
+classes `article`, `report`, and `letter` and `twoside` for the `book` class.
 
-<!-- etc -->
+**Chapter opening**
+
+In the `report` and `book` classes, chapters always begin on a new page, leaving blank space in the
+previous page, if necessary. In the `book` class there is the additional restriction that chapters
+begin only on odd-numbered pages, leaving an entire page blank, if need be. Such behavior is
+controlled by the options `openany` and `openright`.
+
+The default is `openany` for the `report` class (so that chapters begin on “any” *new* page) and
+`openright` for the `book` class (so that chapters begin only on *new* right, i.e. an odd numbered
+page).
+
+**Title**
+
+There is also a provision in LATEX for formatting the “title” (the name of the document, author
+(s) and so on) of a document with special typographic consideration. 
+
+In the `article` class, the *title* is printed along with the text following on the first page; for
+the `report` and `book` classes, the *title* is printed on a separate title page. This is
+controlled by the options `notitlepage` (default for `article`) and `titlepage` (default for
+`report` and `book`).[^note_1]
+
+[^note_1]:
+As with the other options, the default behavior can be overruled by explicitly specifying an option
+with the `documentclass` command.
+
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## \pagestyle
@@ -180,29 +242,30 @@ The behavior pertaining to each of these is given below:
   to the width of the text. (This is the default for the `article` class if no `\pagestyle` is
   specified in the preamble.)
 
-* `empty`: both the head and foot are empty. In particular, no page numbers are printed.
+* `empty`: both the head and foot are empty (no page numbers are printed)
 
-* `headings`: this is the default for the `book` class. The foot is empty and the head contains the
-  page number and names of the chapter section or subsection, depending on the document class and
-  its options as given below:
+* `headings`: The foot is empty and the head contains the page number and names of the chapter
+  section or subsection, depending on the document class and its options as given below. (This is
+  the default for the `book` class.)
   
-|   **Class**  | **Option** | **Left Page** | **Right Page** |
-|:------------:|:----------:|:-------------:|:--------------:|
-| book, report |  one-sided |       —       |     chapter    |
-| book, report |  two-sided |    chapter    |     section    |
-|    article   |  one-sided |       —       |     section    |
-|    article   |  two-sided |    section    |   subsection   |
+    |   **Class**  | **Option** | **Left Page** | **Right Page** |
+    |:------------:|:----------:|:-------------:|:--------------:|
+    | book, report |  one-sided |       —       |     chapter    |
+    | book, report |  two-sided |    chapter    |     section    |
+    |    article   |  one-sided |       —       |     section    |
+    |    article   |  two-sided |    section    |   subsection   |
 
 
-* `myheadings` The same as headings, except that the 'section' information in the head are not
+* `myheadings` the same as headings, except that the 'section' information in the head are not
   predetermined, but to be given explicitly using the commands `\markright` or `\markboth`.
 
-Moreover, we can customize the style for the current page only using the command `\thispagestyle
-{style}` where style is the name of one of the styles above. For example, the page number may be
+We can customize the style for **only** the current page with the command `\thispagestyle
+{style}` where *style* is the name of one of the styles above. For example, the page number may be
 suppressed for the current page alone by the command `\thispagestyle{empty}`. (Note that only the
-printing of the page number is suppressed. The next page will be numbered with the next number and
-so on.)
+*printing* of the page number is suppressed, not the counting—i.e. the next page will still be
+ numbered with the next number in the sequence.)
 
+<!-- skipped II.2.1. Heading declarations -->
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## \pagenumbering
@@ -216,7 +279,7 @@ arguments to this command and the resulting style of the numbers are given below
 * `alph`: lowercase English letters
 * `Alph`: uppercase English letters
 
-The default value is arabic. This command resets the page counter. 
+The default value is `arabic`. This command resets the page counter. 
 
 Thus for example, to number all the pages in the ‘Preface’ with lowercase Roman numerals and the
 rest of the document with Indo-Arabic numerals, declare `\pagenumbering{roman}` at the beginning of
@@ -231,23 +294,23 @@ body containing the actual text. In formatting a page, LaTeX uses the width and 
 parts of the page and various other lengths such as the left and right margins. The values of these
 lengths are set by the paper size options and the page format and style commands. 
 
-For example, the page layout with values of these lengths for an odd page and even in this book are
-separately shown below. These lengths can all be changed with the command `\setlength`. For
-example, `\setlength{\textwidth}{15cm}` makes the width of text 15 cm. The package `geometry` gives
-easier interfaces to customize page format.
+These values can be changed with the command `\setlength`. For example, `\setlength{\textwidth}
+{15cm}` makes the width of text 15 cm. The package `geometry` gives easier interfaces to customize
+page format.
+
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Parts of a document
 
 Documents (especially longer ones) are divided into chapters, sections and so on. There may be a
-title part (sometimes even a separate title page) and an abstract. All these require special
+title part (which may be on a separate title page) and an abstract. All these require special
 typographic considerations and LaTeX has a number of features which automate this task.
 
 ### Title
 
 The "title" is printed in a separate page for the document classes `book` and `report` and in the
-first page of the document for the class `article`. (Also recall that this behavior can be modified
-by the options `titlepage` or `notitlepage`.)
+first page of the document for the class `article`. (Recall that this behavior can be modified by
+the options `titlepage` or `notitlepage`.)
 
 To produce a title, we make use of the commands: 
 
@@ -259,8 +322,8 @@ To produce a title, we make use of the commands:
 ```
 
 By default, all entries produced by these commands are centered on the lines in which they appear.
-If a title text is too long to fit in one line, it will be broken automatically. However, we can
-choose the break points with the `\\` command.
+If a title text is too long to fit in one line it will be broken automatically, but we can choose
+the break points with the `\\` command.
 
 If there are several authors and their names are separated by the `\and` command, then the names
 appear side by side. If, instead, we use `\\` the names are printed one below another. 
@@ -282,11 +345,10 @@ Thus
 ```
 
 produces [a big centered Title with two columns underneath (each one containing an author with 3
-lines of address), and a date underneath (the date actually reads `Month Date, Year`)]
+lines of address), and a date underneath (the date actually reads `Month Date, Year`)].
 
-We may leave some of these arguments empty; for example, the command `\date{ }`
-prints no date. **Note**, however, that if you simply omit the \date command itself, the
-current date will be printed. 
+**Note** that if you simply omit the `\date` command, the current date will still be printed. To
+  avoid printing a date insert the command `\date{ }`, i.e. the command with blank arguments.
 
 The command `\thanks{this text will go inside a footnote}` can be given at any point within the
 `\title`, `\author`, or `\date`. It puts a marker at this point and places the footnote text as a
@@ -328,12 +390,3 @@ class. (Except for `\chapter` all these are available in `article` class also.)
 Paragraphs and subparagraphs do not have numbers, and they have run-in headings. These sections can
 actually have several paragraphs of text within them. (Subparagraphs have an additional
 indentation.)
-
-
-<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-# References
-
-[Indian TeX Users Group][tug_india], *LaTeX Tutorials: A Primer (2003 September)*
-
-[tug_india]: http://www.tug.org.in
