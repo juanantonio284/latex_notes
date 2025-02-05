@@ -13,37 +13,42 @@ Users Group][tug_india]
 
 In traditional typesetting, a little extra space is added to periods which end sentences and TeX
 also follows this custom. But how does TeX know whether a period ends a sentence or not? It assumes
-that every period not following an upper case letter ends a sentence. 
+that every period not following an upper case letter ends a sentence[^logic_1].
 
-**Extra space after period needed (sentence ends with uppercase letter)**
+[^logic_1]: The logic is: if it follows an upper case letter then it's likely an abbreviation and not
+the end of a sentence.  
 
-There are instances where a sentence ends in an upper case letter. **Add an extra space after the
-period with `\@`.**
+<!--  -->
+#### Extra space after period needed (sentence ends with uppercase letter)
 
-For example, consider the following
+There are instances where a sentence ends in an upper case letter and you should manually **add an
+extra space after the period with `\@`.**
+
+For example, consider the following:
 
 ```
 Carrots are good for your eyes, since they contain Vitamin A. Have you ever seen a rabbit
 wearing glasses?
 ```
-The right input to produce this is
+The right input to produce this is:
 
 ```Latex
 Carrots are good for your eyes, since they contain Vitamin A\@. Have you ever seen a rabbit wearing
 glasses?
 ```
 
-**Extra space after period not needed (period does not mark end a sentence)**
+#### Extra space after period not needed (period does not mark end a sentence)
 
 There are instances where a period following a lowercase letter does not end a sentence. **Enter an
-escaped space (\ ` `) so that the compiler focuses on that and not on the period.**
+escaped space (\ ` `) so that the compiler focuses on the space and not on the period.** [Thus not
+adding an extra space].
 
 <!-- **Remove the extra space with a backslash and a space `\ `. (This is an escaped space.)** -->
 
 For example:
 
 ```
-The numbers 1, 2, 3, etc. are called natural numbers. According to Kronecker, they were made
+The numbers 1, 2, 3, etc.  are called natural numbers. According to Kronecker, they were made
 by God; all else being the work of Man.
 ```
 
@@ -54,7 +59,7 @@ The numbers 1, 2, 3, etc.\ are called natural numbers. According to Kronecker, t
 God; all else being the works of Man.
 ```
 
-**Space needed (after a command the following space is not inserted at all)**
+#### Space needed (after a command the following space is not inserted at all)
 
 TeX gobbles up all spaces after a command. **Enter an escaped space \ ` ` so that the compiler
 focuses on that and not on the command.**
@@ -86,14 +91,14 @@ In LaTeX, a *type style* is specified by a combination of *family*, *series*, an
 
 * **Families**: roman, sans serif, typewriter
     - commands: `\textrm{}`, `\textsf{}`, `\texttt{}`
-    - declarations: `{\rmfamily text...}`, `{\sffamily text...}`, `{\ttfamily text...}`,
+    - declarations: `{\rmfamily loren ipsum ...}`, `{\sffamily loren ipsum ...}`, `{\ttfamily loren ipsum ...}`,
 * **Series**: medium, boldface
     - commands: `\textmd{}`, `\textbf{}`
-    - declarations: `{\mdseries text...}`, `{\bfseries text...}`
+    - declarations: `{\mdseries loren ipsum ...}`, `{\bfseries loren ipsum ...}`
 * **Shape**: upright, italic, slanted, small cap
     - commands: `\textup{}`, `\textit{}`, `\textsl{}`, `\textsc{}`
-    - declarations: `{\upshape text...}`, `{\itshape text...}`, `{\slshape text...}`, 
-      ` {\scshape text...}`
+    - declarations: `{\upshape loren ipsum ...}`, `{\itshape loren ipsum ...}`, `{\slshape loren ipsum ...}`, 
+      ` {\scshape loren ipsum ...}`
 
 **By default** we get **roman family, medium series, upright shape** type style in a LaTeX output.
   Thus, for instance:
@@ -147,12 +152,12 @@ are only in declaration form, there are no commands.
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 # Tutorial II: The Document
 
-## \documentclass
+## 1. Modify overall appearance of document with `\documentclass`
 
 In addition to specifying the type of document (which we *must* do, since LaTeX has no default
 document class), we can also specify some options which modify the overall appearance that the
-document has by default. Thus the actual syntax of the `\documentclass` command is `\documentclass
-[options]{class}`
+document has by default. 
+Thus the actual syntax of the `\documentclass` command is `\documentclass[options]{class}`
 
 Note that options are specified within square brackets, after which mandatory arguments are given
 within braces. (This is often the case with LaTeX commands.)
@@ -201,40 +206,40 @@ classes `article`, `report`, and `letter` and `twoside` for the `book` class.
 
 **Chapter opening**
 
-In the `report` and `book` classes, chapters always begin on a new page, leaving blank space in the
-previous page, if necessary. In the `book` class there is the additional restriction that chapters
-begin only on odd-numbered pages, leaving an entire page blank, if need be. Such behavior is
-controlled by the options `openany` and `openright`.
+In the `report` and `book` classes chapters always begin on a new page, leaving blank space in the
+previous page, if necessary. 
 
-The default is `openany` for the `report` class (so that chapters begin on “any” *new* page) and
+In the `book` class there is the additional restriction that chapters begin only on odd-numbered
+pages, leaving an entire page blank, if need be. Such behavior is controlled by the options
+`openany` and `openright`.
+
+The default is `openany` for the `report` class (so that chapters begin on "any" *new* page) and
 `openright` for the `book` class (so that chapters begin only on *new* right, i.e. an odd numbered
 page).
 
 **Title**
 
-There is also a provision in LATEX for formatting the “title” (the name of the document, author
-(s) and so on) of a document with special typographic consideration. 
+There is also a provision in LaTeX for formatting the "title" (the name of the document, authors,
+etc.) of a document with special typographic consideration. 
 
-In the `article` class, the *title* is printed along with the text following on the first page; for
-the `report` and `book` classes, the *title* is printed on a separate title page. This is
-controlled by the options `notitlepage` (default for `article`) and `titlepage` (default for
-`report` and `book`).[^note_1]
+* In the `article` class, the *title* is printed along with the text following on the first page
 
-[^note_1]:
-As with the other options, the default behavior can be overruled by explicitly specifying an option
-with the `documentclass` command.
+* For the `report` and `book` classes, the *title* is printed on a separate title page
+
+* This is controlled by the options `notitlepage` (default for `article`) and `titlepage`
+  (default for `report` and `book`)[^note_1]
+
+[^note_1]: As with the other options, the default behavior can be overruled by explicitly specifying
+an option with the `documentclass` command.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-## \pagestyle
-
-Having decided on the overall appearance of the document through the `\documentclass` command with
-its various options, we next see how we can set the style for the individual pages. 
+## 2. Set the style for individual pages with `\pagestyle`
 
 In LaTeX parlance, each page has a "head" and "foot" usually containing such information as the
-current page number or the current chapter or section. This is set by the command `\pagestyle{...}` 
-where the mandatory argument can be any one of the following styles: `plain`, `empty`, `headings`,
-`myheadings`.
+current page number or the current chapter or section. With the `\pagestyle{...}` command
+(with mandatory arguments `plain`, `empty`, `headings`, or `myheadings`) we can set the style for
+the individual pages. 
 
 The behavior pertaining to each of these is given below:
 
@@ -256,19 +261,19 @@ The behavior pertaining to each of these is given below:
     |    article   |  two-sided |    section    |   subsection   |
 
 
-* `myheadings` the same as headings, except that the 'section' information in the head are not
-  predetermined, but to be given explicitly using the commands `\markright` or `\markboth`.
+* `myheadings` the same as *headings*, except that the 'section' information in the head is not
+  predetermined, but to be given explicitly using the commands `\markright` or `\markboth`
 
-We can customize the style for **only** the current page with the command `\thispagestyle
-{style}` where *style* is the name of one of the styles above. For example, the page number may be
-suppressed for the current page alone by the command `\thispagestyle{empty}`. (Note that only the
-*printing* of the page number is suppressed, not the counting—i.e. the next page will still be
- numbered with the next number in the sequence.)
+To customize the style for **only** the current page, use `\thispagestyle{style}` (where *style* is
+the name of one of the styles above). For example, the page number may be suppressed for the
+current page alone by the command `\thispagestyle{empty}`. (Note that only the *printing* of the
+page number is suppressed, not the counting—i.e. the next page will still be numbered with the next
+number in the sequence.)
 
 <!-- skipped II.2.1. Heading declarations -->
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-## \pagenumbering
+## 3. Set `\pagenumbering`
 
 The style of page numbers can be specified by the command `\pagenumbering{...}` The possible
 arguments to this command and the resulting style of the numbers are given below:
@@ -281,29 +286,29 @@ arguments to this command and the resulting style of the numbers are given below
 
 The default value is `arabic`. This command resets the page counter. 
 
-Thus for example, to number all the pages in the ‘Preface’ with lowercase Roman numerals and the
+Thus for example, to number all the pages in the 'Preface' with lowercase Roman numerals and the
 rest of the document with Indo-Arabic numerals, declare `\pagenumbering{roman}` at the beginning of
-the Preface and issue the command `\pagestyle{arabic}` immediately after the first `\chapter`
+the preface and issue the command `\pagestyle{arabic}` immediately after the first `\chapter`
 command. We can make the pages start with any number we want by the command `\setcounter{page}
 {number}` where number is the page number we wish the current page to have.
 
-## \setlength
+## 4. `\setlength`
 
 Each page that LaTeX produces consists not only of a head and foot as discussed above but also a
 body containing the actual text. In formatting a page, LaTeX uses the width and heights of these
 parts of the page and various other lengths such as the left and right margins. The values of these
-lengths are set by the paper size options and the page format and style commands. 
+lengths are set by the paper size options and the page format and style commands. These values can
+be changed with the command `\setlength`. For example, `\setlength{\textwidth}{15cm}` makes the
+width of text 15 cm. 
 
-These values can be changed with the command `\setlength`. For example, `\setlength{\textwidth}
-{15cm}` makes the width of text 15 cm. The package `geometry` gives easier interfaces to customize
-page format.
+The package `geometry` gives easier interfaces to customize page format.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Parts of a document
 
-Documents (especially longer ones) are divided into chapters, sections and so on. There may be a
-title part (which may be on a separate title page) and an abstract. All these require special
+Documents (especially longer ones) are divided into chapters, sections, and so on. There may be a
+title *part* (which may be on a separate title *page*) and an abstract. All these require special
 typographic considerations and LaTeX has a number of features which automate this task.
 
 ### Title
@@ -344,8 +349,8 @@ Thus
 \date{Month Date, Year}
 ```
 
-produces [a big centered Title with two columns underneath (each one containing an author with 3
-lines of address), and a date underneath (the date actually reads `Month Date, Year`)].
+produces a big centered Title, two columns underneath (each one containing an author with 3 lines of
+address), and a date underneath (this actually reads `Month Date, Year`).
 
 **Note** that if you simply omit the `\date` command, the current date will still be printed. To
   avoid printing a date insert the command `\date{ }`, i.e. the command with blank arguments.
@@ -387,6 +392,41 @@ class. (Except for `\chapter` all these are available in `article` class also.)
 \subparagraph
 ```
 
+Each sectioning command also has a "starred" version which does not produce numbers; thus 
+`\section*{name}` has the same effect as `\section{name}`, but produces no number for this section.
+  
 Paragraphs and subparagraphs do not have numbers, and they have run-in headings. These sections can
 actually have several paragraphs of text within them. (Subparagraphs have an additional
 indentation.)
+
+You may have noted that LATEX has a specific format for typesetting the section headings, such as
+the font used, the positioning, the vertical space before and after the heading and so on. All
+these can be customized, but it requires some TEXpertise and cannot be addressed at this point.
+However, the package `sectsty` provided some easy interfaces for tweaking some of these settings.
+
+### More on sectioning commands
+
+#### In the `book` and the `report` classes:
+
+* the `\chapter` command shifts to the beginning of a new page and prints the word 'Chapter', a
+  number, and—beneath it—the name of the chapter passed as the argument of the command. Example:
+  `Chapter I Name of Chapter`
+
+* the `\section` command produces two numbers(separated by a dot) indicating the chapter number and
+  the section number followed by the name we have given. It does not produce any text
+  like 'Section'. Example: `I.I Name of Section`
+
+* subsections have three numbers indicating the chapter, section and subsection
+
+* subsubsections and commands below it in the hierarchy do not have any numbers
+
+* some books and longish documents are divided into parts also. LATEX also has a `\part` command for
+  such documents. In such cases, `\part` is the highest in the hierarchy, but it does not affect
+  the numbering of the lesser sectioning commands
+
+#### In the `article` class:
+
+* `\section` is highest in the hierarchy and produces single number like `\chapter` in book.(It does
+  not produce any text like 'Section') 
+
+* subsubsections also have numbers, but none below have numbers
