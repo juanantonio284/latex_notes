@@ -1,10 +1,3 @@
-# Notes on LaTeX Tutorials: A Primer
-
-All these notes come from the book *LaTeX Tutorials: A Primer* (September 2003) by the [Indian TeX
-Users Group][tug_india]
-
-[tug_india]: http://www.tug.org.in
-
 # Tutorial V: Table of Contents, Index, and Glossary
 
 ## Table of Contents

@@ -1,10 +1,3 @@
-# Notes on LaTeX Tutorials: A Primer
-
-All these notes come from the book *LaTeX Tutorials: A Primer* (September 2003) by the [Indian TeX
-Users Group][tug_india]
-
-[tug_india]: http://www.tug.org.in
-
 # Tutorial VI: Displayed Text
 
 There are many instances in a document when we want to visually separate a portion of text from its
@@ -62,6 +55,32 @@ There is an extension of this to Klein's bottle also.
 * If you want more space between lines than what LaTeX deems fit, use `\\` with an optional length
   as in `\\[5pt]` which adds an extra vertical space of 5 points between the lines. (You can also
   type `\\*[5pt]` to keep couplets in one page.)
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## Declarations
+
+[From page 27 of *LaTeX: A Document Preparation System-User's Guide and Reference Manual*
+(Second edition. ISBN 0-201-52983-1) by Leslie Lamport]
+
+You may want to emphasize a large piece of text, such as a quotation. You can do this with the
+`\emph` command, but that makes the input file hard to read because you have to search for the
+closing right brace to see where the argument ends. Moreover, it's easy accidentally to delete the
+closing brace when you edit the text. Instead, you can use the `\em` declaration, which tells LaTeX
+to start emphasizing text (but you should use the `\emph` command for emphasizing small pieces of
+text because it produces better spacing). In the following example, the `\end{quote}` tells TeX to
+stop emphasizing text.
+
+```Latex
+This prose is very dull.
+\begin{quote}
+Wait!  \em Here is an exciting quote
+\end{quote}
+Aren't you glad all that excitement is over?
+```
+
+The command `\em` does not produce text; instead, it affects the way LaTeX prints text. Such a
+command is called a declaration.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
