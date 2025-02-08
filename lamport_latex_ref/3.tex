@@ -1,0 +1,76 @@
+\documentclass{article}
+
+% --------------------------------------------------------------------------------------------------
+% PREAMBLE START
+
+% separate footnotes ...............................................................................
+\usepackage{sepfootnotes} % https://ctan.org/pkg/sepfootnotes
+
+\sepfootnotecontent{modes_tex}{
+Paragraph mode corresponds to the vertical and ordinary horizontal modes in 
+\emph{The \TeX book}, and LR mode is called restricted horizontal mode there. 
+\LaTeX\ also has a restricted form of LR mode called picture mode that is described in Section 7.1.
+}
+
+
+
+% title ............................................................................................
+\title{Chapter 3} % Declares the document's title.
+\author{}                                 
+\date{}                               
+
+% Note that if you simply omit the `\date` command, the current date will still be printed. To avoid printing a date insert the command `\date{ }`, i.e. the command with blank arguments.
+
+% --------------------------------------------------------------------------------------------------
+% PREAMBLE END
+
+
+\begin{document}
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+
+\maketitle % Produces the title.
+
+[This chapter is titled ``Carrying On'' which doesn't really describe what's in the chapter, and the
+information below doesn't belong to any section, it's just presented with no preamble at the
+beginning of the chapter. But I found it interesting ...] 
+
+% ..................................................................................................
+\section{Modes}
+
+As \TeX\ processes your input text, it is always in one of three modes: paragraph mode, math mode,
+or left-to-right mode (called LR mode for short)\sepfootnote{modes_tex}. 
+
+\begin{itemize}
+   
+   \item Paragraph mode is \TeX's normal mode-the one it's in when processing ordinary text. In
+    paragraph mode, \TeX\ regards your input as a sequence of words and sentences to be broken into
+    lines, paragraphs, and pages.
+
+    \item \TeX\ is in math mode when it's generating a mathematical formula. More precisely, it
+     enters math mode upon encountering a command like 
+     \$ or 
+     {\tt \textbackslash (} or
+     {\tt \textbackslash [} or 
+     {\tt \textbackslash begin\{equation\} } 
+     that begins a mathematical formula, and it leaves math mode after finding the corresponding
+     command that ends the formula. When \TeX\ is in math mode it considers letters in the input
+     file to be mathematical symbols and ignores any space characters 
+     between them—e.g. \emph{is} would be treated as the product of \emph{i} and \emph{s}.
+     
+    \item In LR mode, as in paragraph mode, \TeX\ considers your input to be a string of words with
+     spaces between them. However, unlike paragraph mode, \TeX\ produces output that keeps going
+     from left to right; it never starts a new line in LR mode. The {\tt \textbackslash mbox} command
+     (Section 2.2.1) causes \TeX\ to process its argument in LR mode, which is what prevents the
+     argument from being broken across lines.
+
+\end{itemize}
+
+Different modes can be nested within one another as seen, for example, when you put an 
+{\tt \textbackslash mbox}~command inside a mathematical formula.
+
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+\end{document}               % End of document.
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
