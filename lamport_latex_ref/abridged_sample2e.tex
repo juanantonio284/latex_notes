@@ -2,9 +2,12 @@
 % you should have it in your computer at /usr/share/texlive/texmf-dist/tex/latex/base/sample2e.tex
 % This is an abridged version with only the notes/lessons I found interesting
 
+
 \documentclass{article}      % Specifies the document class
 
-                                   % The preamble begins here.
+% --------------------------------------------------------------------------------------------------
+% PREAMBLE START
+
 \title{Lessons taken from the {\tt sample2e.tex} file}  % Declares the document's title.
 \author{juanantonio284}                                 % Declares the author's name.
 \date{February 7, 2025}                               
@@ -22,10 +25,11 @@
                              % This is an alternative definition of
                              % \ip that is commented out.
 
+% --------------------------------------------------------------------------------------------------
+% PREAMBLE END
 
-% --------------------------------------------------------------------------------------------------
-% --------------------------------------------------------------------------------------------------
-\begin{document}             % End of preamble and beginning of text.
+
+\begin{document}
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
 
@@ -114,6 +118,12 @@ or
        \( a_{1} > x^{2n} + y^{2n} > x' \) 
 or 
        \( \ip{A}{B} = \sum_{i} a_{i} b_{i} \). 
+
+% note that this formula was defined as a new command in the document preamble
+% \newcommand{\ip}[2]{(#1, #2)}
+% Defines \ip{arg1}{arg2} to mean (arg1, arg2).
+
+
 The spaces you type in a formula are ignored. Remember that a letter like $x$ is a formula when it
 denotes a mathematical symbol, and it should be typed as one.
  % $ ... $  and  \( ... \)  are equivalent
@@ -170,10 +180,10 @@ Another frequently-displayed structure is a list. The following is an example of
 You can even display poetry.
 
 \begin{verse}
-   There is an environment for verse \\             % The \\ command separates lines within a stanza
+   There is an environment for verse \\    % The \\ command separates lines within a stanza
    Whose features some poets will curse.
 
-                             % One or more blank lines separate stanzas.
+                                           % One or more blank lines separate stanzas.
 
    For instead of making\\
    Them do \emph{all} line breaking, \\
@@ -188,6 +198,20 @@ formulas require special formatting instructions.
    \[  \ip{\Gamma}{\psi'} = x'' + y^{2} + z_{i}^{n}\]
 
 Don't start a paragraph with a displayed equation, nor make one a paragraph by itself.
+
+Here is an example of an unnumbered displayed equation: 
+\[ x' + y^{2} = z_{i}^{2} \] 
+
+It can be made with either the {\tt displaymath} environment, or with the {\tt [~...~]} shorthand.\\
+% the \\ after the sentence adds a blank line to separate from content below
+
+Here is the same equation numbered: 
+
+\begin{equation}
+x' + y^{2} = z_{i}^{2}
+\end{equation}
+
+It can be made with the {\tt equation} environment
 
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
