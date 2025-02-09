@@ -39,36 +39,50 @@ equation number from the {\tt equation} environment, which may occur several sec
 \LaTeX\ requires two passes over the input to move information around: one pass to find the
 information and a second pass to put it into the text—it occasionally even requires a third pass. To
 compile a table of contents, for example, one pass determines the titles and starting pages of all
-the sections and a second pass puts this information into the table of contents. But instead of
+the sections, and a second pass puts this information into the table of contents. But instead of
 making two passes every time it is run, \LaTeX\ reads your input file only once and saves the
 cross-referencing information in special files for use the next time. 
 
-For example, if{\tt sample2e.tex} had a command to produce a table of contents, then \LaTeX\ would
-write the necessary information into the file {\tt sample2e.toc}; then it would use the information
-in that file to produce the table of contents in the typeset document. After that, the
-{\tt sample2e.toc} is re-written to a newer version which will be used to produce the table of
-contents the next time \LaTeX\ is run with{\tt sample2e.tex} as input. But notice that this
-``newer'' version will actually be a version from a previous execution, \LaTeX's cross-referencing
-information is therefore always old. This will be noticeable mainly when you are first writing the
-document—for example, a newly added section won't be listed in the table of contents—but running it
-again on the same input will correct any errors\sepfootnote{error}.
+For example: if {\tt sample2e.tex} had a command to produce a table of contents \LaTeX\ would write
+the necessary information into the file {\tt sample2e.toc}; then it would use the information in
+that file to produce the table of contents in the typeset document. After that, the
+{\tt sample2e.toc} file would be re-written to a newer version (this version will be used to
+produce the table of contents the next time \LaTeX\ is run) on the tex file. But notice that this
+``newer'' version will actually be a version from a previous execution, meaning that \LaTeX's
+cross-referencing information is always ``old''. This will be noticeable mainly when you are first
+writing the document—for example, a newly added section won't be listed in the table of
+contents—but running it again on the same input will correct any errors\sepfootnote{error}.
 
 % ..................................................................................................
 \section{Cross-References}
 
-One reason for numbering things like figures and equations is to refer the reader to them, as
-in: ``See Figure 3 for more details''. You don't want the ``3'' to appear in the input file because
-adding another figure might make this one become Figure 4. Instead, you can assign a \emph{key} of
-your choice to the figure and refer to it by that key, letting \LaTeX\ translate the reference into
-the figure number. The key is assigned a number by the \justtext{label} command, and the number is
-printed by the \justtext{ref} command.
+One reason for numbering things like figures and equations is to refer the reader to them, as in:
+``See Figure 3 for more details''. You don't want the character `3' to actually be written in the
+input file because adding another figure might make the figure become ``Figure 4'', and require
+changing the `3' to a `4' everywhere it appears. Instead, you can assign a \emph{key} of your
+choice to the figure and refer to it by that key, letting \LaTeX\ translate the reference into the
+figure number. 
+The key is assigned a number by the \justtext{label} command, and 
+the number is printed by the \justtext{ref} command.
 
-A \justtext{label} command appearing in ordinary text assigns to the key the number of the current
-sectional unit; one appearing inside a numbered environment assigns that number to the key. 
-\textbf{Example}: equation \ref{eq:euler} in subsection \ref{sample_subsection} below is Euler's
-Famous result. 
+When a \justtext{label} command appears in ordinary text, it uses the number of the current
+sectional unit as key. A \justtext{label} command appearing inside a numbered environment assigns
+the environment's number to the key.
 
-\subsection{Example}\label{sample_subsection}
+In the example below:
+
+\begin{itemize}
+   \item the \justtext{label\{eq:euler\}} command binds the equation number to the key
+    {\tt eq:euler} 
+   
+   \item the \justtext{label\{example\}} binds the subsection number to the key
+    {\tt example}
+    
+   \item \justtext{ref\{eq:euler\}} and \justtext{ref\{example\}} can be then used to reference the
+    equation and the subsection
+\end{itemize}
+
+\subsection{Example}\label{example}
 
 Euler's equation
 \begin{equation}
@@ -76,44 +90,57 @@ Euler's equation
 \end{equation}
 combines the five most important numbers in mathematics in a single equation.
 
-In this example, the \justtext{label\{eq:euler\}} command assigns the key {\tt eq:euler} to the
-equation number, and \justtext{ref\{eq:euler\}} generates that equation number.
+Equation \ref{eq:euler} in subsection \ref{example} is Euler's Famous result. 
+
 
 % ................................................
-\subsection{Keys, Labels, Captions, pageref, ref}
+\subsection{Keys, Captions, Labels, pageref, ref}
+
+\subsubsection{Keys and Captions}
 
 \paragraph{Keys:} A key can consist of any sequence of letters, digits, or punctuation characters
- (Section 2.1). Upper- and lowercase letters are different, so gnu and Gnu are distinct keys. In
- addition to sectioning commands, the following environments also generate numbers that can be
- assigned to keys with a \justtext{label} command: 
+ (Section 2.1). Upper- and lowercase letters are different, so ``gnu'' and ``Gnu'' would be
+ distinct keys. In addition to sectioning commands, the following environments also generate
+ numbers that can be assigned to keys with a \justtext{label} command: 
  {\tt equation}, 
  {\tt eqnarray},
- {\tt enumerate} (assigns the current item's number), 
  {\tt figure}, 
  {\tt table}, 
+ {\tt enumerate} (this assigns the current item's number), 
  and any theorem-like environment defined with the \justtext{newtheorem} command of Section 3.4.3.
 
-\paragraph{Labels:} The \justtext{label} command can usually go in any natural place. To assign the
- number of a sectional unit to a key, you can put the \justtext{label} command anywhere within the
- unit except within a command argument or environment in which it would assign some other number,
- or you can put it in the argument of the sectioning command. 
-
-To refer to a particular equation in an eqnarray environment, put the \justtext{label} command
-anywhere between the \justtext{\textbackslash} or \justtext{begin\{eqnarray\}} that begins the
-equation and the \justtext{\textbackslash} or \justtext{end\{eqnarray\}} that ends it.
-
-The position of the \label command in a figure or table is less obvious: it must go after
-the \justtext{caption} command or in its argument.
-
-% .......................
 \paragraph{Captions:} A \justtext{caption} command within its {\tt figure} or {\tt table}
  environment acts like a sectioning command within the document. Just as a document has multiple
  sections, a figure or table can have multiple captions.
 
 % .......................
+\subsubsection{Labels}
+
+\begin{itemize}
+   
+   \item To assign the number of a sectional unit to a key, you can put the \justtext{label} command
+    anywhere within the unit except within a command argument or environment in which it would
+    assign some other number, or you can \emph{put it in the argument of the sectioning command}
+
+   \item To refer to a particular equation in an {\tt eqnarray} environment, put the 
+    \justtext{label} command anywhere between the \justtext{\textbackslash} or 
+    \justtext{begin\{eqnarray\}} that begins the equation and the \justtext{\textbackslash} or 
+    \justtext{end\{eqnarray\}} that ends it
+
+   \item The position of the \justtext{label} command in a figure or table is less obvious: it must
+    go after the \justtext{caption} command or in its argument
+    
+   \item A \justtext{label} can appear in the argument of a sectioning or \justtext{caption} 
+    command, but in no other moving argument
+
+\end{itemize}
+
+% .......................
+\subsubsection{Page Reference}
+
 \paragraph{Page reference:} The \justtext{pageref} command is similar to the \justtext{ref} command
- except it produces the page number of the place in the text where the corresponding \justtext
- {label} command appears. 
+ except it produces the page number of the place in the text where the corresponding 
+ \justtext{label} command appears.
 
 A \justtext{ref} or \justtext{pageref} command generates only the number, so you have to type the
 page to produce something like ``page 42''.
