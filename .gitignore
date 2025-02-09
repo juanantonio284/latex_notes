@@ -309,5 +309,7 @@ TSWLatexianTemp*
 
 # my additions .....................................................................................
 *.html
-to_do_in_this_repository.md
 *.sublime-workspace
+to_do_in_this_repository.md
+commands.tex
+scratch.tex
