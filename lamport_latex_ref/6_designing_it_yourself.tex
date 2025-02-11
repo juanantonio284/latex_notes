@@ -1,0 +1,246 @@
+\documentclass{article}
+
+% --------------------------------------------------------------------------------------------------
+% PREAMBLE START
+
+% my commands ....................................
+\newcommand{\justtext}[1]{\texttt{\textbackslash #1}}
+
+% separate footnotes ......................................................
+\usepackage{sepfootnotes} % https://ctan.org/pkg/sepfootnotes
+
+\sepfootnotecontent{gnomon}{A gnomon is the projecting piece on a sundial that shows the time by the
+ position of its shadow.}
+% \sepfootnotecontent{}{}
+% \sepfootnotecontent{}{}
+% \sepfootnotecontent{}{}
+% \sepfootnotecontent{}{}
+
+
+% title .............................................................................................
+\title{Chapter 6: Designing It Yourself} % Declares the document's title.
+\author{}                                 
+\date{}                               
+% Note that if you simply omit the `\date` command, the current date will still be printed. 
+% To avoid printing a date insert the command with blank arguments, i.e. `\date{ }`.
+
+% PREAMBLE END
+\begin{document}
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+\maketitle % Produces the title.
+
+This chapter explains how to specify the visual appearance of a document. Commands specifying the
+visual appearance of the document are usually confined to the preamble, either as style
+declarations or in the definitions of commands and environments for specifying logical structures.
+The notable exceptions are the line- and page-breaking commands of Section 6.2 and the
+picture-drawing commands of Section 7.1.
+
+% ..................................................................................................
+\section{Document and Page Style}
+
+% ................................................
+\subsection{Document-Class Options}
+% pdf 105, page 88
+
+The style of the document can be changed by using the optional argument of the
+\justtext{documentclass} command to specify style options. 
+
+Section 2.2.2 describes the following options: 
+\begin{verbatim}11pt, 12pt, twoside, and twocolumn\end{verbatim}
+
+Three notable \emph{standard} options are:
+
+\begin{itemize}
+   
+   \item {\tt titlepage} causes the \justtext{maketitle} command to generate a separate title page
+    and the{\tt abstract} environment to make a separate page for the abstract. (This option is the
+    default for the {\tt report} document class.)
+   
+   \item {\tt leqno} causes the formula numbers produced by the {\tt equation} and {\tt eqnarray}
+    environments to appear on the left instead of the right
+   
+   \item {\tt fleqn} causes formulas to be aligned on the left, a fixed distance from the left
+    margin, instead of being centered
+   % \item 
+   % \item 
+   % \item 
+\end{itemize}
+
+A complete list of the standard options appears in Section C.5.1 % pdf 194, page 176
+
+The {\tt twocolumn} option is used for a document that consists mostly of double-column pages. You
+may want double-column pages for just part of the document, such as a glossary. In that case
+The \justtext{twocolumn} declaration starts a new page and begins producing two-column output. The
+inverse \justtext{onecolumn} declaration starts a new page and begins pro- ducing single-column
+output.
+
+{\tt twocolumn} sets various style parameters, such as the amount of paragraph indentation, to
+values appropriate for such pages. It does not change any style parameters except the ones required
+to produce two-column output.
+
+% Read more at pdf 106, page 89
+% ................................................
+% \subsection{Page Styles}
+
+
+% ..................................................................................................
+\section{Line and Page Breaking}
+
+\LaTeX\ usually does a good job of breaking text into lines and pages, but it sometimes needs help.
+Don't worry about line and page breaks until you prepare the final version. Most of the bad breaks
+that appear in early drafts will disappear users waste time formatting when they as you change the
+text. Many should be writing. \textbf{Don't worry about line and page breaks until you prepare the
+absolutely final version}.
+
+% ................................................
+\subsection{Line Breaking}\label{sub-line-break}
+% pdf 110 page 93
+
+You can teach \TeX\ how to hyphenate words by putting one or more \justtext{hyphenation} commands in
+the preamble. For example, the command \justtext{hyphenation\{gno-mon gno-mons gno-mon-ly\}}
+tells \TeX\ how to hyphenate gnomon\sepfootnote{gnomon}, gnomons, and gnomonly---but it still won't
+know how to hyphenate gnomonic.
+
+Not all line-breaking problems can be solved by hyphenation. Sometimes there is just no good way to break a paragraph into lines. \TeX\ is normally very fussy about line breaking; it lets you solve the problem rather than producing a paragraph that doesn't meet its high standards. There are three things you can do when this happens.
+
+\begin{enumerate}
+   \item Rewrite the paragraph---if willing and able
+   \item Use a {\tt sloppypar} environment or \justtext{sloppy} declaration, which direct \TeX\ not
+    to be so fussy about where it breaks lines
+   \item Use a \justtext{linebreak} command, which forces \TeX\ to break the line at that spot
+\end{enumerate}
+
+% .......................
+\subsubsection{linebreak and nolinebreak}
+
+The \justtext{linebreak} is usually inserted right before the word that doesn't fit. An optional argument converts the \justtext{linebreak} command from a demand to a request. The argument must be a digit from 0 through 4, a higher number denoting a stronger request. 
+
+\begin{itemize}
+   
+   \item \justtext{linebreak[O]} allows \TeX\ to break a line where it would normally be forbidden but does not necessarily encourage or discourage it
+   
+   \item \justtext{linebreak[4]} command means the same as an ordinary \justtext{linebreak} command and forces the line break
+        
+\end{itemize}
+ 
+Although unwanted line breaks are usually prevented with the {\tt ~} and \justtext{mbox} commands described in Section 2.2.1, \TeX\ also provides a \justtext{nolinebreak} command that forbids from breaking the line at that point. An optional argument converts the \justtext{nolinebreak} command from a demand to a request. The argument must be a digit from 0 through 4, a higher number denoting a stronger request.
+
+\begin{itemize}
+   
+   \item \justtext{nolinebreak[4]} is equivalent to \justtext{nolinebreak} and \textbf{forbids} a line break at that point
+   
+   \item \justtext{nolinebreak[O]} is equivalent to \justtext{linebreak[O]}
+\end{itemize}
+
+A \justtext{linebreak} command causes \TeX\ to justify the line, stretching the space between words so that the line extends to the right margin. The \justtext{newline} command ends a line without justifying it.
+
+% ................................................
+\subsection{Page Breaking}
+% pdf 113 page 96
+
+As with line breaking, sometimes \TeX\ can find no good place to start a new page. A bad page break
+usually causes \TeX\ to put too little rather than too much text onto the page.
+
+As with line breaking, \TeX\ provides commands to demand or prohibit a page break, with an optional
+argument transforming the commands to suggestions. (The \TeX\ page-breaking commands are analogous
+to the line-breaking commands described in \ref{sub-line-break} above.)
+
+A \justtext{pagebreak} command \emph{within a paragraph} insists that \TeX\ start a new page after
+the line in which the command appears, and \justtext{nopagebreak} suggests rather strongly
+that \TeX\ not start a new page there. (When used between paragraphs, the commands apply to that
+point.)
+
+You will sometimes want to squeeze a little more text on a page than \TeX\ thinks you should. The
+best way of doing this is to make room on the page by removing some vertical space, using the
+commands of Section 6.4.2.
+
+If that doesn't work, you can try using a \justtext{nopagebreak} command to prevent \TeX\ from
+breaking the page before you want it to. However, \TeX\ often becomes adamant about breaking a page
+at a certain point, and it will not be deterred by \justtext{nopagebreak}. When this happens, you
+can put extra text on the page as follows:
+
+\begin{itemize}
+   \item Add the command \justtext{enlargethispage*\{1000pt\}} to the text on the current page,
+    before the point where TTT wants to start a new page
+   
+   \item Add a \justtext{pagebreak} command to break the page where you want
+\end{itemize}
+
+
+Squeezing in extra text in this way will make the page longer than normal, which may look bad in two-sided printing. Section C.12.2 describes a less heavy-handed approach. But don't worry about page breaks until you prepare the ultimate, absolutely final, no-more-changes (really!) version.
+
+The \justtext{newpage} command is the analog of \justtext{newline}, creating a page that ends prematurely right at that point. Even when a \justtext{flushbottom} declaration is in effect, a shortened page is produced.
+
+The \justtext{clearpage} command is similar to \justtext{newpage}, except that any leftover figures or tables are put on one or more separate pages with no text. The \justtext{chapter} and \justtext{include} commands (Section 4.4) use \justtext{clearpage} to begin a new page.
+
+Adding an extra \justtext{newpage} or \justtext{clearpage} command will not produce a blank page; two such commands in a row are equivalent to a single one. To generate a blank page, you must put some invisible text on it, such as an empty \justtext{mbox}.
+
+The page-breaking commands can be used only where it is possible to start a new page---that is, in paragraph mode and not inside a box (Section 6.4.3). They are all fragile.
+
+\paragraph{Extra:} When using the {\tt twoside} style option for two-sided printing, you may want to start a sectional unit on a right-hand page. The \justtext{cleardoublepage} command is the same as \justtext{clearpage} except that it produces a blank page if necessary so that the next page will be a right-hand (odd-numbered) one. When used in two-column format, the \justtext{newpage} and \justtext{pagebreak} commands start a new column rather than a new page. However, the \justtext{clearpage} and \justtext{cleardoublepage} commands start a new page.
+
+
+% ..................................................................................................
+\section{Numbering}
+% pdf 114 page 97
+
+Every number that LLL generates has a counter associated with it. The name of the counter is usually the same as the name of the environment or command that produces the number, except with no \textbackslash. Below is a list of the counters used to control numbering by LLL's standard document styles.
+
+\begin{verbatim}
+part paragraph figure enumi
+chapter subparagraph table enumii
+section page footnote enumiii
+subsection equation mpfootnote enumiv
+subsubsection
+\end{verbatim}
+
+
+
+% ................................................
+% \subsection{}
+% pdf page
+
+
+% ................................................
+% \subsection{}
+% pdf page
+
+
+% ................................................
+% \subsection{}
+% pdf page
+
+
+% ................................................
+% \subsection{}
+% pdf page
+
+
+% ..................................................................................................
+% \section{}
+
+% ................................................
+% \subsection{}
+% pdf page
+
+
+% ................................................
+% \subsection{}
+% pdf page
+
+
+% ................................................
+% \subsection{}
+% pdf page
+
+
+% ................................................
+% \subsection{}
+% pdf page
+
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
+\end{document}               % End of document.
+% --------------------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------------------
