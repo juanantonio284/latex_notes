@@ -3,7 +3,7 @@
 % --------------------------------------------------------------------------------------------------
 % PREAMBLE START
 
-% my commands .............................................................
+% my commands ....................................
 \newcommand{\justtext}[1]{\texttt{\textbackslash #1}}
 
 % separate footnotes ......................................................
@@ -17,20 +17,20 @@ time you run \LaTeX. Section 8.1 explains how to recognize such an error.
 
 \sepfootnotecontent{firstrun}{the next time \LaTeX\ is run on the same input file}
 
-% title ...................................................................
+\sepfootnotecontent{produce-list-keys}{https://tex.stackexchange.com/questions/525394/get-a-list-of-all-labels-in-a-tex-document}
+
+\sepfootnotecontent{fragile}{https://tex.stackexchange.com/questions/4736/what-is-the-difference-between-fragile-and-robust-commands-when-and-why-do-we-n}
+
+% title .............................................................................................
 \title{Chapter 4: Moving Information Around} % Declares the document's title.
 \author{}                                 
 \date{}                               
 % Note that if you simply omit the `\date` command, the current date will still be printed. To avoid printing a date insert the command `\date{ }`, i.e. the command with blank arguments.
 
-% --------------------------------------------------------------------------------------------------
 % PREAMBLE END
-
-
 \begin{document}
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
-
 \maketitle % Produces the title.
 
 \LaTeX\ often has to move information from one place to another. For example, the information
@@ -115,8 +115,7 @@ you to remember the keys.
  want listed, as well as the name of the document class specified by that file's 
  \justtext{documentclass} command.
  
- \textbf{One method that worked:} open the .aux file and look 
- there\footnote{https://tex.stackexchange.com/questions/525394/get-a-list-of-all-labels-in-a-tex-document}.
+ \textbf{One method that worked:} open the .aux file and look there\sepfootnote{produce-list-keys}.
  
 % .......................
 \subsubsection{Labels}
@@ -152,8 +151,8 @@ the \justtext{ref} value and page number are associated with the \emph{key}.
 Then, a \justtext{ref\{key\}} or \justtext{pageref\{key\}} command will produce the associated 
 \justtext{ref} value or page number, respectively.
  
-The \justtext{label} command is fragile, but it can be used in the argument of a sectioning
-or \justtext{caption} command.
+The \justtext{label} command is fragile\sepfootnote{fragile}, but it can be used in the argument of
+a sectioning or \justtext{caption} command.
 
 % .......................
 \subsubsection{Page References}
@@ -184,12 +183,117 @@ A \justtext{caption} command within its {\tt figure} or {\tt table} environment 
 sectioning command within the document. Just as a document has multiple sections, a figure or table
 can have multiple captions.
 
+% Omitted \section{Bibliography and Citation}
+
+% ..................................................................................................
+\section{Splitting Your Input}
+% page 72, pdf 89
+
+A large document requires a lot of input. Rather than putting the whole input in a single large
+file, you may find it more convenient to split the input into several smaller files. Regardless of
+how many separate files you use, there is one that is the root file; it is the one whose name you
+type when you run \LaTeX.
+
+The \justtext{input} command provides the simplest way to split your input into several files. For
+example, the command \justtext{input\{gnu\}} in the root file causes \LaTeX\ to insert the contents
+of a secondary file {\tt gnu.tex} right at the current spot in your manuscript. The input files are
+not changed, and the secondary file {\tt gnu.tex} may also contain an \justtext{input} command
+calling another file that may have its own \justtext{input} commands, and so on.
+
+Besides splitting your input into conveniently sized chunks, the \justtext{input} command also makes
+it easy to use the same input in different documents. While text is seldom recycled in this way,
+you might want to reuse declarations. You can keep a file containing declarations that are used in
+all your documents, such as the definitions of commands and environments for your own logical
+structures (Section 3.4). You can even begin your root file with an \justtext{input} command and
+put the \justtext{documentclass} command in your declarations file.
+
+Continue reading on page 73 to learn about how to use the \justtext{include} command, instead
+of \justtext{input}, to only run \LaTeX\ on part of the document (although it might be more trouble
+than it's worth).
 
 
 % ..................................................................................................
-% \section{}
+\section{Making an Index or Glossary}
+
+There are two steps in making an index or glossary: gathering the information that goes in it, and
+generating the \LaTeX\ input to produce it. Section \ref{compiling-entries} describes the first step.
+Section \ref{manual-production-index} describes the second step if you don't use the 
+\emph{MakeIndex} program (which is the easiest way to do this and is separately described in 
+Appendix A.)
+
+% ................................................
+\subsection{Compiling the entries}\label{compiling-entries}
+
+Compiling an index or glossary is not easy but \LaTeX\ can help by writing the necessary information 
+onto a special file. If the root file is named {\tt myfile.tex}, index information will be written 
+on a file called {\tt myfile.idx}. 
+
+\LaTeX\ makes an {\tt idx} file if the preamble contains a \justtext{makeindex} command; and the 
+information on the file is written by \justtext{index} commands. If there is no \justtext{makeindex} 
+command, the \justtext{index} command does nothing.
+
+\textbf{Example}: to index an instance of the word ``gnu'' in the phrase ``The gnu drinks water from
+the river'', you would type {\tt The gnu\textbackslash index\{gnu\} drinks water from the river}. 
+If this word were in page 42, the command \justtext{index\{gnu\}} causes \LaTeX\ to write
+\justtext{indexentry\{gnu\}\{42\}} on the {\tt idx} file. 
+(It's best to put the \justtext{index} command next to the word it references, with no space
+between them; this keeps the page number from being off by one if the word ends or begins a
+page.)
+
+% The {\tt showidx} package causes \LaTeX\ to print the arguments of all index commands in the 
+% margin. 
+
+\paragraph{Example}
+
+\begin{verbatim}
+When in the Course of
+\index{human events)%
+\index{events, human)%
+human events, it becomes necessary for one people to dissolve the political bands ...
+\end{verbatim}
+
+In this example, the \% ends a line without producing any space in the output (but you can't split a
+command name across two lines).\\
 
 
+The procedure for making a glossary is completely analogous: 
+there is a \justtext{makeglossary} command to make a {\tt glo} file which has 
+\justtext{glossaryentry} entries created by a \justtext{glossary} command.
+
+The \justtext{index} and \justtext{glossary} commands are fragile\sepfootnote{fragile}. Moreover,
+an \justtext{index} or \justtext{glossary} command should not appear in the argument of any other
+command if its own arguments contains any of \LaTeX\ ten special characters.
+
+% ................................................
+\subsection{Producing an Index or Glossary by Yourself}\label{manual-production-index}
+
+If you don't use the the \emph{MakeIndex} program, you can use the {\tt theindex} environment to
+produce an index in two-column format. In this scenario:
+
+\begin{itemize}
+   \item Each main index entry is begun by an \justtext{item} command
+   \item A subentry is begun 
+   \item A subentry is begun with \justtext{subitem}, and a subsubentry is begun with 
+         \justtext{subsubitem}
+   \item Blank lines between entries are ignored
+   \item An extra vertical space is produced by the \justtext{indexspace} command, which is usually
+    put before the first entry that starts with a new letter
+\end{itemize}
+
+\paragraph{Example}
+
+\begin{verbatim}
+\item gnats 13, 97
+\item gnus 24, 37, 233
+\subitem bad, 39, 236
+\subsubitem very, 235
+\subitem good, 38, 234
+\indexspace
+\item harmadillo 99, 144
+\end{verbatim}
+
+There is no environment expressly for glossaries. (However, the description environment of Section
+2.2.4 may be useful.)
 
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
