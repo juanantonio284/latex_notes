@@ -96,9 +96,11 @@ Equation \ref{eq:euler} in subsection \ref{example} is Euler's Famous result.
 \subsubsection{Keys}
 
 A key can consist of any sequence of letters, digits, or punctuation characters (Section 2.1). 
-Upper- and lowercase letters are different, so ``gnu'' and ``Gnu'' would be distinct keys. In
-addition to sectioning commands, the following environments also generate numbers that can be
+Upper- and lowercase letters are different, so ``gnu'' and ``Gnu'' would be distinct keys. 
+
+In addition to sectioning commands, the following environments also generate numbers that can be
 assigned to keys with a \justtext{label} command: 
+
 {\tt equation}, 
 {\tt eqnarray},
 {\tt figure}, 
@@ -128,7 +130,7 @@ the environment's number to the key.
    
    \item To assign the number of a sectional unit to a key put the \justtext{label} command in the
     argument of the sectioning command. (Technically, you can put the \justtext{label} command
-    anywhere within the unit, except within a command argument or environment in which it would
+    anywhere within the unit, except for a command argument or an environment, in which it would
     assign some other number.)
 
    \item To refer to an equation in an {\tt eqnarray} environment, put the \justtext{label} command 
@@ -173,8 +175,7 @@ case you should run it again on the input file to make sure the cross-references
 even if that number is not referenced.) 
 
 Each \justtext{ref} or \justtext{pageref} referring to an unknown key produces a warning
-message; \textbf{such messages appear the first time you process any file containing these
-commands}.
+message; \emph{such messages appear the first time you process any file containing these commands}.
 
 % .......................
 \subsubsection{Captions} 
@@ -184,6 +185,7 @@ sectioning command within the document. Just as a document has multiple sections
 can have multiple captions.
 
 % Omitted \section{Bibliography and Citation}
+
 
 % ..................................................................................................
 \section{Splitting Your Input}
@@ -207,18 +209,19 @@ all your documents, such as the definitions of commands and environments for you
 structures (Section 3.4). You can even begin your root file with an \justtext{input} command and
 put the \justtext{documentclass} command in your declarations file.
 
-Continue reading on page 73 to learn about how to use the \justtext{include} command, instead
-of \justtext{input}, to only run \LaTeX\ on part of the document (although it might be more trouble
-than it's worth).
+[Continue reading on page 73 to learn about how to use the \justtext{include} command, instead
+of \justtext{input}, to only run \LaTeX\ on part of the document. (But this might be more trouble
+than it's worth.)]
 
 
 % ..................................................................................................
 \section{Making an Index or Glossary}
 
 There are two steps in making an index or glossary: gathering the information that goes in it, and
-generating the \LaTeX\ input to produce it. Section \ref{compiling-entries} describes the first step.
+generating the \LaTeX\ input to produce it. 
+Section \ref{compiling-entries} describes the first step. 
 Section \ref{manual-production-index} describes the second step if you don't use the 
-\emph{MakeIndex} program (which is the easiest way to do this and is separately described in 
+\emph{MakeIndex} program (which is the easiest way to do this, and is separately described in 
 Appendix A.)
 
 % ................................................
@@ -229,19 +232,25 @@ onto a special file. If the root file is named {\tt myfile.tex}, index informati
 on a file called {\tt myfile.idx}. 
 
 \LaTeX\ makes an {\tt idx} file if the preamble contains a \justtext{makeindex} command; and the 
-information on the file is written by \justtext{index} commands. If there is no \justtext{makeindex} 
-command, the \justtext{index} command does nothing.
+\justtext{index} commands write information to the file. 
+(If there is no \justtext{makeindex} command, the \justtext{index} command does nothing.)
 
-\textbf{Example}: to index an instance of the word ``gnu'' in the phrase ``The gnu drinks water from
-the river'', you would type {\tt The gnu\textbackslash index\{gnu\} drinks water from the river}. 
+% All the code below is to make a title "Example" followed by a normal looking paragraph 
+% Technically "Example" is one paragraph (it is indented) and "To index ..." is another; so indents 
+% must be removed (noindent), and a space added between the paragraphs (bigskip)
+\noindent \textbf{Example} 
+
+\bigskip
+
+\noindent To index an instance of the word ``gnu'' in the phrase 
+``The gnu drinks water from the river'', you would type 
+{\tt The gnu\textbackslash index\{gnu\} drinks water from the river}.
 If this word were in page 42, the command \justtext{index\{gnu\}} causes \LaTeX\ to write
 \justtext{indexentry\{gnu\}\{42\}} on the {\tt idx} file. 
 (It's best to put the \justtext{index} command next to the word it references, with no space
 between them; this keeps the page number from being off by one if the word ends or begins a
 page.)
 
-% The {\tt showidx} package causes \LaTeX\ to print the arguments of all index commands in the 
-% margin. 
 
 \paragraph{Example}
 
@@ -252,9 +261,8 @@ When in the Course of
 human events, it becomes necessary for one people to dissolve the political bands ...
 \end{verbatim}
 
-In this example, the \% ends a line without producing any space in the output (but you can't split a
-command name across two lines).\\
-
+\noindent In this example, the \% ends a line without producing any space in the output (but you
+ can't split a command name across two lines).\\
 
 The procedure for making a glossary is completely analogous: 
 there is a \justtext{makeglossary} command to make a {\tt glo} file which has 
@@ -267,12 +275,11 @@ command if its own arguments contains any of \LaTeX\ ten special characters.
 % ................................................
 \subsection{Producing an Index or Glossary by Yourself}\label{manual-production-index}
 
-If you don't use the the \emph{MakeIndex} program, you can use the {\tt theindex} environment to
-produce an index in two-column format. In this scenario:
+If you don't use the \emph{MakeIndex} program, you can use the {\tt theindex} environment to produce
+an index in two-column format. In this scenario:
 
 \begin{itemize}
    \item Each main index entry is begun by an \justtext{item} command
-   \item A subentry is begun 
    \item A subentry is begun with \justtext{subitem}, and a subsubentry is begun with 
          \justtext{subsubitem}
    \item Blank lines between entries are ignored
