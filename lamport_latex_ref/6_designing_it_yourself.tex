@@ -90,11 +90,12 @@ to produce two-column output.
 \LaTeX\ usually does a good job of breaking text into lines and pages, but it sometimes needs help.
 Don't worry about line and page breaks until you prepare the final version. Most of the bad breaks
 that appear in early drafts will disappear users waste time formatting when they as you change the
-text. Many should be writing. \textbf{Don't worry about line and page breaks until you prepare the
-absolutely final version}.
+text. Many should be writing. 
+\textbf{Don't worry about line and page breaks until you prepare the absolutely final version}.
 
 % ................................................
 \subsection{Line Breaking}\label{sub-line-break}
+
 % pdf 110 page 93
 
 You can teach \TeX\ how to hyphenate words by putting one or more \justtext{hyphenation} commands in
@@ -162,7 +163,7 @@ can put extra text on the page as follows:
 
 \begin{itemize}
    \item Add the command \justtext{enlargethispage*\{1000pt\}} to the text on the current page,
-    before the point where TTT wants to start a new page
+    before the point where \TeX\ wants to start a new page
    
    \item Add a \justtext{pagebreak} command to break the page where you want
 \end{itemize}
@@ -185,7 +186,7 @@ The page-breaking commands can be used only where it is possible to start a new 
 \section{Numbering}
 % pdf 114 page 97
 
-Every number that LLL generates has a counter associated with it. The name of the counter is usually the same as the name of the environment or command that produces the number, except with no \textbackslash. Below is a list of the counters used to control numbering by LLL's standard document styles.
+Every number that \LaTeX\ generates has a counter associated with it. The name of the counter is usually the same as the name of the environment or command that produces the number, except with no \textbackslash. Below is a list of the counters used to control numbering by \LaTeX\'s standard document styles.
 
 \begin{verbatim}
 part paragraph figure enumi
@@ -195,49 +196,133 @@ subsection equation mpfootnote enumiv
 subsubsection
 \end{verbatim}
 
+The counters {\tt enumi ... enumiv} control different levels of {\tt enumerate} environments, {\tt enumi} for the outermost level, {\tt enumii} for the next level, etc. 
 
+The {\tt mpfootnote} counter numbers footnotes inside a minipage environment (Section 6.4.3). 
 
-% ................................................
-% \subsection{}
-% pdf page
+In addition to these, an environment created with the \justtext{newtheorem} command (Section 3.4.3) has a counter of the same name unless an optional argument specifies that it is to be numbered the same as another environment. There are also some other counters used for document-style parameters; they are described in Appendix C.
 
+The \justtext{setcounter} command sets the value of a counter, and \justtext{addtocounter} increments it by a specified amount. 
 
-% ................................................
-% \subsection{}
-% pdf page
-
-
-% ................................................
-% \subsection{}
-% pdf page
-
-
-% ................................................
-% \subsection{}
-% pdf page
+More on counters, including the \justtext{newcounter} command, on page 98.
 
 
 % ..................................................................................................
-% \section{}
+\section{Length, Spaces, and Boxes}
+
+In visual design, one specifies how much vertical space to leave above a chapter heading, how wide a
+line of text should be, and so on. This section describes the basic tools for making these
+specifications.
+
+% ................................................
+\subsection{Length}
+% pdf 116 page 99
+
+A line width is specified by giving a \emph{length} as an argument to the appropriate formatting command. A length can be specified in fixed units like inches, centimeters, milimeters, or points (used by printers). It can also be specified in units of length that depend upon the appropriate style parameters. The simplest such units are the {\tt em} and the {\tt ex}, which depend upon the font (the size and style of type). A {\tt 1em} length is about equal to the width of the letter ``M'', and {\tt 1ex} is about the height of the letter ``x''. The em is best used for horizontal lengths and the ex for vertical lengths.
+
+\subsubsection{Length Commands}
+
+In addition to writing explicit lengths such as {\tt 1in} or {\tt 3.5em}, you can also express
+lengths with length commands. A length command has a value that is a length. 
+
+For example: \justtext{parindent} is a length command whose value specifies the width of the
+indentation at the beginning of a normal paragraph. Typing \justtext{parindent} as the argument of
+a command is equivalent to typing the current value of \justtext{parindent}. Typing 2.5\justtext
+{parindent} will give a length that is 2.5 times as large; -2.5\justtext{parindent} is the negative
+of that length.
+
+A length such as 1.5em or \justtext{parindent} is a \textbf{rigid} length. Specifying a space of
+width 1cm always produces a one-centimeter-wide space. (It may not be exactly one centimeter wide
+because your output device might unifordly change all dimensions-for example, enlarging them by
+5\%.) 
+
+However, there are also \textbf{rubber} lengths that can vary. Space specified with a rubber length can stretch or shrink as required. For example, \TeX\ justifies lines (produces an even right margin) by stretching or shrinking the space between words to make each line the same length. A rubber length has a natural length and a degree of elasticity. Of particular interest is the special length command \justtext{fill} that has a natural length of zero but is infinitely stretchable---and tends to expand as far as it can. The use of such stretchable space is described in the next section, \ref{sub-spaces} 6.4.2. 
+
+Most lengths used in \LaTeX\ are rigid. Unless a length is explicitly said to be rubber, you can assume it is rigid. All length commands are robust; a \justtext{protect} command should never precede a length command.
+
+(The rest of this subsection covers some of \LaTeX\'s length parameters---i.e. length commands that define a document's style parameters; others are given in Appendix C. By expressing lengths in terms of these parameters, you can define formatting commands that work properly with different styles.)
+
+
+% ..................................................................................................
+\section{Spaces}\label{spaces}
+% pdf 118 page 101
+
+A horizontal space is produced with the \justtext{hspace} command. Think of \justtext{hspace} as
+making a blank ``word'', with spaces before or after it producing an interword space.
+
+\begin{verbatim}
+Here\hspace{.5in}is a 0.5 inch space.
+
+Here  \hspace{.5in}is a 0.5 inch space.
+
+Here  \hspace{.5in}  is a 0.5 inch space.
+
+Negative space is a backspace---like this.\hspace{.5in}/////
+\end{verbatim}
+
+Here\hspace{.5in}is a 0.5 inch space.
+
+Here  \hspace{.5in}is a 0.5 inch space.
+
+Here  \hspace{.5in}  is a 0.5 inch space.
+
+Negative space is a backspace---like this.\hspace{.5in}///// % this command is not working as in textbook
+
+\TeX\ removes space from the beginning or end of each line of output text, except at the beginning
+and end of a paragraph---including space added with \justtext{hspace}. 
+The \justtext{hspace*} command is the same as \justtext{hspace} except that the space it produces is
+never removed, even when it comes at the beginning or end of a line. 
+The \justtext{hspace} and \justtext{hspace*} commands are robust.
+
+The \justtext{vspace} command produces vertical space. It is most commonly used between paragraphs;
+when used within a paragraph, the vertical space is added after the line in which the 
+\justtext{vspace} appears.
+
+Just as it removes horizontal space from the beginning and end of a line, \TeX\ removes vertical
+space that comes at the beginning or end of a page. The \justtext{vspace*} command creates vertical
+space that is never removed
 
 % ................................................
 % \subsection{}
-% pdf page
+% pdf  page
 
 
 % ................................................
 % \subsection{}
-% pdf page
+% pdf  page
+
+% ................................................
+% \subsection{}
+% pdf  page
 
 
 % ................................................
 % \subsection{}
-% pdf page
+% pdf  page
+
+
+% ..................................................................................................
+% \section{}\label{}
+% pdf  page
+
+% ................................................
+% \subsection{}
+% pdf  page
 
 
 % ................................................
 % \subsection{}
-% pdf page
+% pdf  page
+
+% ................................................
+% \subsection{}
+% pdf  page
+
+
+% ................................................
+% \subsection{}
+% pdf  page
+
 
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
