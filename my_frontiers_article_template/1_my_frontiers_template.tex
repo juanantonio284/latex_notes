@@ -1,0 +1,214 @@
+%%% Based on Version 3.4 of the template Generated 2022/06/14 %%%
+
+% NOTE: The \emph{} and \textbf{} command do not render to PDF when using this template
+%       (also tried \it{}, \textit{}, \em{}).
+
+
+% For journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics" 
+% \documentclass[utf8]{frontiersinFPHY_FAMS} % Another Vancouver Style (Numbered) 
+% \setcitestyle{square} % for physics and math/stat mentioned above
+
+% \documentclass[utf8]{FrontiersinHarvard} 
+\documentclass[utf8]{FrontiersinVancouver} % for journals using the Vancouver Style (Numbered)
+\usepackage{url,hyperref,lineno,microtype,subcaption}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{comment} % allows using the begin{comment}/end{comment} command
+
+\linenumbers
+
+% Leave a blank line between paragraphs instead of using \\
+
+\def\keyFont{\fontsize{8}{11}\helveticabold }
+\def\Authors{
+        Firstname1 Lastname1\,$^{1,*}$,
+        Firstname2 Lastname2\,$^{1}$, and 
+        Firstname3 Lastname3\,$^{2}$}
+\def\Address{
+$^{1}$ University of Science, New York, USA \\
+$^{2}$ Another Organization, Paris, France
+}
+
+
+\def\firstAuthorLast{Firstname1 {et~al.}} %use et al only if is more than 1 author
+
+% The Corresponding Author should be marked with an asterisk
+\def\corrAuthor{Firstname1 Lastname1}
+\def\corrEmail{address@mail.com}
+
+
+%%%%%===========================================================================================%%%%
+%%%%%===========================================================================================%%%%
+\begin{document}
+%%%%%===========================================================================================%%%%
+
+\onecolumn
+\firstpage{1}
+
+\title[This Is The Running Title]{This is The Title of The Article} 
+
+\author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
+\address{} %This field will be automatically populated
+\correspondance{} %This field will be automatically populated
+
+\extraAuth{}% If there are more than 1 corresponding author, comment this line and uncomment the next one.
+%\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
+
+\maketitle
+
+% ABSTRACT section start ---------------------------------------------------------------------------
+\begin{abstract}
+
+\section{Introduction}\label{abstract_intro}
+
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+\textbf{Notice how, in the pdf, even the section headers are numbered, because they are inside the
+ abstract environment}. 
+Also notice how each paragraph is indented, but in the normal sections (those in the rest of the
+file, outside of the abstract environment) there is no indention.
+
+\section{Objective}\label{abstract_objective}
+
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+
+\section{Methods}\label{abstract_methods}
+
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+
+\section{Results}\label{abstract_results}
+
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+
+\section{Conclusion}\label{abstract_conclusion}
+
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+
+\tiny
+ \keyFont{ \section{Keywords:} keyword1, keyword2, keyword3 } 
+ 
+ This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 \\
+ The line above shouldn't really be here, it's just meant to show how the {\tt tiny} command still
+ affects things down to this point.
+ 
+\end{abstract} % abstract section end --------------------------------------------------------------
+
+
+% Introduction section start -----------------------------------------------------------------------
+
+\section{Introduction}
+
+\textbf{Notice how the paragraphs are justified, but the last line looks smaller (maybe it's not justified)}\\
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+
+% Methods section start ----------------------------------------------------------------------------
+\section{Methods}\label{methods}
+
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+
+% Figure 1 ...................
+% \caption{ }
+
+\begin{figure}[htbp]
+        \begin{center}
+        \includegraphics[width=\linewidth]{homer_giant_donut.jpg}
+        \end{center}
+    \caption{ This image is 617 x 475 pixels (width x height) }\label{fig:homer_giant_donut}
+\end{figure}
+
+% Figure 2 ...................
+% \caption{ }
+
+\begin{figure}[htbp]
+        \begin{center}
+        \includegraphics[width=\linewidth]{mendoza.png}
+        \end{center}
+    \caption{ This image is 707 x 527 pixels (width x height) }\label{fig:mendoza}
+\end{figure}
+
+
+% subsection .....................................
+% \subsection{}\label{}
+
+
+% Results section start ----------------------------------------------------------------------------
+% \section{Results}\label{results}
+        
+
+% discussion section start -------------------------------------------------------------------------
+% \section{Discussion}\label{discussion}
+
+
+% Conclusion section start -------------------------------------------------------------------------
+% \section{Conclusion}\label{conclusion}
+
+
+% DECLARATIONS start -------------------------------------------------------------------------------
+% the '*' excludes the section from automatic numbering
+\section*{Conflict of Interest Statement}
+
+F1L1 straight-up works at WacArnold's---if you want french fries, you gots to go through him.
+
+\section*{Author Contributions}
+
+F1L1 determined the scope, structure, ideas, and conclusions of this study; selected, analysed, and
+interpreted the data; and produced various drafts of the manuscript. F2L2 identified the need to
+write this article and contributed to research, analysis, and drafting. F3L3 critically reviewed
+this article, performed copy-editing duties for the final English manuscript (selected all words
+and made all language decisions that affect how the article reads), processed datasets, and
+designed tables. All authors read and approved the final manuscript.
+
+\section*{Funding}
+
+This study was executed by Company 1 and partially supported by WacArnold's. 
+The funding agreement ensured the authors' independence in designing the study, interpreting the
+data, and writing and publishing the present study.
+
+% \section*{Supplemental Data}
+
+%  \href{http://home.frontiersin.org/about/author-guidelines#SupplementaryMaterial}
+%   {Supplementary Material} should be uploaded separately on submission, if there are Supplementary
+%   Figures, please include the caption in the same file as the figure. LaTeX Supplementary Material
+%   templates can be found in the Frontiers LaTeX folder.
+
+\section*{Data Availability Statement}
+
+The original contributions presented in the study are included in the article/supplementary
+material, the bibliography contains links to some datasets used, further inquiries can be directed
+to the corresponding author.
+
+
+% REFERENCES .......................................................................................
+% \bibliographystyle{Frontiers-Harvard} 
+\bibliographystyle{Frontiers-Vancouver}
+
+% This will create a the header "References" which looks just like a section header. But it does not
+% actually create a section (bookmarked on the PDF)
+\bibliography{test.bib} 
+
+
+% comment this line when actually citing in the body of the article
+\nocite{*} % this includes ALL the references in the .bib file, even if they have not been cited
+% it is included in this template just to avoid having a blank "section"
+% To include only some bibliographical entries, you can use \nocite{key1,key2,...,keyn} to include
+% only the entries corresponding to key1,key2,...,keyn.
+
+% If the bib file is working fine, the references should look clean, each one with a number. 
+
+%%%%%===========================================================================================%%%%
+\end{document}
+%%%%%===========================================================================================%%%%
