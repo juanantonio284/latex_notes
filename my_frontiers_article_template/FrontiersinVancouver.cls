@@ -39,9 +39,20 @@
 \usepackage[labelsep=quad,indention=10pt]{caption}
 \usepackage[labelfont=bf,list=true]{subcaption}
 
+
+% Definitions --------------------------------------------------------------------------------------
+
+% https://tex.stackexchange.com/questions/258/what-is-the-difference-between-let-and-def
+% \let\foo\bar lets "foo" have the value that "bar" has at that point (at the point \let\foo\bar
+%  runs). If bar = x when LET runs, foo will always use the value x.
+% \def\foo{\bar} defines "foo" as a command that uses the value of "bar" (whichever value it has
+%  when foo is run). If bar = y when FOO runs, foo will use the value y.
+
+ 
+% Fonts ............................................................................................
+
 % "\fontfamily{}\selectfont" seems to be the standard way to select a font
 % inside the {} goes the "fontcode" and phv is the fontcode for standard helvetica
-
 \def\helvetica{\fontfamily{phv}\selectfont}                % font note 1
 \def\helveticabold{\fontfamily{phv}\bfseries\selectfont}   % font note 2
 % \def\helveticaitalic{\fontfamily{phv}\itshape\selectfont}  % font note 2
@@ -262,9 +273,13 @@
   \def\authormark##1{\gdef\leftmark{##1}}%
   }
 
+% The "\hbox{\rule{\textwidth}{1\p@}}" command in the commented line below draws the footer line on
+% the first page
+
 \def\ps@opening
   {%
-  \def\@oddfoot{\vbox to 13\p@{\hbox{\rule{\textwidth}{1\p@}}\vss
+  \def\@oddfoot{\vbox to 13\p@{\vss
+  % \def\@oddfoot{\vbox to 13\p@{\hbox{\rule{\textwidth}{1\p@}}\vss
         \hbox to \textwidth{\helvetica
         \fontsize{7}{9}\fontshape{n}\selectfont \space %
           \hfill\small\helveticabold\thepage}%
@@ -368,6 +383,7 @@
 \newcommand\figurename{Figure}
 \newcommand\tablename{Table}
 % i: \refname is what creates the "References" title after the "Data Availability Statement" section
+%    but I'm not sure what command uses it (it only appears in this line and nowhere else).
 
 % Clearemptydoublepage should really clear the running heads too
 \newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
@@ -422,7 +438,7 @@
 \def\issue#1{\global\def\@issue{#1}}
 \def\address#1{\global\def\@issue{#1}}
 \def\history#1{\global\def\@history{#1}}
-\def\correspondance#1{\global\def\@correspondance{#1}}
+\def\correspondence#1{\global\def\@correspondence{#1}}
 \def\extraAuth#1{\global\def\@extraAuth{#1}}
 \def\address#1{\global\def\@address{#1}}
 
@@ -508,8 +524,8 @@
 % }%hbox
 % ................................................
 
- \rule{\textwidth}{1\p@}\par%
-  \helvetica
+ \rule{\textwidth}{1\p@}\par% i ....
+  \helvetica                % ii ....
   \hbox to \textwidth{%
   \parbox[t]{36.5pc}{%
     \vspace*{1sp}
@@ -519,7 +535,7 @@
         \vspace{4\p@}
     {\helvetica\fontsize{12}{12}\selectfont\raggedright\slshape\@address \Address \\ \par}%
       \vspace{6\p@}
-  {\helvetica\fontsize{12}{10}\selectfont\raggedright {Correspondence*:\\ }\@correspondance \corrAuthor \\ \corrEmail \par}
+  {\helvetica\fontsize{12}{10}\selectfont\raggedright {Correspondence*:\\ }\@correspondence \corrAuthor \\ \corrEmail \par}
         \vspace{4\p@}
     {\helvetica\fontsize{12}{12}\selectfont\raggedright\@extraAuth \par}%
     \vspace{8\p@}
@@ -527,7 +543,11 @@
   }
   \vspace{14.5\p@}%
 
-  }%maketitle
+  }%@maketitle
+
+% i: the command "\rule{\textwidth}{1\p@}" makes the header rule under the logo and above the title
+%    you can remove it and leave the "\par"
+% ii: this calls the "\helvetica{\fontfamily{phv}\selectfont}" command from line 45
 
 %***********
 % Abstract *
@@ -539,20 +559,23 @@
   \begingroup
   \let\section\absection
   \fontfamily{\sfdefault}\fontsize{12}{12}\sffamily\selectfont
-  {\fontseries{b}\selectfont ABSTRACT}\par}
+  {\fontseries{b}\selectfont ABSTRACT}\par} % i ....
 {\endgroup\smallskip\@afterheading\@afterindentfalse\vskip 12pt plus -2pt minus 2pt}
 
-% Section macros
+% i: The word 'ABSTRACT' in this line is what gives the title to the environment
+%    In other places where a newenvironment is defined titles are given in the same way, for example
+%    in the appendix section below.
+
+% Section macros ...................................................................................
 
 % Lowest level heading that takes a number by default
 \setcounter{secnumdepth}{5}
 
 \renewcommand{\@seccntformat}[1]{\csname the#1\endcsname\quad}
 
-\def\section{%
-  \@startsection{section}{1}{\z@}
-  {-10\p@ plus -3\p@}{3\p@}
-  {\reset@font\raggedright\helveticabold\fontsize{13}{13}\color{black}\selectfont\MakeUppercase}}
+% subsubsection and subparagraph use the helvetica command defined above
+% section, subsection, and paragraph use the helveticabold command defined above
+% section uses MakeUppercase
 
 \def\section{%
   \@startsection{section}{1}{\z@}
