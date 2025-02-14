@@ -39,12 +39,18 @@
 \usepackage[labelsep=quad,indention=10pt]{caption}
 \usepackage[labelfont=bf,list=true]{subcaption}
 
-% \fontfamily{}\selectfont seems to be the standard command for selecting a font
+% "\fontfamily{}\selectfont" seems to be the standard way to select a font
 % inside the {} goes the "fontcode" and phv is the fontcode for standard helvetica
-\def\helvetica{\fontfamily{phv}\selectfont}
-\def\helveticaitalic{\fontfamily{phv}\itshape\selectfont}
-\def\helveticabold{\fontfamily{phv}\bfseries\selectfont}
-\def\helveticabolditalic{\fontfamily{phv}\bfseries\itshape\selectfont}
+
+\def\helvetica{\fontfamily{phv}\selectfont}                % font note 1
+\def\helveticabold{\fontfamily{phv}\bfseries\selectfont}   % font note 2
+% \def\helveticaitalic{\fontfamily{phv}\itshape\selectfont}  % font note 2
+% \def\helveticabolditalic{\fontfamily{phv}\bfseries\itshape\selectfont} % font note 4
+
+% font note 1: Seems like the font chosen here only affects the address and correspondence fields
+% font note 2: Does not affect body. Affects all the title, author's names, and headers and footers.
+% font note 3: Doesn't seem to affect anything
+% font note 4: Doesn't seem to affect anything
 
 \newcommand\@ptsize{0}
 
@@ -95,7 +101,7 @@
 
 
 
-
+% https://tex.stackexchange.com/questions/57109/what-exactly-does-declareoldfontcommand-and-declarerobustcommand-do
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
 \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
@@ -270,6 +276,7 @@
   \let\@evenhead\relax
   \let\@oddhead\relax}
 
+% ..................................................................................................
 % Page range
 \newif\iflastpagegiven   \lastpagegivenfalse
 \newcommand\firstpage[1]{%
@@ -920,7 +927,7 @@
 \ps@headings
 \twocolumn
 
-% Screen PDF compatability
+% Screen PDF compatibility
 \newcommand{\medline}[1]{%
   \unskip\unskip\ignorespaces}
 
