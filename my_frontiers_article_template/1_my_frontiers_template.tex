@@ -8,8 +8,11 @@
 % \documentclass[utf8]{frontiersinFPHY_FAMS} % Another Vancouver Style (Numbered) 
 % \setcitestyle{square} % for physics and math/stat mentioned above
 
+% For some reason, you shouldn't put the .cls extension for the file in the arguments below
 % \documentclass[utf8]{FrontiersinHarvard} 
-\documentclass[utf8]{FrontiersinVancouver} % for journals using the Vancouver Style (Numbered)
+\documentclass[utf8]{test_class} 
+% \documentclass[utf8]{FrontiersinVancouver} % for journals using the Vancouver Style (Numbered)
+
 \usepackage{url,hyperref,lineno,microtype,subcaption}
 \usepackage[onehalfspacing]{setspace}
 \usepackage{comment} % allows using the begin{comment}/end{comment} command
@@ -48,7 +51,7 @@ $^{2}$ Another Organization, Paris, France
 
 \author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
 \address{} %This field will be automatically populated
-\correspondance{} %This field will be automatically populated
+\correspondence{} %This field will be automatically populated
 
 \extraAuth{}% If there are more than 1 corresponding author, comment this line and uncomment the next one.
 %\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
@@ -104,7 +107,8 @@ This line of text has 100 characters. This line of text has 100 characters. This
 
 \section{Introduction}
 
-\textbf{Notice how the paragraphs are justified, but the last line looks smaller (maybe it's not justified)}\\
+INTRODUCTION\\
+\textbf{Notice how the paragraphs are justified, but the last line looks smaller (maybe it's not justified).}\\
 This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
 This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
 This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
@@ -137,7 +141,7 @@ This line of text has 100 characters. This line of text has 100 characters. This
         \begin{center}
         \includegraphics[width=\linewidth]{mendoza.png}
         \end{center}
-    \caption{ This image is 707 x 527 pixels (width x height) }\label{fig:mendoza}
+    \caption{ Mendozaaaaa! 707 x 527 pixels (width x height) }\label{fig:mendoza}
 \end{figure}
 
 
