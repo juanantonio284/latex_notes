@@ -49,21 +49,19 @@
 %  when foo is run). If bar = y when FOO runs, foo will use the value y.
 
  
-% Fonts ............................................................................................
+% Fonts ...................................................................
 
 % "\fontfamily{}\selectfont" seems to be the standard way to select a font
-% inside the {} goes the "fontcode" and phv is the fontcode for standard helvetica
-\def\helvetica{\fontfamily{phv}\selectfont}                % font note 1
-\def\helveticabold{\fontfamily{phv}\bfseries\selectfont}   % font note 2
-% \def\helveticaitalic{\fontfamily{phv}\itshape\selectfont}  % font note 2
-% \def\helveticabolditalic{\fontfamily{phv}\bfseries\itshape\selectfont} % font note 4
-
+% Inside the {} goes the "fontcode" and "phv" is the fontcode for standard helvetica
+% "lmdh" is a fontcode for another very distinctive font which can be used for testing.
+\def\helvetica{\fontfamily{phv}\selectfont}                            % font note 1
+\def\helveticabold{\fontfamily{phv}\bfseries\selectfont}               % font note 2
+\def\helveticaitalic{\fontfamily{phv}\itshape\selectfont}              % font note 3
+\def\helveticabolditalic{\fontfamily{phv}\bfseries\itshape\selectfont} % font note 4
 % font note 1: Seems like the font chosen here only affects the address and correspondence fields
 % font note 2: Does not affect body. Affects all the title, author's names, and headers and footers.
 % font note 3: Doesn't seem to affect anything
 % font note 4: Doesn't seem to affect anything
-
-\newcommand\@ptsize{0}
 
 % Set twoside printing
 \@twosidetrue
@@ -72,6 +70,10 @@
 \@mparswitchfalse
 
 \reversemarginpar
+
+
+% new commands (or something ... seems sloppy) ............................
+\newcommand\@ptsize{0}
 
 \renewcommand\normalsize{%
    \@setfontsize\normalsize{12}{12}%
@@ -102,6 +104,8 @@
     \def\@listi{\topsep 3\p@ plus 1\p@ minus 1\p@
        \parsep 2\p@ plus 1\p@ minus 1\p@\itemsep \parsep}}
 
+
+% font sizes ..............................................................
 \def\scriptsize{\@setfontsize\scriptsize{11pt}{11pt}}
 \def\tiny{\@setfontsize\tiny{10pt}{11pt}}
 \def\large{\@setfontsize\large{13pt}{14pt}}
@@ -111,7 +115,7 @@
 \def\Huge{\@setfontsize\Huge{30pt}{30pt}}
 
 
-
+% SOS ..............................................................................................
 % https://tex.stackexchange.com/questions/57109/what-exactly-does-declareoldfontcommand-and-declarerobustcommand-do
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
@@ -161,7 +165,7 @@
 \righthyphenmin=3
 
 %
-% Set page layout dimensions
+% Set page layout dimensions .......................................................................
 %
 \setlength\headheight{16\p@}        % height of running head
 \setlength\topmargin{1.3pc}         % head margin
@@ -179,7 +183,7 @@
 \addtolength\textheight{\topskip}      %   including the first
                                        %   line on the page
 
-% Set the margins
+% Set the margins ..................................................................................
 \setlength\marginparsep{3\p@}
 \setlength\marginparpush{3\p@}
 \setlength\marginparwidth{35\p@}
@@ -195,12 +199,12 @@
 \setlength\columnsep{1.5pc}          % space between columns for double-column text
 \setlength\columnseprule{0\p@}       % width of rule between two columns
 
-% Footnotes
+% Footnotes ........................................................................................
 \setlength\footnotesep{9\p@}      % space between footnotes
 % space between text and footnote
 \setlength{\skip\footins}{12\p@ \@plus 6\p@ \@minus 1\p@}
 
-% Float placement parameters
+% Float placement parameters .......................................................................
 
 % The total number of floats that can be allowed on a page.
 \setcounter{totalnumber}{10}
@@ -348,8 +352,8 @@
     \fi}
 
 %
-% Sectional units
-%
+% Sectional units ..................................................................................
+% maybe this should be in definitions
 
 % Counters
 \newcounter{section}
@@ -388,7 +392,7 @@
 % Clearemptydoublepage should really clear the running heads too
 \newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
 
-% Frontmatter, mainmatter and backmatter
+% Frontmatter, mainmatter and backmatter ...........................................................
 
 \newif\if@mainmatter \@mainmattertrue
 
