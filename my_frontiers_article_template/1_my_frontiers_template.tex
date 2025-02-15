@@ -1,42 +1,54 @@
-%%% Based on Version 3.4 of the template Generated 2022/06/14 %%%
+% Based on the template found here:
+% https://www.frontiersin.org/design/zip/Frontiers_LaTeX_Templates.zip
 
-% NOTE: The \emph{} and \textbf{} command do not render to PDF when using this template
-%       (also tried \it{}, \textit{}, \em{}).
+% NOTE
+
+% When using latexmk, none of the font changes (e.g. bold and emph) render to PDF. However, it is
+% necessary to use latexmk to sort out all the bibliography stuff.
+
+% Once the first version of the pdf (with defective fonts but working bibliography) has come out, 
+% pdflatex should be used to get all the font variations). But using pdflatex right away does not
+% create a file with a proper references environment.
 
 
-% For journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics" 
-% \documentclass[utf8]{frontiersinFPHY_FAMS} % Another Vancouver Style (Numbered) 
-% \setcitestyle{square} % for physics and math/stat mentioned above
+% --------------------------------------------------------------------------------------------------
+% PREAMBLE
+% --------------------------------------------------------------------------------------------------
 
-% For some reason, you shouldn't put the .cls extension for the file in the arguments below
+% \documentclass[utf8]{test_class} % for testing purposes
 % \documentclass[utf8]{FrontiersinHarvard} 
-\documentclass[utf8]{test_class} 
-% \documentclass[utf8]{FrontiersinVancouver} % for journals using the Vancouver Style (Numbered)
+\documentclass[utf8]{FrontiersinVancouver}   % for journals using the Vancouver Style (Numbered)
+% \documentclass[utf8]{frontiersinFPHY_FAMS} % another Vancouver Style (Numbered) 
+% \setcitestyle{square} % for physics and math/stat style
+% For some reason, you shouldn't put the .cls extension for the file in the arguments above
 
+% packages ................................................................
 \usepackage{url,hyperref,lineno,microtype,subcaption}
 \usepackage[onehalfspacing]{setspace}
 \usepackage{comment} % allows using the begin{comment}/end{comment} command
 
 \linenumbers
 
-% Leave a blank line between paragraphs instead of using \\
-
-\def\keyFont{\fontsize{8}{11}\helveticabold }
+% article information .....................................................
 \def\Authors{
         Firstname1 Lastname1\,$^{1,*}$,
         Firstname2 Lastname2\,$^{1}$, and 
         Firstname3 Lastname3\,$^{2}$}
 \def\Address{
-$^{1}$ University of Science, New York, USA \\
-$^{2}$ Another Organization, Paris, France
+        $^{1}$ University of Science, New York, USA \\
+        $^{2}$ Another Organization, Paris, France
 }
 
-
-\def\firstAuthorLast{Firstname1 {et~al.}} %use et al only if is more than 1 author
+\def\firstAuthorLast{Firstname1 {et~al.}} %use et~al. only if is more than 1 author
 
 % The Corresponding Author should be marked with an asterisk
 \def\corrAuthor{Firstname1 Lastname1}
 \def\corrEmail{address@mail.com}
+
+% Leave a blank line between paragraphs instead of using \\
+
+% sos .....................................................................
+\def\keyFont{\fontsize{8}{11}\helveticabold }
 
 
 %%%%%===========================================================================================%%%%
@@ -44,59 +56,67 @@ $^{2}$ Another Organization, Paris, France
 \begin{document}
 %%%%%===========================================================================================%%%%
 
+% Page setup ..............................................................
 \onecolumn
 \firstpage{1}
 
+% Title ...................................................................
 \title[This Is The Running Title]{This is The Title of The Article} 
 
-\author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
-\address{} %This field will be automatically populated
-\correspondence{} %This field will be automatically populated
+% The fields below will be automatically populated from the information in the preamble
+\author[\firstAuthorLast ]{\Authors} 
+\address{} 
+\correspondence{} 
 
-\extraAuth{}% If there are more than 1 corresponding author, comment this line and uncomment the next one.
+\extraAuth{}% If there is more than 1 corresponding author, comment this line and uncomment next one
 %\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
 
+
 \maketitle
+
 
 % ABSTRACT section start ---------------------------------------------------------------------------
 \begin{abstract}
 
 \section{Introduction}\label{abstract_intro}
 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-\textbf{Notice how, in the pdf, even the section headers are numbered, because they are inside the
- abstract environment}. 
-Also notice how each paragraph is indented, but in the normal sections (those in the rest of the
-file, outside of the abstract environment) there is no indention.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+\textbf{Notice how in the pdf the lines are numbered, even for the section headers, this is because
+ the abstract's sections are inside the {\tt abstract} environment}. The lines of the normal
+section headers (those in the rest of the file, outside of the abstract environment) are not 
+numbered. Also notice how each paragraph is indented, but in the normal sections there is no 
+indention. It also seems like the normal sections have a different font face and size.
 
 \section{Objective}\label{abstract_objective}
 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+\textbf{This is in bold letters}. \emph{This is in italics (emph).}\\
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
 \section{Methods}\label{abstract_methods}
 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
 \section{Results}\label{abstract_results}
 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
 \section{Conclusion}\label{abstract_conclusion}
 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
 \tiny
  \keyFont{ \section{Keywords:} keyword1, keyword2, keyword3 } 
  
- This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 \\
+ This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.\\
  The line above shouldn't really be here, it's just meant to show how the {\tt tiny} command still
  affects things down to this point.
  
@@ -110,6 +130,12 @@ This line of text has 100 characters. This line of text has 100 characters. This
 INTRODUCTION. The section header uses all upper-case letters and the ``helveticabold'' command
 defined in the class file.
 
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+\textbf{Notice how the paragraphs are justified, but the last line looks smaller (is that {\tt raggedbottom}? or something like that? ).}\\
+
 \subsection{Sub INTRODUCTION Introduction}\label{} % just to show how the different fonts work for the headings
 
 Sub INTRODUCTION Introduction. The subsection header uses whetever case letters are entered and the
@@ -120,21 +146,16 @@ Sub INTRODUCTION Introduction. The subsection header uses whetever case letters 
 sub sub INTRODUCTION Introduction. The subsubsection header uses whetever case letters are entered
 and the ``helvetica'' command defined in the class file.
 
-\textbf{Notice how the paragraphs are justified, but the last line looks smaller (maybe it's not justified).}\\
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
 
 % Methods section start ----------------------------------------------------------------------------
 \section{Methods}\label{methods}
 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
-This line of text has 100 characters. This line of text has 100 characters. This line of text has 1 
+\href{https://www.frontiersin.org/design/zip/Frontiers_LaTeX_Templates.zip}{This sentence contains a clickable link to download the original latex template.}
+
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.\\
+This sentence contains a footnote before the period\footnote{this is the footnote}.\\
+This sentence contains a footnote after the period.\footnote{this is the footnote}
 
 % Figure 1 ...................
 % \caption{ }
@@ -159,16 +180,10 @@ This line of text has 100 characters. This line of text has 100 characters. This
 
 % subsection .....................................
 % \subsection{}\label{}
-
-
 % Results section start ----------------------------------------------------------------------------
 % \section{Results}\label{results}
-        
-
 % discussion section start -------------------------------------------------------------------------
 % \section{Discussion}\label{discussion}
-
-
 % Conclusion section start -------------------------------------------------------------------------
 % \section{Conclusion}\label{conclusion}
 
@@ -206,6 +221,10 @@ data, and writing and publishing the present study.
 The original contributions presented in the study are included in the article/supplementary
 material, the bibliography contains links to some datasets used, further inquiries can be directed
 to the corresponding author.
+
+Below this line you should see a references section (it's not really a section but, rather, some
+sort of environment created, at least partially, in the cls file). If you don't see a header that
+says "References", try using {\tt latexmk}.
 
 
 % REFERENCES .......................................................................................
