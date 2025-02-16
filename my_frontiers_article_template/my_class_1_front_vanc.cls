@@ -1,10 +1,12 @@
 % This class builds upon the "FrontiersinVancouver" class. 
-% February 15, 2025
+% February 16, 2025
 
 % Comments have been added throughout (much needed comments) and the order of some commands has
-% changed. So far, there are no real changes in parameters.
+% changed. So far, there are no real changes in the default parameters.
 % A command named "correspondance" was changed to "correspondence"
 % The logo code has been commented out (so as to not use logo)
+% The following packages have been added: sepfootnotes, listings
+
 
 % The three lines below have been altered
 \newcommand\classname{my_class_1_front_vanc}
@@ -22,6 +24,8 @@
 
 \newif\if@final
 
+% Options ..........................................................................................
+% I think these are options that this class (i.e. the one that's created in this file) will provide
 \DeclareOption{draft}{\PassOptionsToPackage{draft}{graphicx}}
 \DeclareOption{paper}{\PassOptionsToPackage{paper}{graphicx}}
 \DeclareOption{a4paper}{\PassOptionsToPackage{a4}{crop}}
@@ -37,12 +41,25 @@
 
 \ProcessOptions
 
-% Load all necessary packages
+% Load all necessary packages ......................................................................
 \RequirePackage{inputenc,crop,graphicx,amsmath,array,color,amssymb,flushend,stfloats,amsthm,chngpage,times,datetime,epstopdf} 
 \usepackage{parskip}[=v1] 
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage[labelsep=quad,indention=10pt]{caption}
 \usepackage[labelfont=bf,list=true]{subcaption}
+
+% packages I added ---------------------------------------------------------------------------------
+\usepackage{sepfootnotes} % https://ctan.org/pkg/sepfootnotes
+\usepackage{listings} % Typeset source code listings
+
+\lstset{
+  backgroundcolor=\color{gray!10},    % background color (requires color or xcolor package)
+  commentstyle=\color{blue!30!black}, % comment style
+  basicstyle=\ttfamily\small,         % font size/family/etc (e.g. basicstyle=\ttfamily\small)
+  keywordstyle=\color{red!75!black},  % keyword style  
+  stringstyle=\color{green!40!black}, % style of strings in source language
+  % frame=single,                       % show a frame surrounding code (see more at note i)
+  } % see more options for this setting in the "listings_package_settings_reference.md" file
 
 
 % Definitions --------------------------------------------------------------------------------------
