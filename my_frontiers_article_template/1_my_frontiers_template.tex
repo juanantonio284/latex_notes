@@ -15,9 +15,8 @@
 % PREAMBLE
 % --------------------------------------------------------------------------------------------------
 
-% \documentclass[utf8]{test_class} % for testing purposes
-% \documentclass[utf8]{FrontiersinHarvard} 
 \documentclass[utf8]{my_class_1_front_vanc}  % using the Vancouver Style (Numbered)
+% \documentclass[utf8]{FrontiersinHarvard} 
 % \documentclass[utf8]{frontiersinFPHY_FAMS} % another Vancouver Style (Numbered) 
 % \setcitestyle{square} % for physics and math/stat style
 % For some reason, you shouldn't put the .cls extension for the file in the arguments above
@@ -50,6 +49,16 @@
 % sos .....................................................................
 \def\keyFont{\fontsize{8}{11}\helveticabold }
 
+% Footnotes ----------------------------------------------------------------------------------------
+% [This is all still within the preamble]
+% For this to work, this line was added to the class file: \usepackage{sepfootnotes}
+
+\sepfootnotecontent{first_note}{This note was made with the {\tt sepfootnotes} package, which helps
+ place the footnotes \textbf{sep}arately. This avoids having footnotes in the middle of a paragraph
+ in the text file, and makes it easier to read the text file---the actual reading and writing is
+ complicated when there are too many \LaTeX\ commands interspersed between the words. (See more on
+ this package at https://ctan.org/pkg/sepfootnotes)}
+
 
 %%%%%===========================================================================================%%%%
 %%%%%===========================================================================================%%%%
@@ -75,8 +84,10 @@
 \maketitle
 
 
-% ABSTRACT section start ---------------------------------------------------------------------------
+% ABSTRACT environment start -----------------------------------------------------------------------
 \begin{abstract}
+
+\textbf{Note} that the header you see above is not a section header, this is not actually a section, it's an environment.
 
 \section{Introduction}\label{abstract_intro}
 
@@ -112,12 +123,10 @@ This sentence---beginning at the T and ending at the period---has 100 characters
 \tiny
  \keyFont{ \section{Keywords:} keyword1, keyword2, keyword3 } 
  
-This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.\\
+This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
 Note that the line above is indented. It really shouldn't be there, and neither should this text.
 It's just meant to show how the {\tt tiny} command still affects things down to this point.
-
-This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
  
 \end{abstract} % abstract section end --------------------------------------------------------------
@@ -138,16 +147,19 @@ This sentence---beginning at the T and ending at the period---has 100 characters
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
-\subsection{Sub INTRODUCTION Introduction}\label{}
+\subsection{Sub INTRODUCTION Introduction}%\label{}
 
 Sub INTRODUCTION Introduction. The subsection header uses whetever case letters are entered and the
 ``helveticabold'' command defined in the class file. \textbf{Note} how under a {\tt subsection} or
 {\tt subsubsection} command there is indention right from the first paragraph.
 
-\subsubsection{sub sub INTRODUCTION Introduction}\label{} 
+\subsubsection{sub sub INTRODUCTION Introduction}%\label{} 
 
 sub sub INTRODUCTION Introduction. The subsubsection header uses whetever case letters are entered
-and the ``helvetica'' command defined in the class file.
+and the ``helvetica'' command defined in the class file. This header \textbf{is not} bold, which
+makes sense if you only go down to subsubsection level; but if you go further down to paragraph
+level then the paragraph, which below in hierarchy will be bolded and look bigger and look as if
+it's above. You can change this behaviour in line 599
 
 \paragraph{This is the header for a paragraph environment} 
 
@@ -176,7 +188,8 @@ This sentence---beginning at the T and ending at the period---has 100 characters
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.\cite{book}
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.\\
 This sentence contains a footnote before the period\footnote{this is the footnote}.\\
-This sentence contains a footnote after the period.\footnote{this is the footnote}
+This sentence contains a footnote after the period.\footnote{this is the footnote}\\
+Here is another footnote.\sepfootnote{first_note}
 
 % Figure 1 ...................
 % \caption{ }
@@ -207,6 +220,25 @@ This sentence contains a footnote after the period.\footnote{this is the footnot
 % \section{Discussion}\label{discussion}
 % Conclusion section start -------------------------------------------------------------------------
 % \section{Conclusion}\label{conclusion}
+
+
+\section{Code}\label{code}
+
+\begin{verbatim}
+Text enclosed inside \texttt{verbatim} environment 
+is printed directly 
+and all \LaTeX{} commands are ignored.
+\end{verbatim}
+
+\newpage
+
+\begin{lstlisting}[language=TeX]
+New text enclosed inside 
+    the "lstlisting" environment (from the "listings" package)
+        is printed directly 
+                and all \LaTeX{} commands are ignored.
+\end{lstlisting}
+
 
 
 % DECLARATIONS start -------------------------------------------------------------------------------
