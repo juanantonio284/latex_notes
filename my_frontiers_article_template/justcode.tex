@@ -1,0 +1,138 @@
+% --------------------------------------------------------------------------------------------------
+% PREAMBLE
+% --------------------------------------------------------------------------------------------------
+
+\documentclass[utf8]{my_class_1_front_vanc}  % using the Vancouver Style (Numbered)
+
+% packages ................................................................
+\usepackage{url,hyperref,lineno,microtype,subcaption}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{comment} % allows using the begin{comment}/end{comment} command
+
+% \linenumbers
+
+% article information .....................................................
+\def\Authors{
+        Firstname1 Surname1\,$^{1,*}$,
+        }
+\def\Address{
+        $^{1}$ University of Science, New York, USA \\
+        $^{2}$ Another Organization, Paris, France
+        }
+
+\def\firstAuthorLast{Firstname1 {et~al.}} %use et~al. only if is more than 1 author
+
+% The Corresponding Author should be marked with an asterisk
+\def\corrAuthor{Firstname1 Surname1}
+\def\corrEmail{address@mail.com}
+
+% Leave a blank line between paragraphs instead of using \\
+
+% sos .....................................................................
+\def\keyFont{\fontsize{8}{11}\helveticabold }
+
+
+%%%%%===========================================================================================%%%%
+%%%%%===========================================================================================%%%%
+\begin{document}
+%%%%%===========================================================================================%%%%
+
+% Page setup ..............................................................
+\onecolumn
+\firstpage{1}
+
+% Title ...................................................................
+\title[This Is The Running Title]{This is The Title of The Article} 
+
+% The fields below will be automatically populated from the information in the preamble
+\author[\firstAuthorLast ]{\Authors} 
+\address{} 
+\correspondence{} 
+
+\extraAuth{}% If there is more than 1 corresponding author, comment this line and uncomment next one
+%\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
+
+
+\maketitle
+
+% Code section start -------------------------------------------------------------------------------
+
+\section{Code}\label{code}
+
+\verb:\lstinline: prints code snippets inside the line of text.\\
+\verb:\lstinputlisting: prints whole files.\\
+\verb:\lstlisting: pieces of code which reside in the main file.
+
+\noindent More information here \verb-https://www.overleaf.com/learn/latex/Code_listing-
+
+% The three lines below also work but use different font size, as set in "lstset" in the class file.
+% \lstinline:\lstinline: prints code snippets inside the line of text.\\
+% \lstinline:\lstinputlisting: prints whole files.\\
+% \lstinline:\lstlisting: pieces of code which reside in the main file.\\
+
+% .........................................................................
+\subsection{Example 1: Basics of Code Listing}
+
+\begin{verbatim}
+This is text enclosed inside \texttt{verbatim} environment.
+It is printed directly 
+and all \LaTeX{} commands are ignored.
+\end{verbatim}
+
+The code below is listed using the {\tt listings} package.
+
+\begin{lstlisting}[language=Python]
+def incmatrix(genl1,genl2):
+    m = len(genl1)
+    n = len(genl2)
+    M = None #to become the incidence matrix
+    VT = np.zeros((n*m,1), int)  #dummy variable
+\end{lstlisting}
+
+The code above was listed using the following instructions:
+
+\begin{verbatim}
+\begin{lstlisting}[language=Python]
+\end{lstlisting}
+\end{verbatim}
+
+% .........................................................................
+\subsection{Example 2: Importing Code From a File}
+
+The code below is imported from a file using the line \\
+\lstinline:\lstinputlisting[language=Python, firstline=5, lastline=8]{sample_code.py}: \\
+As you can see, it only imports the desired lines from that file.
+
+\lstinputlisting[language=Python, firstline=5, lastline=8]{sample_code.py}
+
+% ......................................
+
+The code below is imported from a file using the line \\
+\lstinline:\lstinputlisting[language=Python]{sample_code.py}:
+% Notice the weird syntax for the thing above, it's bracketed by the colon (:) 
+% Neither verb not lstinline use matching pairs of curly braces ({}) to delimit their arguments;
+% instead, use any non-letter symbol that doesn't occur in the verbatim material itself
+% Do not use an asterisk (*)!
+
+\lstinputlisting[language=Python]{sample_code.py}
+
+
+% REFERENCES .......................................................................................
+% \bibliographystyle{Frontiers-Harvard} 
+\bibliographystyle{Frontiers-Vancouver}
+
+% This will create the header "References" which looks just like a section header. 
+% But it does not actually create a section (and thus there is bookmark on the PDF)
+% \bibliography{test.bib} 
+
+% \nocite{*} 
+% This line serves to include ALL the references in the .bib file, even if they have not been cited
+% If you have not cited in the body of the article, you can use it to avoid having a blank "section"
+% To include only some bibliographical entries, you can use \nocite{key1,key2,...,keyn} to include
+% only the entries corresponding to key1,key2,...,keyn.
+
+% If the bib file is working fine, the references should look clean, each one with a number. 
+
+%%%%%===========================================================================================%%%%
+\end{document}
+%%%%%===========================================================================================%%%%
