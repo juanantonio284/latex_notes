@@ -3,11 +3,25 @@
 % --------------------------------------------------------------------------------------------------
 % PREAMBLE START
 
-% my commands ....................................
-\newcommand{\justtext}[1]{\texttt{\textbackslash #1}}
+\usepackage{sepfootnotes} % https://ctan.org/pkg/sepfootnotes
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{gray}{cmyk}{0, 0, 0, 0.25}
+
+\usepackage{listings}
+\lstset{
+  backgroundcolor=\color{gray!10},    % background color (requires color or xcolor package)
+  commentstyle=\color{blue!30!black}, % comment style
+  basicstyle=\ttfamily\small,         % font size/family/etc (e.g. basicstyle=\ttfamily\small)
+  keywordstyle=\color{red!75!black},  % keyword style  
+  stringstyle=\color{green!40!black}, % style of strings in source language
+  % frame=single,                       % show a frame surrounding code (see more at note i)
+  % numbers=left,                       % Add line numbers on the left side
+  % numberstyle=\tiny,                  % style used for line-numbers
+  % numbersep=5pt,                      % distance of line-numbers from the code
+  } % see more options for this setting in the "listings_package_settings_reference.md" file
 
 % separate footnotes ......................................................
-\usepackage{sepfootnotes} % https://ctan.org/pkg/sepfootnotes
 
 \sepfootnotecontent{gnomon}{A gnomon is the projecting piece on a sundial that shows the time by the
  position of its shadow.}
@@ -43,18 +57,16 @@ picture-drawing commands of Section 7.1.
 \subsection{Document-Class Options}
 % pdf 105, page 88
 
-The style of the document can be changed by using the optional argument of the
-\justtext{documentclass} command to specify style options. 
-
-Section 2.2.2 describes the following options: 
-\begin{verbatim}11pt, 12pt, twoside, and twocolumn\end{verbatim}
+The style of the document can be changed by using the optional argument of the \verb:documentclass:
+command to specify style options. Section 2.2.2 describes the following options: 
+\verb:11pt, 12pt, twoside, and twocolumn:
 
 Three notable \emph{standard} options are:
 
 \begin{itemize}
    
-   \item {\tt titlepage} causes the \justtext{maketitle} command to generate a separate title page
-    and the{\tt abstract} environment to make a separate page for the abstract. (This option is the
+   \item {\tt titlepage} causes the \verb:maketitle: command to generate a separate title page and
+    the {\tt abstract} environment to make a separate page for the abstract. (This option is the
     default for the {\tt report} document class.)
    
    \item {\tt leqno} causes the formula numbers produced by the {\tt equation} and {\tt eqnarray}
@@ -62,17 +74,14 @@ Three notable \emph{standard} options are:
    
    \item {\tt fleqn} causes formulas to be aligned on the left, a fixed distance from the left
     margin, instead of being centered
-   % \item 
-   % \item 
-   % \item 
 \end{itemize}
 
 A complete list of the standard options appears in Section C.5.1 % pdf 194, page 176
 
-The {\tt twocolumn} option is used for a document that consists mostly of double-column pages. You
-may want double-column pages for just part of the document, such as a glossary. In that case
-The \justtext{twocolumn} declaration starts a new page and begins producing two-column output. The
-inverse \justtext{onecolumn} declaration starts a new page and begins pro- ducing single-column
+The {\tt twocolumn} option is used for a document that consists mostly of double-column pages. You 
+may want double-column pages for just part of the document, such as a glossary. In that case, 
+the \verb:twocolumn: declaration starts a new page and begins producing two-column output. 
+The inverse \verb:onecolumn: declaration starts a new page and begins producing single-column 
 output.
 
 {\tt twocolumn} sets various style parameters, such as the amount of paragraph indentation, to
@@ -98,43 +107,51 @@ text. Many should be writing.
 
 % pdf 110 page 93
 
-You can teach \TeX\ how to hyphenate words by putting one or more \justtext{hyphenation} commands in
-the preamble. For example, the command \justtext{hyphenation\{gno-mon gno-mons gno-mon-ly\}}
-tells \TeX\ how to hyphenate gnomon\sepfootnote{gnomon}, gnomons, and gnomonly---but it still won't
-know how to hyphenate gnomonic.
+You can teach \TeX\ how to hyphenate words by putting one or more \verb:hyphenation: commands in
+the preamble. For example, the command \\
+\verb:hyphenation\{gno-mon gno-mons gno-mon-ly}: tells \TeX\ how to hyphenate 
+gnomon\sepfootnote{gnomon}, gnomons, and gnomonly---but it still won't know how to hyphenate 
+gnomonic.
 
-Not all line-breaking problems can be solved by hyphenation. Sometimes there is just no good way to break a paragraph into lines. \TeX\ is normally very fussy about line breaking; it lets you solve the problem rather than producing a paragraph that doesn't meet its high standards. There are three things you can do when this happens.
+Not all line-breaking problems can be solved by hyphenation. Sometimes there is just no good way to
+break a paragraph into lines. \TeX\ is normally very fussy about line breaking---it lets you solve
+the problem rather than producing a paragraph that doesn't meet its high standards. There are three
+things you can do when this happens.
 
-\begin{enumerate}
+\begin{itemize}
    \item Rewrite the paragraph---if willing and able
-   \item Use a {\tt sloppypar} environment or \justtext{sloppy} declaration, which direct \TeX\ not
+   \item Use a {\tt sloppypar} environment or \verb:sloppy: declaration, which direct \TeX\ not
     to be so fussy about where it breaks lines
-   \item Use a \justtext{linebreak} command, which forces \TeX\ to break the line at that spot
-\end{enumerate}
+   \item Use a \verb:linebreak: command, which forces \TeX\ to break the line at that spot
+\end{itemize}
 
 % .......................
 \subsubsection{linebreak and nolinebreak}
 
-The \justtext{linebreak} is usually inserted right before the word that doesn't fit. An optional argument converts the \justtext{linebreak} command from a demand to a request. The argument must be a digit from 0 through 4, a higher number denoting a stronger request. 
+The \verb:linebreak: is usually inserted right before the word that doesn't fit. An optional argument converts the \verb:linebreak: command from a demand to a request. The argument must be a digit from 0 through 4, a higher number denoting a stronger request. 
 
 \begin{itemize}
    
-   \item \justtext{linebreak[O]} allows \TeX\ to break a line where it would normally be forbidden but does not necessarily encourage or discourage it
+   \item \verb:linebreak[O]: allows \TeX\ to break a line where it would normally be forbidden but does not necessarily encourage or discourage it
    
-   \item \justtext{linebreak[4]} command means the same as an ordinary \justtext{linebreak} command and forces the line break
+   \item \verb:linebreak[4]: command means the same as an ordinary \verb:linebreak: command and forces the line break
         
 \end{itemize}
  
-Although unwanted line breaks are usually prevented with the {\tt ~} and \justtext{mbox} commands described in Section 2.2.1, \TeX\ also provides a \justtext{nolinebreak} command that forbids from breaking the line at that point. An optional argument converts the \justtext{nolinebreak} command from a demand to a request. The argument must be a digit from 0 through 4, a higher number denoting a stronger request.
+Although unwanted line breaks are usually prevented with the \~ and \verb:mbox: commands described
+in Section 2.2.1, \TeX\ also provides a \verb:nolinebreak: command that forbids from breaking the
+line at that point. An optional argument converts the \verb:nolinebreak: command from a demand to a
+request. The argument must be a digit from 0 through 4, a higher number denoting a stronger
+request.
 
 \begin{itemize}
    
-   \item \justtext{nolinebreak[4]} is equivalent to \justtext{nolinebreak} and \textbf{forbids} a line break at that point
+   \item \verb:nolinebreak[4]: is equivalent to \verb:nolinebreak: and \textbf{forbids} a line break at that point
    
-   \item \justtext{nolinebreak[O]} is equivalent to \justtext{linebreak[O]}
+   \item \verb:nolinebreak[O]: is equivalent to \verb:linebreak[O]:
 \end{itemize}
 
-A \justtext{linebreak} command causes \TeX\ to justify the line, stretching the space between words so that the line extends to the right margin. The \justtext{newline} command ends a line without justifying it.
+A \verb:linebreak: command causes \TeX\ to justify the line, stretching the space between words so that the line extends to the right margin. The \verb:newline: command ends a line without justifying it.
 
 % ................................................
 \subsection{Page Breaking}
@@ -147,8 +164,8 @@ As with line breaking, \TeX\ provides commands to demand or prohibit a page brea
 argument transforming the commands to suggestions. (The \TeX\ page-breaking commands are analogous
 to the line-breaking commands described in \ref{sub-line-break} above.)
 
-A \justtext{pagebreak} command \emph{within a paragraph} insists that \TeX\ start a new page after
-the line in which the command appears, and \justtext{nopagebreak} suggests rather strongly
+A \verb:pagebreak: command \emph{within a paragraph} insists that \TeX\ start a new page after
+the line in which the command appears, and \verb:nopagebreak: suggests rather strongly
 that \TeX\ not start a new page there. (When used between paragraphs, the commands apply to that
 point.)
 
@@ -156,37 +173,54 @@ You will sometimes want to squeeze a little more text on a page than \TeX\ think
 best way of doing this is to make room on the page by removing some vertical space, using the
 commands of Section 6.4.2.
 
-If that doesn't work, you can try using a \justtext{nopagebreak} command to prevent \TeX\ from
+If that doesn't work, you can try using a \verb:nopagebreak: command to prevent \TeX\ from
 breaking the page before you want it to. However, \TeX\ often becomes adamant about breaking a page
-at a certain point, and it will not be deterred by \justtext{nopagebreak}. When this happens, you
+at a certain point, and it will not be deterred by \verb:nopagebreak:. When this happens, you
 can put extra text on the page as follows:
 
 \begin{itemize}
-   \item Add the command \justtext{enlargethispage*\{1000pt\}} to the text on the current page,
-    before the point where \TeX\ wants to start a new page
+   \item Add the command \verb:\enlargethispage*{1000pt}: to the text on the current page, before
+    the point where \TeX\ wants to start a new page
    
-   \item Add a \justtext{pagebreak} command to break the page where you want
+   \item Add a \verb:pagebreak: command to break the page where you want
 \end{itemize}
 
+Squeezing in extra text in this way will make the page longer than normal, which may look bad in
+two-sided printing. Section C.12.2 describes a less heavy-handed approach. But don't worry about
+page breaks until you prepare the ultimate, absolutely final, no-more-changes (really!) version.
 
-Squeezing in extra text in this way will make the page longer than normal, which may look bad in two-sided printing. Section C.12.2 describes a less heavy-handed approach. But don't worry about page breaks until you prepare the ultimate, absolutely final, no-more-changes (really!) version.
+The \verb:newpage: command is the analog of \verb:newline:, creating a page that ends prematurely
+right at that point. Even when a \verb:flushbottom: declaration is in effect, a shortened page is
+produced.
 
-The \justtext{newpage} command is the analog of \justtext{newline}, creating a page that ends prematurely right at that point. Even when a \justtext{flushbottom} declaration is in effect, a shortened page is produced.
+The \verb:clearpage: command is similar to \verb:newpage:, except that any leftover figures or
+tables are put on one or more separate pages with no text. The \verb:chapter: and \verb:include:
+commands (Section 4.4) use \verb:clearpage: to begin a new page.
 
-The \justtext{clearpage} command is similar to \justtext{newpage}, except that any leftover figures or tables are put on one or more separate pages with no text. The \justtext{chapter} and \justtext{include} commands (Section 4.4) use \justtext{clearpage} to begin a new page.
+Adding an extra \verb:newpage: or \verb:clearpage: command will not produce a blank page; two such
+commands in a row are equivalent to a single one. To generate a blank page, you must put some
+invisible text on it, such as an empty \verb:mbox:.
 
-Adding an extra \justtext{newpage} or \justtext{clearpage} command will not produce a blank page; two such commands in a row are equivalent to a single one. To generate a blank page, you must put some invisible text on it, such as an empty \justtext{mbox}.
+The page-breaking commands can be used only where it is possible to start a new page---that is, in
+paragraph mode and not inside a box (Section 6.4.3). They are all fragile.
 
-The page-breaking commands can be used only where it is possible to start a new page---that is, in paragraph mode and not inside a box (Section 6.4.3). They are all fragile.
-
-\paragraph{Extra:} When using the {\tt twoside} style option for two-sided printing, you may want to start a sectional unit on a right-hand page. The \justtext{cleardoublepage} command is the same as \justtext{clearpage} except that it produces a blank page if necessary so that the next page will be a right-hand (odd-numbered) one. When used in two-column format, the \justtext{newpage} and \justtext{pagebreak} commands start a new column rather than a new page. However, the \justtext{clearpage} and \justtext{cleardoublepage} commands start a new page.
+\paragraph{Extra:} When using the {\tt twoside} style option for two-sided printing, you may want to
+ start a sectional unit on a right-hand page. 
+ The \verb:cleardoublepage: command is the same as \verb:clearpage: except that it produces a blank 
+ page if necessary so that the next page will be a right-hand (odd-numbered) one. 
+ When used in two-column format, the \verb:newpage: and \verb:pagebreak: commands start a new column 
+ rather than a new page. 
+ However, the \verb:clearpage: and \verb:cleardoublepage: commands start a new page.
 
 
 % ..................................................................................................
 \section{Numbering}
 % pdf 114 page 97
 
-Every number that \LaTeX\ generates has a counter associated with it. The name of the counter is usually the same as the name of the environment or command that produces the number, except with no \textbackslash. Below is a list of the counters used to control numbering by \LaTeX\'s standard document styles.
+Every number that \LaTeX\ generates has a counter associated with it. The name of the counter is
+usually the same as the name of the environment or command that produces the number, except with
+no \textbackslash. Below is a list of the counters used to control numbering by \LaTeX's standard
+document styles.
 
 \begin{verbatim}
 part paragraph figure enumi
@@ -196,15 +230,20 @@ subsection equation mpfootnote enumiv
 subsubsection
 \end{verbatim}
 
-The counters {\tt enumi ... enumiv} control different levels of {\tt enumerate} environments, {\tt enumi} for the outermost level, {\tt enumii} for the next level, etc. 
+The counters {\tt enumi ... enumiv} control different levels of {\tt enumerate} environments,
+{\tt enumi} for the outermost level, {\tt enumii} for the next level, etc.
 
 The {\tt mpfootnote} counter numbers footnotes inside a minipage environment (Section 6.4.3). 
 
-In addition to these, an environment created with the \justtext{newtheorem} command (Section 3.4.3) has a counter of the same name unless an optional argument specifies that it is to be numbered the same as another environment. There are also some other counters used for document-style parameters; they are described in Appendix C.
+In addition to these, an environment created with the \verb:newtheorem: command (Section 3.4.3) has
+a counter of the same name unless an optional argument specifies that it is to be numbered the same
+as another environment. There are also some other counters used for document-style parameters; they
+are described in Appendix C.
 
-The \justtext{setcounter} command sets the value of a counter, and \justtext{addtocounter} increments it by a specified amount. 
+The \verb:setcounter: command sets the value of a counter, and \verb:addtocounter: increments it by
+a specified amount. 
 
-More on counters, including the \justtext{newcounter} command, on page 98.
+More on counters, including the \verb:newcounter: command, on page 98.
 
 
 % ..................................................................................................
@@ -218,47 +257,48 @@ specifications.
 \subsection{Length}
 % pdf 116 page 99
 
-A line width is specified by giving a \emph{length} as an argument to the appropriate formatting command. A length can be specified in fixed units like inches, centimeters, milimeters, or points (used by printers). It can also be specified in units of length that depend upon the appropriate style parameters. The simplest such units are the {\tt em} and the {\tt ex}, which depend upon the font (the size and style of type). A {\tt 1em} length is about equal to the width of the letter ``M'', and {\tt 1ex} is about the height of the letter ``x''. The em is best used for horizontal lengths and the ex for vertical lengths.
+A line width is specified by giving a \emph{length} as an argument to the appropriate formatting
+command. A length can be specified in fixed units like inches, centimeters, milimeters, or points
+(used by printers). It can also be specified in units of length that depend upon the appropriate
+style parameters. The simplest such units are the {\tt em} and the {\tt ex}, which depend upon the
+font (the size and style of type). A {\tt 1em} length is about equal to the width of the letter
+``M'', and {\tt 1ex} is about the height of the letter ``x''. The em is best used for horizontal
+lengths and the ex for vertical lengths.
 
 \subsubsection{Length Commands}
 
 In addition to writing explicit lengths such as {\tt 1in} or {\tt 3.5em}, you can also express
 lengths with length commands. A length command has a value that is a length. 
 
-For example: \justtext{parindent} is a length command whose value specifies the width of the
-indentation at the beginning of a normal paragraph. Typing \justtext{parindent} as the argument of
-a command is equivalent to typing the current value of \justtext{parindent}. Typing 2.5\justtext
-{parindent} will give a length that is 2.5 times as large; -2.5\justtext{parindent} is the negative
+For example: \verb:parindent: is a length command whose value specifies the width of the
+indentation at the beginning of a normal paragraph. Typing \verb:parindent: as the argument of
+a command is equivalent to typing the current value of \verb:parindent:. Typing \verb:2.5\parindent: will give a length that is 2.5 times as large; \verb:-2.5\parindent: is the negative
 of that length.
 
-A length such as 1.5em or \justtext{parindent} is a \textbf{rigid} length. Specifying a space of
+A length such as 1.5em or \verb:parindent: is a \textbf{rigid} length. Specifying a space of
 width 1cm always produces a one-centimeter-wide space. (It may not be exactly one centimeter wide
 because your output device might unifordly change all dimensions-for example, enlarging them by
 5\%.) 
 
-However, there are also \textbf{rubber} lengths that can vary. Space specified with a rubber length can stretch or shrink as required. For example, \TeX\ justifies lines (produces an even right margin) by stretching or shrinking the space between words to make each line the same length. A rubber length has a natural length and a degree of elasticity. Of particular interest is the special length command \justtext{fill} that has a natural length of zero but is infinitely stretchable---and tends to expand as far as it can. The use of such stretchable space is described in the next section, \ref{sub-spaces} 6.4.2. 
+However, there are also \textbf{rubber} lengths that can vary. Space specified with a rubber length
+can stretch or shrink as required. For example, \TeX\ justifies lines (produces an even right
+margin) by stretching or shrinking the space between words to make each line the same length. A
+rubber length has a natural length and a degree of elasticity. Of particular interest is the
+special length command \verb:fill: that has a natural length of zero but is infinitely
+stretchable---and tends to expand as far as it can. The use of such stretchable space is described
+in the next section, \ref{spaces}.
 
-Most lengths used in \LaTeX\ are rigid. Unless a length is explicitly said to be rubber, you can assume it is rigid. All length commands are robust; a \justtext{protect} command should never precede a length command.
+Most lengths used in \LaTeX\ are rigid. Unless a length is explicitly said to be rubber, you can assume it is rigid. All length commands are robust; a \verb:protect: command should never precede a length command.
 
-(The rest of this subsection covers some of \LaTeX\'s length parameters---i.e. length commands that define a document's style parameters; others are given in Appendix C. By expressing lengths in terms of these parameters, you can define formatting commands that work properly with different styles.)
+(The rest of this subsection covers some of \LaTeX length parameters---i.e. length commands that define a document's style parameters; others are given in Appendix C. By expressing lengths in terms of these parameters, you can define formatting commands that work properly with different styles.)
 
 
 % ..................................................................................................
 \section{Spaces}\label{spaces}
 % pdf 118 page 101
 
-A horizontal space is produced with the \justtext{hspace} command. Think of \justtext{hspace} as
+A horizontal space is produced with the \verb:hspace: command. Think of \verb:hspace: as
 making a blank ``word'', with spaces before or after it producing an interword space.
-
-\begin{verbatim}
-Here\hspace{.5in}is a 0.5 inch space.
-
-Here  \hspace{.5in}is a 0.5 inch space.
-
-Here  \hspace{.5in}  is a 0.5 inch space.
-
-Negative space is a backspace---like this.\hspace{.5in}/////
-\end{verbatim}
 
 Here\hspace{.5in}is a 0.5 inch space.
 
@@ -268,19 +308,42 @@ Here  \hspace{.5in}  is a 0.5 inch space.
 
 Negative space is a backspace---like this.\hspace{.5in}///// % this command is not working as in textbook
 
-\TeX\ removes space from the beginning or end of each line of output text, except at the beginning
-and end of a paragraph---including space added with \justtext{hspace}. 
-The \justtext{hspace*} command is the same as \justtext{hspace} except that the space it produces is
-never removed, even when it comes at the beginning or end of a line. 
-The \justtext{hspace} and \justtext{hspace*} commands are robust.
+\bigskip
 
-The \justtext{vspace} command produces vertical space. It is most commonly used between paragraphs;
+\noindent The text above is created with the following code: 
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+Here\hspace{.5in}is a 0.5 inch space.
+
+Here  \hspace{.5in}is a 0.5 inch space.
+
+Here  \hspace{.5in}  is a 0.5 inch space.
+
+Negative space is a backspace---like this.\hspace{.5in}/////
+\end{lstlisting}
+
+\TeX\ removes space from the beginning or end of each line of output text, except at the beginning
+and end of a paragraph---including space added with \verb:hspace:. 
+The \verb:hspace*: command is the same as \verb:hspace: except that the space it produces is
+never removed, even when it comes at the beginning or end of a line. 
+The \verb:hspace: and \verb:hspace*: commands are robust.
+
+The \verb:vspace: command produces vertical space. It is most commonly used between paragraphs;
 when used within a paragraph, the vertical space is added after the line in which the 
-\justtext{vspace} appears.
+\verb:vspace: appears.
 
 Just as it removes horizontal space from the beginning and end of a line, \TeX\ removes vertical
-space that comes at the beginning or end of a page. The \justtext{vspace*} command creates vertical
+space that comes at the beginning or end of a page. The \verb:vspace*: command creates vertical
 space that is never removed
+
+
+% ..................................................................................................
+% \section{Boxes}
+% pdf 120 page 103
+
+% continue here .............................................................
+% continue here .............................................................
+% continue here .............................................................
 
 % ................................................
 % \subsection{}
