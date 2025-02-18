@@ -3,11 +3,26 @@
 % --------------------------------------------------------------------------------------------------
 % PREAMBLE START
 
-% my commands ....................................
-\newcommand{\justtext}[1]{\texttt{\textbackslash #1}}
-
-% separate footnotes ......................................................
 \usepackage{sepfootnotes} % https://ctan.org/pkg/sepfootnotes
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{gray}{cmyk}{0, 0, 0, 0.25}
+
+\usepackage{listings}
+\lstset{
+  backgroundcolor=\color{gray!10},    % background color (requires color or xcolor package)
+  commentstyle=\color{blue!30!black}, % comment style
+  basicstyle=\ttfamily\small,         % font size/family/etc (e.g. basicstyle=\ttfamily\small)
+  keywordstyle=\color{red!75!black},  % keyword style  
+  stringstyle=\color{green!40!black}, % style of strings in source language
+  % frame=single,                       % show a frame surrounding code (see more at note i)
+  % numbers=left,                       % Add line numbers on the left side
+  % numberstyle=\tiny,                  % style used for line-numbers
+  % numbersep=5pt,                      % distance of line-numbers from the code
+  } % see more options for this setting in the "listings_package_settings_reference.md" file
+  
+  
+% separate footnotes ......................................................
 
 \sepfootnotecontent{error}{
 An error in your input file could produce an error in one of the special cross-referencing files.
@@ -20,6 +35,7 @@ time you run \LaTeX. Section 8.1 explains how to recognize such an error.
 \sepfootnotecontent{produce-list-keys}{https://tex.stackexchange.com/questions/525394/get-a-list-of-all-labels-in-a-tex-document}
 
 \sepfootnotecontent{fragile}{https://tex.stackexchange.com/questions/4736/what-is-the-difference-between-fragile-and-robust-commands-when-and-why-do-we-n}
+
 
 % title .............................................................................................
 \title{Chapter 4: Moving Information Around} % Declares the document's title.
@@ -36,14 +52,15 @@ time you run \LaTeX. Section 8.1 explains how to recognize such an error.
 \LaTeX\ often has to move information from one place to another. For example, the information
 contained in a table of contents comes from the sectioning commands that are scattered throughout
 the input file. Similarly, the command that generates a cross-reference to an equation must get the
-equation number from the {\tt equation} environment, which may occur several sections later. 
+equation number from an {\tt equation} environment which may occur several sections later. 
 
-\LaTeX\ requires two passes over the input to move information around: one pass to find the
-information and a second pass to put it into the text—it occasionally even requires a third pass. To
-compile a table of contents, for example, one pass determines the titles and starting pages of all
-the sections, and a second pass puts this information into the table of contents. But instead of
-making two passes every time it is run, \LaTeX\ reads your input file only once and saves the
-cross-referencing information in special files for use the next time. 
+In other words, references appear in different places than the commands which create the information
+for those references. So \LaTeX\ requires two passes over the input to move information around: one
+pass to find the information and a second pass to put it into the text—it occasionally even
+requires a third pass. To compile a table of contents, for example, one pass determines the titles
+and starting pages of all the sections, and a second pass puts this information into the table of
+contents. But instead of making two passes every time it is run, \LaTeX\ reads your input file only
+once and saves the cross-referencing information in special files for use the next time. 
 
 For example: if {\tt sample2e.tex} had a command to produce a table of contents \LaTeX\ would write
 the necessary information into the file {\tt sample2e.toc}; then it would use the information in
@@ -64,21 +81,8 @@ One reason for numbering things like figures and equations is to refer the reade
 input file because adding another figure might make the figure become ``Figure 4'', and require
 changing the `3' to a `4' everywhere it appears. Instead, you can assign a \emph{key} of your
 choice to the figure and refer to it by that key. 
-The \textbf{key is assigned a number} by the \justtext{label} command, and 
-the \textbf{number is printed} by the \justtext{ref} command.
-
-In the example below:
-
-\begin{itemize}
-   \item the \justtext{label\{example\}} binds the subsection number to the key
-    {\tt example}
-    
-   \item the \justtext{label\{eq:euler\}} command binds the equation number to the key
-    {\tt eq:euler} 
-    
-   \item \justtext{ref\{eq:euler\}} and \justtext{ref\{example\}} can be then used to reference the
-    equation and the subsection
-\end{itemize}
+The \textbf{key is assigned a number} by the \verb:\label: command, and 
+the \textbf{number is printed} by the \verb:\ref: command.
 
 \subsection{Example}\label{example}
 
@@ -88,7 +92,35 @@ Euler's equation
 \end{equation}
 combines the five most important numbers in mathematics in a single equation.
 
-Equation \ref{eq:euler} in subsection \ref{example} is Euler's Famous result. 
+Equation \ref{eq:euler} in subsection \ref{example} is Euler's Famous result. \newline
+
+The example above is created with: 
+\begin{lstlisting}[language={[LaTeX]TeX}]
+
+\subsection{Example}\label{example}
+
+Euler's equation
+\begin{equation}
+   e^{i\pi} + 1 = 0 \label{eq:euler}
+\end{equation}
+combines the five most important numbers in mathematics in a single equation.
+
+Equation \ref{eq:euler} in subsection \ref{example} is Euler's Famous result.
+
+\end{lstlisting}
+
+Where:
+\begin{itemize}
+   \item the \verb:\label{example}: binds the subsection number to the key
+    {\tt example}
+    
+   \item the \verb-\label{eq:euler}- command binds the equation number to the key
+    {\tt eq:euler} 
+    
+   \item \verb-\ref{eq:euler}- and \verb:\ref{example}: can be then used to reference the
+    equation and the subsection
+\end{itemize}
+
 
 % ................................................
 \subsection{Keys, Labels, Page References, Captions}
@@ -99,14 +131,13 @@ A key can consist of any sequence of letters, digits, or punctuation characters 
 Upper- and lowercase letters are different, so ``gnu'' and ``Gnu'' would be distinct keys. 
 
 In addition to sectioning commands, the following environments also generate numbers that can be
-assigned to keys with a \justtext{label} command: 
-
+assigned to keys with a \verb:\label: command: 
 {\tt equation}, 
 {\tt eqnarray},
 {\tt figure}, 
 {\tt table}, 
 {\tt enumerate} (this assigns the current item's number), 
-and any theorem-like environment defined with the \justtext{newtheorem} command of Section 3.4.3.
+and any theorem-like environment defined with the \verb:\newtheorem: command of Section 3.4.3.
 
 Using keys for cross-referencing saves you from keeping track of the actual numbers, but it requires
 you to remember the keys. 
@@ -115,104 +146,207 @@ you to remember the keys.
  input file{\tt lablst.tex}. (You probably do this by typing ``latex lablst'' ; check your Local
  Guide to be sure.) \LaTeX\ will then ask you to type in the name of the input file whose keys you
  want listed, as well as the name of the document class specified by that file's 
- \justtext{documentclass} command.
+ \verb:\documentclass: command.
  
  \textbf{One method that worked:} open the .aux file and look there\sepfootnote{produce-list-keys}.
  
 % .......................
 \subsubsection{Labels}
 
-When a \justtext{label} command appears in ordinary text, it uses the number of the current
-sectional unit as key. A \justtext{label} command appearing inside a numbered environment assigns
+When a \verb:\label: command appears in ordinary text, it uses the number of the current
+sectional unit as key. A \verb:\label: command appearing inside a numbered environment assigns
 the environment's number to the key.
 
 \begin{itemize}
    
-   \item To assign the number of a sectional unit to a key put the \justtext{label} command in the
-    argument of the sectioning command. (Technically, you can put the \justtext{label} command
+   \item To assign the number of a sectional unit to a key put the \verb:\label: command in the
+    argument of the sectioning command. (Technically, you can put the \verb:\label: command
     anywhere within the unit, except for a command argument or an environment, in which it would
     assign some other number.)
 
-   \item To refer to an equation in an {\tt eqnarray} environment, put the \justtext{label} command 
-    anywhere between the \justtext{\textbackslash} or \justtext{begin\{eqnarray\}} that begins the 
-    equation and the \justtext{\textbackslash} or \justtext{end\{eqnarray\}} that ends it
+   \item To refer to an equation in an {\tt eqnarray} environment, put the \verb:\label: command 
+    anywhere between 
+    the \verb:\\: or \verb:\begin{eqnarray}: that begins the equation 
+    and the \verb:\\: or \verb:\end{eqnarray}: that ends it
 
-   \item The position of the \justtext{label} command in a figure or table \textbf{must} go after
-    the \justtext{caption} command or in its argument
+   \item The position of the \verb:\label: command in a figure or table \textbf{must} go after
+    the \verb:\caption: command or in its argument
     
-   \item A \justtext{label} can appear in the argument of a sectioning or \justtext{caption} 
+   \item A \verb:\label: can appear in the argument of a sectioning or \verb:\caption:
     command, but in no other moving argument
 
 \end{itemize}
 
-\paragraph{More detail:} The \justtext{label} command writes an entry on the aux file; this entry
-contains the key, the current \justtext{ref} value, and the number of the current page. 
+\paragraph{More detail:} The \verb:\label: command writes an entry on the aux file; this entry
+contains the key, the current \verb:\ref: value, and the number of the current page. 
  
-When this aux file entry is read by the \justtext{begin\{document\}} command\sepfootnote{firstrun}, 
-the \justtext{ref} value and page number are associated with the \emph{key}. 
-Then, a \justtext{ref\{key\}} or \justtext{pageref\{key\}} command will produce the associated 
-\justtext{ref} value or page number, respectively.
+When this aux file entry is read by the \verb:\begin{document}: command\sepfootnote{firstrun}, 
+the \verb:\ref: value and page number are associated with the \emph{key}. 
+Then, a \verb:\ref{key}: or \verb:\pageref{key}: command will produce the associated 
+\verb:\ref: value or page number, respectively.
  
-The \justtext{label} command is fragile\sepfootnote{fragile}, but it can be used in the argument of
-a sectioning or \justtext{caption} command.
+The \verb:\label: command is fragile\sepfootnote{fragile}, but it can be used in the argument of
+a sectioning or \verb:\caption: command.
 
 % .......................
 \subsubsection{Page References}
 
-\LaTeX\ maintains a current \justtext{ref} value, which is set with the \justtext{refstepcounter} 
+\LaTeX\ maintains a current \verb:\ref: value, which is set with the \verb:\refstepcounter: 
 declaration (Section C.8.4). (This declaration is issued by the sectioning commands, by numbered
-environments like {\tt equation}, and by an \justtext{item} command in an enumerate environment.)
+environments like {\tt equation}, and by an \verb:\item: command in an enumerate environment.)
 
-The \justtext{pageref} command produces the page number where its corresponding \justtext{label} 
-command appears. (A \justtext{ref} or \justtext{pageref} command generates only a number, so if you 
+The \verb:\pageref: command produces the page number where its corresponding \verb:\label: 
+command appears. (A \verb:\ref: or \verb:\pageref: command generates only a number, so if you 
 want to produce something like ``page 42'', you have to type the word `page'.)
 
-The numbers generated by \justtext{ref} and \justtext{pageref} were assigned to their corresponding
+The numbers generated by \verb:\ref: and \verb:\pageref: were assigned to their corresponding
 keys the previous time you ran \LaTeX\ on your document. Thus, the printed output will be incorrect
 if any of these numbers have changed. \LaTeX\ will warn you if this may have happened, in which
 case you should run it again on the input file to make sure the cross-references are correct.
-(This warning will occur if any number assigned to a key by a \justtext{label} command has changed,
+(This warning will occur if any number assigned to a key by a \verb:\label: command has changed,
 even if that number is not referenced.) 
 
-Each \justtext{ref} or \justtext{pageref} referring to an unknown key produces a warning
+Each \verb:\ref: or \verb:\pageref: referring to an unknown key produces a warning
 message; \emph{such messages appear the first time you process any file containing these commands}.
 
 % .......................
 \subsubsection{Captions} 
 
-A \justtext{caption} command within its {\tt figure} or {\tt table} environment acts like a
+A \verb:\caption: command within its {\tt figure} or {\tt table} environment acts like a
 sectioning command within the document. Just as a document has multiple sections, a figure or table
 can have multiple captions.
 
-% Omitted \section{Bibliography and Citation}
+
+% ..................................................................................................
+\section{Bibliography and Citation}
+% pdf 86, page 69
+
+A \emph{citation} is a cross-reference to another publication, such as a journal article, called
+the \emph{source}.
+
+The modern method of citing a source is with a cross-reference
+to an entry in a list of sources at the end of the document. 
+
+With \LaTeX, the citation is produced by a \verb:\cite: command having the citation key as its
+argument.
+
+You can cite multiple sources with a single \verb:\cite: , separating the keys by commas. 
+The \verb:\cite: command has an optional argument that adds a note to the citation.
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+This is a sentence~\cite{tom-ix, dick:ens, harry+d}
+This is another sentence~\cite[pages 222--333]{kn:gnus}
+\end{lstlisting}
+
+A citation key can be any sequence of letters, digits, and punctuation characters, except that it
+may not contain a comma. As usual in \LaTeX, upper- and lowercase letters are considered to be
+different.
+
+In the preceding examples, \LaTeX\ has to determine that citation key \verb-kn:gnus- corresponds to
+source label 67. How \LaTeX\ does this depends on how you produce the list of sources. The best way
+to produce the source list is with a separate program called BIB\TeX, described in Section 4.3.1.
+You can also produce it yourself, as explained in Section 4.3.2.
+
+% ................................................
+\subsection{Using Bib\TeX}
+
+Bib\TeX\ is a separate program that produces the source list for a document, obtaining the
+information from a bibliographic database. 
+
+\begin{itemize}
+   
+   \item To use BIB\TeX, you must include in your \LaTeX\ input file a \verb:\bibliography: command
+    whose argument specifies one or more files that contain the database. The names of the database
+    files must have the extension \texttt{bib}.
+    
+   \begin{itemize}
+      \item For example, the command \verb:\bibliography{insect,animal}: (with \textbf{no space
+       after the comma}) specifies that the source list is to be obtained from entries in the files
+       insect.bib and animal.bib.
+   \end{itemize}
+   
+   \item BIB\TeX\ creates a source list containing entries for all the citation keys specified
+    by \verb:\cite: commands. 
+   
+   \begin{itemize}
+      \item The data for the source list is obtained from the bibliographic database, which must
+       have an entry for every citation key.
+   \end{itemize}
+    
+   \item To use BIB\TeX, your \LaTeX\ input file must contain a \verb:\bibliographystyle: command.
+    This command specifies the bibliography style, which determines the format of the source list. 
+    The \verb:\bibliographystyle: command can go anywhere after the \verb:\begin{document}: command. 
+    \LaTeX's standard bibliography styles are: plain, unsrt, alpha, abbrv.
+   
+   \item A \verb:\nocite: command in the \LaTeX\ input file causes the specified entries to appear
+    in the source list, but produces no output. 
+    It can go anywhere after the \verb:\begin{document}: command, but it is fragile.
+    The command \verb:\nocite{*}: causes all entries in the bibliographic database to be put in the
+    source list.
+\end{itemize}
+
+% Why would it go "anywhere". Shouldn't it go in under references?
+% Appendix B explains how to make bibliographic database files.
+
+% .......................
+\subsubsection{Traditional Steps When Using Bib\TeX}
+% I call them "traditional" because this is an old book, now there are other methods to do this
+% but still it might be a good reference
+
+Once you've created an input file containing the appropriate \LaTeX\ commands, you perform the
+following sequence of steps to produce the final output:
+
+\begin{itemize}
+   \item Run \LaTeX\ on the input file (in this example called \texttt{myfile.tex}). \LaTeX\ will
+    complain that all your citations axe undefined, since there is no source list yet.
+
+   \item Run BIB\TeX\ by typing something like \texttt{bibtex myfile.tex}. BIB\TeX\ will generate
+    the file \texttt{myfile.bbl} containing \LaTeX\ commands to produce the source list.
+   
+   \item Run \LaTeX\ again on \texttt{myfile.tex}. \LaTeX's output will now contain the source list.
+    However, it will still complain that your citations are undefined, since the output produced by
+    a \verb:\cite: command is based on information obtained from the source list the last time was
+    run on the file.
+
+   \item Run \LaTeX\ one more time on \texttt{myfile.tex}
+\end{itemize}
+
+If you add or remove a citation, you will have to go through this whole procedure again to get the
+citation labels and source list right. But they don't have to be right while you're writing, so you
+needn't do this very often
+
+BIB\TeX\ almost always produces a perfectly fine source list, but if you encounter a source that it
+does not handle properly you can usually correct the problem by modifying the bibliographic
+database---perhaps creating a special database entry just for this document. As a last resort, you
+can edit the \texttt{bbl} file that BIB\TeX\ generated. (Only do this when you are producing the
+final output.)
 
 
 % ..................................................................................................
 \section{Splitting Your Input}
-% page 72, pdf 89
+% pdf 89, page 72
 
 A large document requires a lot of input. Rather than putting the whole input in a single large
 file, you may find it more convenient to split the input into several smaller files. Regardless of
 how many separate files you use, there is one that is the root file; it is the one whose name you
 type when you run \LaTeX.
 
-The \justtext{input} command provides the simplest way to split your input into several files. For
-example, the command \justtext{input\{gnu\}} in the root file causes \LaTeX\ to insert the contents
-of a secondary file {\tt gnu.tex} right at the current spot in your manuscript. The input files are
-not changed, and the secondary file {\tt gnu.tex} may also contain an \justtext{input} command
-calling another file that may have its own \justtext{input} commands, and so on.
+The \verb:\input: command provides the simplest way to split your input into several files. For
+example, the command \verb:\input{gnu}: in the root file causes \LaTeX\ to insert the contents of a
+secondary file {\tt gnu.tex} right at the current spot in your manuscript. The input files are not
+changed, and the secondary file {\tt gnu.tex} may also contain an \verb:\input: command calling
+another file that may have its own \verb:\input: commands, and so on.
 
-Besides splitting your input into conveniently sized chunks, the \justtext{input} command also makes
-it easy to use the same input in different documents. While text is seldom recycled in this way,
-you might want to reuse declarations. You can keep a file containing declarations that are used in
-all your documents, such as the definitions of commands and environments for your own logical
-structures (Section 3.4). You can even begin your root file with an \justtext{input} command and
-put the \justtext{documentclass} command in your declarations file.
+Besides splitting your input into conveniently sized chunks, the \verb:\input: command also makes it
+easy to use the same input in different documents. While text is seldom recycled in this way, you
+might want to reuse declarations. You can keep a file containing declarations that are used in all
+your documents, such as the definitions of commands and environments for your own logical
+structures (Section 3.4). You can even begin your root file with an \verb:\input: command and put
+the \verb:\documentclass: command in your declarations file.
 
-[Continue reading on page 73 to learn about how to use the \justtext{include} command, instead
-of \justtext{input}, to only run \LaTeX\ on part of the document. (But this might be more trouble
-than it's worth.)]
-
+[Continue reading on page 73 to learn about how to use the \verb:\include: command, instead
+of \verb:\input:, to only run \LaTeX\ on part of the document. (But this might be more trouble than
+it's worth.)]
 
 % ..................................................................................................
 \section{Making an Index or Glossary}
@@ -221,39 +355,41 @@ There are two steps in making an index or glossary: gathering the information th
 generating the \LaTeX\ input to produce it. 
 Section \ref{compiling-entries} describes the first step. 
 Section \ref{manual-production-index} describes the second step if you don't use the 
-\emph{MakeIndex} program (which is the easiest way to do this, and is separately described in 
+\emph{Makeindex} program (which is the easiest way to do this, and is separately described in 
 Appendix A.)
 
 % ................................................
 \subsection{Compiling the entries}\label{compiling-entries}
 
-Compiling an index or glossary is not easy but \LaTeX\ can help by writing the necessary information 
-onto a special file. If the root file is named {\tt myfile.tex}, index information will be written 
+Compiling an index or glossary is not easy but \LaTeX\ can help by writing the necessary information
+onto a special file. If the root file is named {\tt myfile.tex}, index information will be written
 on a file called {\tt myfile.idx}. 
 
-\LaTeX\ makes an {\tt idx} file if the preamble contains a \justtext{makeindex} command; and the 
-\justtext{index} commands write information to the file. 
-(If there is no \justtext{makeindex} command, the \justtext{index} command does nothing.)
+\LaTeX\ makes an {\tt idx} file if the preamble contains a \verb:\makeindex: command; and the 
+\verb:\index: commands write information to the file. 
+(If there is no \verb:\makeindex: command, the \verb:\index: command does nothing.)
+
+% pdf 92, page 74
 
 % All the code below is to make a title "Example" followed by a normal looking paragraph 
 % Technically "Example" is one paragraph (it is indented) and "To index ..." is another; so indents 
 % must be removed (noindent), and a space added between the paragraphs (bigskip)
-\noindent \textbf{Example} 
 
-\bigskip
+\subsubsection*{Example}
 
-\noindent To index an instance of the word ``gnu'' in the phrase 
-``The gnu drinks water from the river'', you would type 
-{\tt The gnu\textbackslash index\{gnu\} drinks water from the river}.
-If this word were in page 42, the command \justtext{index\{gnu\}} causes \LaTeX\ to write
-\justtext{indexentry\{gnu\}\{42\}} on the {\tt idx} file. 
-(It's best to put the \justtext{index} command next to the word it references, with no space
-between them; this keeps the page number from being off by one if the word ends or begins a
-page.)
+To index an instance of the word ``gnu'' in the phrase ``The gnu drinks water from the river'', you 
+would type \verb:The gnu\index{gnu} drinks water from the river:.\\
 
+If this word were in page 42, the command \verb:\index{gnu}: causes \LaTeX\ to
+write \verb:\indexentry{gnu}{42}: on the {\tt idx} file. (It's best to put the \verb:\index:
+command next to the word it references, with no space between them; this keeps the page number from
+being off by one if the word ends or begins a page.)
 
-\paragraph{Example}
+\subsubsection*{Example}
 
+In this example, the \% ends a line without producing any space in the output (but you can't split a
+command name across two lines).
+ 
 \begin{verbatim}
 When in the Course of
 \index{human events)%
@@ -261,33 +397,29 @@ When in the Course of
 human events, it becomes necessary for one people to dissolve the political bands ...
 \end{verbatim}
 
-\noindent In this example, the \% ends a line without producing any space in the output (but you
- can't split a command name across two lines).\\
+The procedure for making a glossary is completely analogous: there is a \verb:\makeglossary: command
+to make a {\tt glo} file which has \verb:\glossaryentry: entries created by a \verb:\glossary:
+command.
 
-The procedure for making a glossary is completely analogous: 
-there is a \justtext{makeglossary} command to make a {\tt glo} file which has 
-\justtext{glossaryentry} entries created by a \justtext{glossary} command.
-
-The \justtext{index} and \justtext{glossary} commands are fragile\sepfootnote{fragile}. Moreover,
-an \justtext{index} or \justtext{glossary} command should not appear in the argument of any other
-command if its own arguments contains any of \LaTeX\ ten special characters.
+The \verb:\index: and \verb:\glossary: commands are fragile\sepfootnote{fragile}. Moreover,
+an \verb:\index: or \verb:\glossary: command should not appear in the argument of any other command
+if its own arguments contains any of \LaTeX\ ten special characters.
 
 % ................................................
 \subsection{Producing an Index or Glossary by Yourself}\label{manual-production-index}
 
-If you don't use the \emph{MakeIndex} program, you can use the {\tt theindex} environment to produce
+If you don't use the \emph{Makeindex} program, you can use the {\tt theindex} environment to produce
 an index in two-column format. In this scenario:
 
 \begin{itemize}
-   \item Each main index entry is begun by an \justtext{item} command
-   \item A subentry is begun with \justtext{subitem}, and a subsubentry is begun with 
-         \justtext{subsubitem}
+   \item Each main index entry is begun by an \verb:\item: command
+   \item A subentry is begun with \verb:\subitem:, and a subsubentry is begun with \verb:\subsubitem:
    \item Blank lines between entries are ignored
-   \item An extra vertical space is produced by the \justtext{indexspace} command, which is usually
+   \item An extra vertical space is produced by the \verb:\indexspace: command, which is usually
     put before the first entry that starts with a new letter
 \end{itemize}
 
-\paragraph{Example}
+\subsubsection*{Example}
 
 \begin{verbatim}
 \item gnats 13, 97
@@ -301,6 +433,7 @@ an index in two-column format. In this scenario:
 
 There is no environment expressly for glossaries. (However, the description environment of Section
 2.2.4 may be useful.)
+
 
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
