@@ -37,37 +37,93 @@ beginning of the chapter. But I found it interesting ...]
 
 % ..................................................................................................
 \section{Modes}
+% pdf 52, page 36
 
 As \TeX\ processes your input text, it is always in one of three modes: paragraph mode, math mode,
 or left-to-right mode (called LR mode for short)\sepfootnote{modes_tex}. 
 
 \begin{itemize}
    
-   \item Paragraph mode is \TeX's normal mode-the one it's in when processing ordinary text. In
+   \item Paragraph mode is \TeX's normal mode---the one it's in when processing ordinary text. In
     paragraph mode, \TeX\ regards your input as a sequence of words and sentences to be broken into
     lines, paragraphs, and pages.
 
-    \item \TeX\ is in math mode when it's generating a mathematical formula. More precisely, it
+    \item \TeX\ is in math mode when it's generating a mathematical formula. More precisely: it
      enters math mode upon encountering a command like 
      \$ or 
-     {\tt \textbackslash (} or
-     {\tt \textbackslash [} or 
-     {\tt \textbackslash begin\{equation\} } 
-     that begins a mathematical formula, and it leaves math mode after finding the corresponding
+     \verb:\(: or
+     \verb:\[: or
+     \verb:\begin{equation}: 
+     that begins a mathematical formula; and it leaves math mode after finding the corresponding
      command that ends the formula. When \TeX\ is in math mode it considers letters in the input
      file to be mathematical symbols and ignores any space characters 
-     between them—e.g. \emph{is} would be treated as the product of \emph{i} and \emph{s}.
+     between them—e.g. ``\emph{is}`` would be treated as the product of \emph{i} and \emph{s}.
      
-    \item In LR mode, as in paragraph mode, \TeX\ considers your input to be a string of words with
-     spaces between them. However, unlike paragraph mode, \TeX\ produces output that keeps going
-     from left to right; it never starts a new line in LR mode. The {\tt \textbackslash mbox} command
-     (Section 2.2.1) causes \TeX\ to process its argument in LR mode, which is what prevents the
-     argument from being broken across lines.
+    \item In left-to-right mode, as in paragraph mode, \TeX\ considers your input to be a string of
+     words with spaces between them. However, unlike paragraph mode, \TeX\ produces output that
+     keeps going from left to right; \textbf{it never starts a new line in LR mode}.
+     The \verb:\mbox: command (Section 2.2.1) causes \TeX\ to process its argument in LR mode,
+     which is what prevents the argument from being broken across lines.
 
 \end{itemize}
 
 Different modes can be nested within one another as seen, for example, when you put an 
-{\tt \textbackslash mbox}~command inside a mathematical formula.
+\verb:\mbox: command inside a mathematical formula.
+
+\subsection*{Example}\label{example}
+
+Consider this expression: \( y > z \mbox{ if $x^{2}$ real} \).
+
+\noindent Made with this code \verb:\( y > z \mbox{ if $x^{2}$ real} \).: \\
+
+\noindent When processing this expression, \LaTeX\ enters and exits {\tt math mode} and
+ {\tt left-to-right mode}. (For the expressions below, the blank spaces between the letters are
+ also processed in each mode.) 
+ 
+\begin{itemize}
+   
+   \item when processing \verb:y > z: (i.e. \textvisiblespace y \textvisiblespace > \textvisiblespace z \textvisiblespace) \TeX\ is in math mode
+   
+   \item when processing \verb: if : and \verb: real: \TeX\ is in LR mode
+   
+   \item when processing \verb:x^{2}: \TeX\ is in math mode
+   
+   \item The space between ``z'' and ``if'' is produced by the first space in the argument for
+    {\tt mbox}
+
+   \item The space in \verb:real} \): is processed in math mode, so it produces no space between
+    ``real'' and ``.''
+    
+\end{itemize}
+
+
+% ..................................................................................................
+\section{Changing the Type Style}
+% pdf 52, page 36
+
+Type style is used to indicate logical structure. In this book, emphasized text appears in 
+\textit{italic} style type and \LaTeX\ input in \texttt{typewriter} style.
+
+None of the text-producing commands or declarations can be used in math mode. (Section 3.3.8
+explains how to change type style in a mathematical formula.)
+
+Type style is a visual property. Commands to specify visual properties belong not in the text, but
+in the definitions of commands that describe logical structure. Section 3.4 explains how to define
+your own commands for the logical structures in your document. 
+
+% For example, suppose you want the names of genera to appear in italic in your book on African
+% mammals. Don't use \verb:\textit: throughout the text; instead, define a \verb:\genus: command and
+% write something like \linebreak \verb:\genus{Connochaetes} seems to pop up ...: Then, if you decide
+% that Connochaetes and all other genera should appear in slanted rather than italic type, you just
+% have to change the definition of \verb:\genus:.
+
+For example, suppose you want the names of genera to appear in italic in your book on African
+mammals. Don't use \verb:\textit: throughout the text; instead, define a \verb:\genus: command and
+write something like \\
+\verb:\genus{Connochaetes} seems to pop up ...: \\
+\noindent Then, if you decide that Connochaetes and all other genera should appear in slanted rather
+ than italic type, you just have to change the definition of \verb:\genus:.
+
 
 % --------------------------------------------------------------------------------------------------
 % --------------------------------------------------------------------------------------------------
