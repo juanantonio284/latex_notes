@@ -3,6 +3,7 @@
 % --------------------------------------------------------------------------------------------------
 % PREAMBLE START
 
+\usepackage{comment}
 \usepackage{sepfootnotes} % https://ctan.org/pkg/sepfootnotes
 \usepackage{color}
 \usepackage[usenames,dvipsnames]{xcolor}
@@ -25,7 +26,7 @@
 
 \sepfootnotecontent{gnomon}{A gnomon is the projecting piece on a sundial that shows the time by the
  position of its shadow.}
-% \sepfootnotecontent{}{}
+\sepfootnotecontent{comm_sec_338}{Commands like \texttt{mathit}, \texttt{mathbf}, etc.}
 % \sepfootnotecontent{}{}
 % \sepfootnotecontent{}{}
 % \sepfootnotecontent{}{}
@@ -51,6 +52,7 @@ The notable exceptions are the line- and page-breaking commands of Section 6.2 a
 picture-drawing commands of Section 7.1.
 
 % ..................................................................................................
+% ..................................................................................................
 \section{Document and Page Style}
 
 % ................................................
@@ -65,10 +67,13 @@ Three notable \emph{standard} options are:
 
 \begin{itemize}
    
-   \item {\tt titlepage} causes the \verb:maketitle: command to generate a separate title page and
-    the {\tt abstract} environment to make a separate page for the abstract. (This option is the
-    default for the {\tt report} document class.)
+   \item {\tt titlepage} causes the \verb:maketitle: command to generate a separate title page.
+    (This option is the default for the {\tt report} document class.)
    
+   \item An abstract is made with the \texttt{abstract} environment. It is placed on a separate page
+    if the \texttt{titlepage} document-class option is in effect; otherwise, it acts like an
+    ordinary displayed-paragraph environment.
+
    \item {\tt leqno} causes the formula numbers produced by the {\tt equation} and {\tt eqnarray}
     environments to appear on the left instead of the right
    
@@ -88,11 +93,114 @@ output.
 values appropriate for such pages. It does not change any style parameters except the ones required
 to produce two-column output.
 
-% Read more at pdf 106, page 89
 % ................................................
-% \subsection{Page Styles}
+\subsection{Page Styles}
+% pdf 106, page 89
 
+A page of output consists of three units: the head, the body, and the foot. The body consists of
+everything between the head and foot: the main text, footnotes, figures, and tables.
 
+In most pages of this book, the head contains a page number, a chapter or section title, and a
+horizontal line, while the foot is empty; but in the table of contents and the preface, the page
+head is empty and the foot contains the page number.
+
+Page headings may contain additional information to help the reader. They are most useful in
+two-sided printing, since headings on the two facing pages convey more information than the single
+heading visible with one-sided printing. Page headings are generally not useful in a short
+document, where they tend to be distracting rather than helpful. 
+
+\subsubsection{Page Numbers}
+
+You can specify arabic page numbers with a \verb:pagenumbering(arabic): 
+command and roman numerals with a \verb:pagenumbering(roman): command, the default being arabic 
+numbers.
+
+The \verb:pagenumbering: declaration resets the page counter (the current page is numbered 1). 
+To begin a document with pages i, ii, etc. and have the first chapter start with page 1, 
+put \verb:pagenumbering(roman): anywhere before the beginning of the text and 
+\verb:pagenumbering(arabic): right after the first \verb:chapter: command.
+
+We can make the pages start with any number we want by the command \verb:\setcounter{page}{number}:
+where number is the page number we wish the current page to have.
+
+\subsubsection{Page Styles}
+
+The \emph{page style} determines what goes into the head and foot; it is specified with
+a \verb:\pagestyle: declaration having the style's name as its argument.
+
+The \verb:\pagestyle: declaration obeys the normal scoping rules. What goes into a page's head and
+foot is determined by the page style in effect at the end of the page, so the \verb:\pagestyle:
+command usually comes after a command like \verb:\chapter: that begins a new page.
+
+The \verb:\thispagestyle: command is like \verb:\pagestyle: except it affects only the current page.
+Some commands, such as \verb:\chapter:, change the style of the current page. These changes can be
+overridden with a subsequent \verb:\thispagestyle: command. 
+
+There are four standard page styles:
+
+\begin{itemize}
+   \item \texttt{plain}: the page number is in the foot and the head is empty. It is the default
+    page style for the article and report document classes
+
+   \item \texttt{empty}: the head and foot are both empty (\LaTeX\ still assigns each page a number,
+    but the number is not printed)
+   
+   \item \texttt{headings}: the page number and other information, determined by the document style,
+    is put in the head; the foot is empty
+   
+   \item \texttt{myheadings}: similar to the headings page style, except you specify the ``other
+    information'' that goes in the head, using the \verb:\markboth: and \verb:\markright: commands
+    described below
+\end{itemize}
+
+\subsubsection{Configuring headings and myheadings}
+
+The contents of the page headings in the \verb:headings: and \verb:myheadings: styles are set by the 
+commands \\
+\verb:\markboth{left_head}{right_head}: and \verb:\markright{right_head}:
+
+The left\_head and right\_head arguments specify the information to go in the page
+heads of left-hand and right-hand pages, respectively. 
+
+In two-sided printing, specified with the \texttt{twoside} document-class option, the even-numbered
+pages are the left-hand ones and the odd-numbered pages are the right-hand ones.
+
+In one-sided printing, all pages are considered to be right-hand ones. In the headings page style,
+the sectioning commands choose the headings for you; Section C.5.3 explains how to use 
+\verb:markboth: and \verb:markright: to override their choices.
+
+In the \verb:myheadings: option, you must use these commands to set the headings yourself. The
+arguments of \verb:markboth: and \verb:markright: are processed in LR mode; they are moving
+arguments.
+
+% ................................................
+\subsection{The Title Page and Abstract}
+% pdf 107, page 90
+
+The \verb:\maketitle: command produces a title page when the \texttt{titlepage} document-class
+option is in effect.\footnote{Described in Sections 2.2.2 and C.5.4.}
+
+You can also create your own title page with the \texttt{titlepage} environment. This environment
+creates a page with the empty page style, so it has no printed page number or heading. It causes
+the following page to be numbered 1. You are completely responsible for what appears on a title
+page made with the \texttt{titlepage} environment. 
+
+The following commands and environments are useful in formatting a title page: 
+
+\begin{itemize}
+  \item the type-size-changing commands of Section 6.7.1
+  \item the type-style-changing commands of Section 3.1
+  \item the center environment of Section 6.5
+  \item the \verb:\today: command, described in Section 2.2.1, to generate today's date
+\end{itemize}
+
+An abstract is made with the \texttt{abstract} environment. It is placed on a separate page if
+the \texttt{titlepage} document-class option is in effect; otherwise, it acts like an ordinary
+displayed-paragraph environment.
+
+% Omitted section 6.1.4 \section{Customizing the Style}
+
+% ..................................................................................................
 % ..................................................................................................
 \section{Line and Page Breaking}
 
@@ -104,7 +212,6 @@ text. Many should be writing.
 
 % ................................................
 \subsection{Line Breaking}\label{sub-line-break}
-
 % pdf 110 page 93
 
 You can teach \TeX\ how to hyphenate words by putting one or more \verb:hyphenation: commands in
@@ -128,13 +235,17 @@ things you can do when this happens.
 % .......................
 \subsubsection{linebreak and nolinebreak}
 
-The \verb:linebreak: is usually inserted right before the word that doesn't fit. An optional argument converts the \verb:linebreak: command from a demand to a request. The argument must be a digit from 0 through 4, a higher number denoting a stronger request. 
+The \verb:linebreak: is usually inserted right before the word that doesn't fit. An optional
+argument converts the \verb:linebreak: command from a demand to a request. The argument must be a
+digit from 0 through 4, a higher number denoting a stronger request. 
 
 \begin{itemize}
    
-   \item \verb:linebreak[O]: allows \TeX\ to break a line where it would normally be forbidden but does not necessarily encourage or discourage it
+   \item \verb:linebreak[O]: allows \TeX\ to break a line where it would normally be forbidden but
+    does not necessarily encourage or discourage it
    
-   \item \verb:linebreak[4]: command means the same as an ordinary \verb:linebreak: command and forces the line break
+   \item \verb:linebreak[4]: command means the same as an ordinary \verb:linebreak: command and
+    forces the line break
         
 \end{itemize}
  
@@ -146,12 +257,15 @@ request.
 
 \begin{itemize}
    
-   \item \verb:nolinebreak[4]: is equivalent to \verb:nolinebreak: and \textbf{forbids} a line break at that point
+   \item \verb:nolinebreak[4]: is equivalent to \verb:nolinebreak: and \textbf{forbids} a line break
+    at that point
    
    \item \verb:nolinebreak[O]: is equivalent to \verb:linebreak[O]:
 \end{itemize}
 
-A \verb:linebreak: command causes \TeX\ to justify the line, stretching the space between words so that the line extends to the right margin. The \verb:newline: command ends a line without justifying it.
+A \verb:linebreak: command causes \TeX\ to justify the line, stretching the space between words so
+that the line extends to the right margin. The \verb:newline: command ends a line without
+justifying it.
 
 % ................................................
 \subsection{Page Breaking}
@@ -214,6 +328,7 @@ paragraph mode and not inside a box (Section 6.4.3). They are all fragile.
 
 
 % ..................................................................................................
+% ..................................................................................................
 \section{Numbering}
 % pdf 114 page 97
 
@@ -270,15 +385,14 @@ lengths and the ex for vertical lengths.
 In addition to writing explicit lengths such as {\tt 1in} or {\tt 3.5em}, you can also express
 lengths with length commands. A length command has a value that is a length. 
 
-For example: \verb:parindent: is a length command whose value specifies the width of the
-indentation at the beginning of a normal paragraph. Typing \verb:parindent: as the argument of
-a command is equivalent to typing the current value of \verb:parindent:. Typing \verb:2.5\parindent: will give a length that is 2.5 times as large; \verb:-2.5\parindent: is the negative
-of that length.
+For example: \verb:parindent: is a length command whose value specifies the width of the indentation
+at the beginning of a normal paragraph. Typing \verb:parindent: as the argument of a command is
+equivalent to typing the current value of \verb:parindent:. Typing \verb:2.5\parindent: will give a
+length that is 2.5 times as large; \verb:-2.5\parindent: is the negative of that length.
 
-A length such as 1.5em or \verb:parindent: is a \textbf{rigid} length. Specifying a space of
-width 1cm always produces a one-centimeter-wide space. (It may not be exactly one centimeter wide
-because your output device might unifordly change all dimensions-for example, enlarging them by
-5\%.) 
+A length such as 1.5em or \verb:parindent: is a \textbf{rigid} length. Specifying a space of width
+1cm always produces a one-centimeter-wide space. (It may not be exactly one centimeter wide because
+your output device might unifordly change all dimensions-for example, enlarging them by 5\%.) 
 
 However, there are also \textbf{rubber} lengths that can vary. Space specified with a rubber length
 can stretch or shrink as required. For example, \TeX\ justifies lines (produces an even right
@@ -286,15 +400,38 @@ margin) by stretching or shrinking the space between words to make each line the
 rubber length has a natural length and a degree of elasticity. Of particular interest is the
 special length command \verb:fill: that has a natural length of zero but is infinitely
 stretchable---and tends to expand as far as it can. The use of such stretchable space is described
-in the next section, \ref{spaces}.
+in the next section, \ref{sec-spaces}.
 
-Most lengths used in \LaTeX\ are rigid. Unless a length is explicitly said to be rubber, you can assume it is rigid. All length commands are robust; a \verb:protect: command should never precede a length command.
+Most lengths used in \LaTeX\ are rigid. Unless a length is explicitly said to be rubber, you can
+assume it is rigid. All length commands are robust; a \verb:protect: command should never precede a
+length command.
 
-(The rest of this subsection covers some of \LaTeX length parameters---i.e. length commands that define a document's style parameters; others are given in Appendix C. By expressing lengths in terms of these parameters, you can define formatting commands that work properly with different styles.)
+(The rest of this subsection covers some of \LaTeX length parameters---i.e. length commands that
+define a document's style parameters; others are given in Appendix C. By expressing lengths in
+terms of these parameters, you can define formatting commands that work properly with different
+styles.)
+% Here (pdf 118 page 100) there are is a list of commands and a short explanation of how they work:
+% parindent, textwidth, textheight, parskip, baselineskip, 
+
+\LaTeX\ provides the following declarations for changing the values of length commands and for
+ creating new ones. These declarations obey the usual scoping rules.
+
+\begin{itemize}
+   \item \verb-\newlength-: defines a new length command
+   \item \verb-\setlength-: sets the value of a length command
+   \item \verb-\addtolength-:increments the value of a length command by a specified amount
+   \item \verb-\settowidth-:sets the value of a length command equal to the width of a specified
+    piece of text
+   \item \verb:\settoheight:, \verb-\settodepth-: these commands act like \verb:\settowidth:, except
+    they set the value of the length command to the height and depth, respectively, of the text
+\end{itemize}
+ 
+Height and depth are explained in the Boxes section (\ref{sec-boxes}).
 
 
 % ..................................................................................................
-\section{Spaces}\label{spaces}
+% ..................................................................................................
+\section{Spaces}\label{sec-spaces}
 % pdf 118 page 101
 
 A horizontal space is produced with the \verb:hspace: command. Think of \verb:hspace: as
@@ -306,7 +443,8 @@ Here  \hspace{.5in}is a 0.5 inch space.
 
 Here  \hspace{.5in}  is a 0.5 inch space.
 
-Negative space is a backspace---like this.\hspace{.5in}///// % this command is not working as in textbook
+Negative space is a backspace---like this.\hspace{.5in}///// 
+% this command is not working as in textbook
 
 \bigskip
 
@@ -338,30 +476,114 @@ space that is never removed
 
 
 % ..................................................................................................
-% \section{Boxes}
+\section{Boxes}\label{sec-boxes}
 % pdf 120 page 103
 
-% continue here .............................................................
-% continue here .............................................................
-% continue here .............................................................
+A \emph{box} is a chunk of text that \LaTeX\ treats as a unit, just as if it were a single letter.
+No matter how big it is, \LaTeX\ will never split a box across lines or across pages.
+The \verb:\mbox: command introduced in Section 2.2.1 prevents its argument from being split across
+lines by putting it in a box.
+
+Many other \LaTeX\ commands and environments produce boxes. For example, the \texttt{array} and 
+\texttt{tabular} environments (Section 3.6.2) both produce a single box that can be quite big, as
+does the picture environment described in Section 7.1.
+
+A box has a \textbf{reference point}, which is at its left-hand edge. \TeX\ produces lines by
+putting boxes next to one another with their reference points aligned, as shown in Figure 6.1. The
+figure also shows how the width, height, and depth of a box are computed.
+
+\LaTeX\ provides additional commands and environments for making three kinds of boxes: 
+\emph{LR boxes}, in which the contents of the box are processed in LR mode; 
+\emph{parboxes}, in which the contents of the box are processed in paragraph mode; and 
+\emph{rule boxes}, consisting of a rectangular blob of ink.
+
+A box-making command or environment can be used in any mode; \LaTeX\ will use the declarations in
+effect at that point when typesetting the box's contents. For example, the contents of a box
+appearing in the scope of an \verb:\em: declaration will be emphasized. However, box-making
+commands that appear in a mathematical formula are not affected by the commands described in
+Section 3.3.8 that change the type style in the formula\sepfootnote{comm_sec_338}. (Since the input
+that produces a box's contents is either the argument of a box-making command or the text of a
+box-making environment, any declarations made inside it are local to the box.)
+% small example on pdf 120 page 103
+
+A box is often displayed on a line by itself. This can be done by treating the box as a formula and
+using the \texttt{displaymath} environment \verb:(\[ ... \]):. The center environment described in
+Section 6.5 can also be used.
+% starting at page 104, there is a dedicated subsection for each of LR boxes, parboxes, and rule
+% boxes (note sure how useful it is ...)
 
 % ................................................
-% \subsection{}
-% pdf  page
+\subsection{Raising and Lowering Boxes}
+% pdf 124 page 107
 
+The \verb:\raisebox: command raises text by a specified length (a negative length lowers the text).
+It makes an LR box, just like the \verb:\mbox: command. 
+
+% example in page
+
+It is sometimes useful to change how big \TeX\ thinks a piece of text is without changing the text.
+By changing the apparent height of text, you change how much space \TeX\ leaves for it. This is
+sometimes used to eliminate space above or below a formula or part of a formula.
+
+% The \verb:\makebox: command tells \TeX\ how wide the text is, while a strut can increase the text's apparent height but cannot decrease it.
+
+Optional arguments of \verb:\raisebox: tell \LaTeX\ how tall it should pretend that the text is.
+
+For example, the command \verb:\raisebox{.4ex}[1.5ex][.75ex]{\em text}: raises the text by 
+\texttt{.4ex}, and it also makes \TeX\ think that it extends \texttt{1.5ex} above the bottom of the
+line, and \texttt{.75ex} below the bottom of the line. (The bottom of the line is where most
+characters sit; a letter like y extends below it.) If you omit the second optional argument, \TeX\
+will think the text extends as far below the line as it actually does.
 
 % ................................................
-% \subsection{}
-% pdf  page
+% Omitted \subsection{Saving Boxes}
+
+\begin{comment}
+
+% The example below is so hard to follow that it doesn't seem worth the trouble, commented all
 
 % ................................................
-% \subsection{}
-% pdf  page
+\section{Formatting with Boxes}
+% pdf 125 page 108
 
+I will illustrate the power of box commands with a silly example: defining a \verb:\face: command to put a funny face around a word.
 
-% ................................................
-% \subsection{}
-% pdf  page
+The face is composed of two diamonds (\diamond) produced with the \verb:\diamond: command to create the eyes, and a smile (\smile) produced with \verb:\smile:. The trick, of course, is positioning these symbols correctly relative to the word being ``faced''.
+
+The left eye of the face (the one near the ``f'') is positioned above the word and 15\% of the way from the word's left edge to its right edge. 
+
+First, we see how to put a piece of text a fixed distance to the right of the left-hand edge of a
+word. Recall that if the specified width of a \verb:\makebox: is less than the width of its
+contents, the contents extend outside the box; so, in the extreme case of a zero-width box, all the
+box's contents lie to the right (and on run on top of other text)
+
+\textbf{Example}
+% pdf 126 page 109
+
+This code in the box below is supposed to render but it creates an error. 
+% The gnuuuuu began to \makebox[Opt][1]{\hspace{1cm}X} moooooooooooo.
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+The gnuuuuu began to \makebox[Opt][1]{\hspace{1cm}X}moooooooooooo.
+\end{lstlisting}
+
+Because the box produced by this \makebox command has zero width, it doesn't change the position of
+the ``moo...''
+
+% example ends here, back to face .............
+
+We want the face's left eye to be shifted to the right by 0.15 times the width of the word and
+raised by the height of the word. So the \verb:\face: command must measure the width and height of
+its argument using the \verb:\settoheight: and \verb:\settowidth: commands. These lengths are saved
+in two new length commands, \verb:\faceht: and \verb:\facewd:, that are defined with 
+\verb:\newlength:.
+
+The eye is raised with the \verb:\raisebox: command. 
+
+Before figuring out how to draw the rest of the face, we define a \verb:\lefteye: command
+so \verb:\lefteye{\emph{moooo}}: produces moooo. (With a diamond above the ``m''.)
+
+\end{comment}
 
 
 % ..................................................................................................
