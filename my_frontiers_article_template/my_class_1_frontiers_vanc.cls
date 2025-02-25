@@ -1,31 +1,27 @@
 % This class builds upon the "FrontiersinVancouver" class. 
-% February 16, 2025
+% February 25, 2025
 
 % Comments have been added throughout (much needed comments) and the order of some commands has
-% changed. So far, there are no real changes in the default parameters.
+% changed. 
 % A command named "correspondance" was changed to "correspondence"
 % The logo code has been commented out (so as to not use logo)
-% The following packages have been added: sepfootnotes, listings
+% The following packages have been added: comment, sepfootnotes, listings
 
-
-% The three lines below have been altered
+% IDENTIFICATION ...................................................................................
 \newcommand\classname{my_class_1_frontiers_vanc}
 \newcommand\lastmodifieddate{2025/02/15}
 \newcommand\versionnumber{1}
 
-% For printing crop marks
-\newif\if@cropmarkson \@cropmarksontrue
-
 \NeedsTeXFormat{LaTeX2e}[2013/26/03]
 \ProvidesClass{\classname}[\lastmodifieddate\space\versionnumber]
 
+% PRELIMINARY DECLARATIONS .........................................................................
+\newif\if@final
+\newif\if@cropmarkson \@cropmarksontrue % For printing crop marks
 \setlength{\paperheight}{11truein}
 \setlength{\paperwidth}{8.5truein}
 
-\newif\if@final
-
-% Options ..........................................................................................
-% I think these are options that this class (i.e. the one that's created in this file) will provide
+% OPTIONS ..........................................................................................
 \DeclareOption{draft}{\PassOptionsToPackage{draft}{graphicx}}
 \DeclareOption{paper}{\PassOptionsToPackage{paper}{graphicx}}
 \DeclareOption{a4paper}{\PassOptionsToPackage{a4}{crop}}
@@ -40,6 +36,7 @@
 \ExecuteOptions{a4paper,nocrop,centre,info,paper}
 
 \ProcessOptions
+
 
 % Load all necessary packages ......................................................................
 \RequirePackage{inputenc,crop,graphicx,amsmath,array,color,amssymb,flushend,stfloats,amsthm,chngpage,times,datetime,epstopdf} 
@@ -188,7 +185,7 @@
 \lefthyphenmin=3
 \righthyphenmin=3
 
-%
+
 % Set page layout dimensions .......................................................................
 %
 \setlength\headheight{16\p@}        % height of running head
@@ -374,7 +371,6 @@
     \clearpage
     \fi}
 
-%
 % Sectional units ..................................................................................
 % maybe this should be in definitions
 
