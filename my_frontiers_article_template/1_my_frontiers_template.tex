@@ -15,7 +15,7 @@
 % PREAMBLE
 % --------------------------------------------------------------------------------------------------
 
-\documentclass[utf8]{my_class_1_front_vanc}  % using the Vancouver Style (Numbered)
+\documentclass[utf8]{my_class_1_frontiers_vanc}  % using the Vancouver Style (Numbered)
 % \documentclass[utf8]{FrontiersinHarvard} 
 % \documentclass[utf8]{frontiersinFPHY_FAMS} % another Vancouver Style (Numbered) 
 % \setcitestyle{square} % for physics and math/stat style
@@ -32,11 +32,12 @@
 \def\Authors{
         Firstname1 Surname1\,$^{1,*}$,
         Firstname2 Surname2\,$^{1}$, and 
-        Firstname3 Surname3\,$^{2}$}
+        Firstname3 Surname3\,$^{2}$
+        }
 \def\Address{
         $^{1}$ University of Science, New York, USA \\
         $^{2}$ Another Organization, Paris, France
-}
+        }
 
 \def\firstAuthorLast{Firstname1 {et~al.}} %use et~al. only if is more than 1 author
 
@@ -53,11 +54,11 @@
 % [This is all still within the preamble]
 % For this to work, this line was added to the class file: \usepackage{sepfootnotes}
 
-\sepfootnotecontent{first_note}{This note was made with the {\tt sepfootnotes} package, which helps
- place the footnotes \textbf{sep}arately. This avoids having footnotes in the middle of a paragraph
- in the text file, and makes it easier to read the text file---the actual reading and writing is
- complicated when there are too many \LaTeX\ commands interspersed between the words. (See more on
- this package at https://ctan.org/pkg/sepfootnotes)}
+\sepfootnotecontent{first_note}{The actual reading and writing of a document is complicated when
+ there are too many \LaTeX\ commands interspersed between the words, and its even worse when there
+ are footnotes in the middle of a paragraph. The {\tt sepfootnotes} package, helps
+ have \textbf{sep}arate footnotes--they are placed in the preamble. (See more on this package at 
+ https://ctan.org/pkg/sepfootnotes)}
 
 
 %%%%%===========================================================================================%%%%
@@ -80,8 +81,7 @@
 \extraAuth{}% If there is more than 1 corresponding author, comment this line and uncomment next one
 %\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
 
-
-\maketitle
+\maketitle % MAKE TITLE PAGE .....................
 
 
 % ABSTRACT environment start -----------------------------------------------------------------------
@@ -91,10 +91,12 @@
 
 \section{Introduction}\label{abstract_intro}
 
+This is \textbf{not} the introduction to the article, it's a header inside the abstract environment.
 \textbf{Note} how in the pdf the lines are numbered, even for the section headers, this is because
 the abstract's sections are inside the {\tt abstract} environment. The lines of the normal section
 headers (those in the rest of the file, outside of the abstract environment) are not numbered.
-(It also seems like the normal sections have a different font face and size.)
+Notice also that normal sections have a different font face and size (unless this is changed in the
+cls file, line 589.)
 
 \section{Objective}\label{abstract_objective}
 
@@ -134,10 +136,10 @@ It's just meant to show how the {\tt tiny} command still affects things down to 
 
 % Introduction section start -----------------------------------------------------------------------
 
-\section{Introduction}
+\section{section}
 
-INTRODUCTION. The section header uses all upper-case letters and the ``helveticabold'' command
-defined in the class file.
+The section header uses all upper-case letters and the ``helveticabold'' command defined in the
+class file.
 
 \textbf{Note} how under a {\tt section} command there is no indention in the first paragraph, but
 there is indention in the next ones. Also \textbf{Note} how the paragraphs are justified, but the
@@ -147,29 +149,29 @@ This sentence---beginning at the T and ending at the period---has 100 characters
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
-\subsection{Sub INTRODUCTION Introduction}%\label{}
+\subsection{SuBsEcTiOn}%\label{}
 
-Sub INTRODUCTION Introduction. The subsection header uses whetever case letters are entered and the
-``helveticabold'' command defined in the class file. \textbf{Note} how under a {\tt subsection} or
-{\tt subsubsection} command there is indention right from the first paragraph.
+The subsection header uses whetever case letters are entered and the ``helveticabold'' command
+defined in the class file. \textbf{Note} how under all the headers except for the section one there
+is indention right from the first paragraph.
 
-\subsubsection{sub sub INTRODUCTION Introduction}%\label{} 
+\subsubsection{SubSubSection}%\label{} 
 
-sub sub INTRODUCTION Introduction. The subsubsection header uses whetever case letters are entered
-and the ``helvetica'' command defined in the class file. This header \textbf{is not} bold, which
-makes sense if you only go down to subsubsection level; but if you go further down to paragraph
-level then the paragraph, which below in hierarchy will be bolded and look bigger and look as if
-it's above. You can change this behaviour in line 599
+The subsubsection header uses whetever case letters are entered and the ``helvetica'' command
+defined in the class file. This header \textbf{is not} bold, which makes sense if you only go down
+to this level. But the header at the paragraph level \textbf{is} bold and looks bigger, and it
+looks as if it's above in hierarchy and bigger than the subsubsection---this doesn't look right.
+You can change this behaviour in line 599
 
-\paragraph{This is the header for a paragraph environment} 
+\paragraph{Paragraph} 
 
 The header does not seem to run-in to the text like it usually does but, rather, it behaves like
-the {\tt section}, {\tt subsection}, and {\tt subsubsection} headers.
+the other headers.
 
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces. 
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 
-\subparagraph{This is the header for a subparagraph environment} 
+\subparagraph{SubParagraph} 
 
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
 This sentence---beginning at the T and ending at the period---has 100 characterss, including spaces.
@@ -222,25 +224,6 @@ Here is another footnote.\sepfootnote{first_note}
 % \section{Conclusion}\label{conclusion}
 
 
-\section{Code}\label{code}
-
-\begin{verbatim}
-Text enclosed inside \texttt{verbatim} environment 
-is printed directly 
-and all \LaTeX{} commands are ignored.
-\end{verbatim}
-
-\newpage
-
-\begin{lstlisting}[language=TeX]
-New text enclosed inside 
-    the "lstlisting" environment (from the "listings" package)
-        is printed directly 
-                and all \LaTeX{} commands are ignored.
-\end{lstlisting}
-
-
-
 % DECLARATIONS start -------------------------------------------------------------------------------
 % the '*' excludes the section from automatic numbering
 \section*{Conflict of Interest Statement}
@@ -277,15 +260,16 @@ to the corresponding author.
 
 Below this line you should see a references section (it's not really a section but, rather, some
 sort of environment created, at least partially, in the cls file). If you don't see a header that
-says "References", try using {\tt latexmk}.
+says ``References'', 
+try using \href{https://www.cantab.net/users/johncollins/latexmk/index.html}{\tt latexmk}.
 
 
 % REFERENCES .......................................................................................
 % \bibliographystyle{Frontiers-Harvard} 
 \bibliographystyle{Frontiers-Vancouver}
 
-% This will create a the header "References" which looks just like a section header. But it does not
-% actually create a section (bookmarked on the PDF)
+% This will create the header "References" which looks just like a section header. 
+% But it does not actually create a section (and thus there is bookmark on the PDF)
 \bibliography{test.bib} 
 
 % \nocite{*} 
