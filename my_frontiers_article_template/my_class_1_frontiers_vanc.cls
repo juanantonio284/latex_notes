@@ -9,7 +9,7 @@
 
 
 % The three lines below have been altered
-\newcommand\classname{my_class_1_front_vanc}
+\newcommand\classname{my_class_1_frontiers_vanc}
 \newcommand\lastmodifieddate{2025/02/15}
 \newcommand\versionnumber{1}
 
@@ -49,8 +49,9 @@
 \usepackage[labelfont=bf,list=true]{subcaption}
 
 % packages I added ---------------------------------------------------------------------------------
+\usepackage{comment}      % https://ctan.org/pkg/comment
 \usepackage{sepfootnotes} % https://ctan.org/pkg/sepfootnotes
-\usepackage{listings} % Typeset source code listings
+\usepackage{listings}     % Typeset source code listings
 
 \lstset{
   backgroundcolor=\color{gray!10},    % background color (requires color or xcolor package)
@@ -83,10 +84,8 @@
 \def\helveticabold{\fontfamily{phv}\bfseries\selectfont}               % font note 2
 \def\helveticaitalic{\fontfamily{phv}\itshape\selectfont}              % font note 3
 \def\helveticabolditalic{\fontfamily{phv}\bfseries\itshape\selectfont} % font note 4
-% font note 1: Seems like the font chosen here only affects the address and correspondence fields
-% font note 2: Does not affect body. Affects all the title, author's names, and headers and footers.
-% font note 3: Doesn't seem to affect anything
-% font note 4: Doesn't seem to affect anything
+% These are just definitions. See elsewhere for how these definitions are used. (For example, the 
+% correspondence field uses the \helvetica command.)
 
 % Set twoside printing
 \@twosidetrue
@@ -302,16 +301,15 @@
   \def\authormark##1{\gdef\leftmark{##1}}%
   }
 
-% The "\hbox{\rule{\textwidth}{1\p@}}" command in the commented line below draws the footer line on
-% the first page
+% The "\hbox{\rule{\textwidth}{1\p@}}" command INSIDE the line below draws the footer line on page 1
 
 \def\ps@opening
   {%
-  \def\@oddfoot{\vbox to 13\p@{\vss
-  % \def\@oddfoot{\vbox to 13\p@{\hbox{\rule{\textwidth}{1\p@}}\vss
+  % \def\@oddfoot{\vbox to 13\p@{\vss
+  \def\@oddfoot{\vbox to 13\p@{\hbox{\rule{\textwidth}{1\p@}}\vss
         \hbox to \textwidth{\helvetica
         \fontsize{7}{9}\fontshape{n}\selectfont \space %
-          \hfill\small\helveticabold\thepage}%
+          \hfill\small\helveticabold\thepage}% this line is additional to the one in evenfoot (below)
         }}%
   \def\@evenfoot{\vbox to 13\p@{\rule{\textwidth}{1\p@}\vss
         \hbox to \textwidth{\helvetica\thepage\hfill
@@ -553,7 +551,8 @@
 % }%hbox
 % ................................................
 
- \rule{\textwidth}{1\p@}\par% i ....
+ % \par% i ....
+ \rule{\textwidth}{1\p@}\par% original
   \helvetica                % ii ....
   \hbox to \textwidth{%
   \parbox[t]{36.5pc}{%
@@ -574,8 +573,10 @@
 
   }%@maketitle
 
-% i: the command "\rule{\textwidth}{1\p@}" makes the header rule under the logo and above the title
-%    you can remove it and leave the "\par"
+% i: The command "\rule{\textwidth}{1\p@}" makes the header rule under the logo and above the title.
+%    If you remove this command and just leave the "\par", the line disappears but the title goes up
+%    and is too close to the page's edge
+
 % ii: this calls the "\helvetica{\fontfamily{phv}\selectfont}" command from line 45
 
 %***********
@@ -587,13 +588,16 @@
 \newenvironment{abstract}{%
   \begingroup
   \let\section\absection
+  % \fontfamily{phv}\fontsize{12}{12}\selectfont % i ....
   \fontfamily{\sfdefault}\fontsize{12}{12}\sffamily\selectfont
-  {\fontseries{b}\selectfont ABSTRACT}\par} % i ....
+  {\fontseries{b}\selectfont ABSTRACT}\par}    % ii ....
 {\endgroup\smallskip\@afterheading\@afterindentfalse\vskip 12pt plus -2pt minus 2pt}
 
-% i: The word 'ABSTRACT' in this line is what gives the title to the environment
-%    In other places where a newenvironment is defined titles are given in the same way, for example
-%    in the appendix section below.
+%  i: This line was altered by me to use the same font as the rest of the article. The original line 
+%     is the one below with font \sfdefault
+% ii: The word 'ABSTRACT' in this line is what gives the title to the environment
+%     In other places where a newenvironment is defined titles are given in the same way, for example
+%     in the appendix section below.
 
 % Section macros ...................................................................................
 
@@ -602,8 +606,10 @@
 
 \renewcommand{\@seccntformat}[1]{\csname the#1\endcsname\quad}
 
-% * subsubsection and subparagraph use the helvetica command defined above
-% * section, subsection, and paragraph use the helveticabold command defined above
+% This applies only to headers
+% * section, subsection, and paragraph use the helveticabold command (defined above)
+% * subsubsection and subparagraph use the helvetica command (defined above)
+% * paragraph and subparagraph use italics
 % * section uses MakeUppercase
 
 \def\section{%
@@ -619,12 +625,14 @@
 \def\subsubsection{%
   \@startsection{subsubsection}{3}{\z@}
   {2\p@ plus 2\p@}{1\p@}
-  {\reset@font\raggedright\mathversion{bold}\helvetica\fontsize{11.5}{12}}}
+  {\reset@font\raggedright\mathversion{bold}\helveticabold\fontsize{11.5}{12}}}
+  % {\reset@font\raggedright\mathversion{bold}\helvetica\fontsize{11.5}{12}}} % original
 
  \def\paragraph{%
    \@startsection{paragraph}{4}{\z@}
    {2\p@ plus 1\p@}{1\p@}
-   {\reset@font\itshape\helveticabold\fontsize{11.5}{12}}}
+   {\reset@font\itshape\helvetica\fontsize{11.5}{12}}}
+   % {\reset@font\itshape\helveticabold\fontsize{11.5}{12}}} % original
 
  \def\subparagraph{%
    \@startsection{subparagraph}{5}{\z@}
