@@ -14,6 +14,13 @@ document.
 Here is the [documentation in plain text format][doc_plain_text], and 
 in [pdf format][doc_pdf_format].
 
+## TLDR
+
+```Bash
+cd path/to/directory
+latexmk -pdf main_file.tex
+```
+
 ## Introduction
 
 Latexmk completely automates the process of compiling a LaTeX document. 
@@ -45,11 +52,6 @@ the previewer automati- cally updates the on-screen view of the compiled documen
 
 In general the command line to invoke latexmk has the form: `latexmk [options] [file]`.
 
-Run latexmk with `-showextraoptions` to get a list of the options that latexmk accepts and that are
-simply passed through to `*latex`. (See also the explanation of the `-showextraoptions` option for
-more information.)
-
-
 * `-pdf`: generate pdf version of document using pdflatex. (And turn off any incompatible requests.)
 
 * `-silent`: run commands silently, i.e., with options that reduce the amount of diagnostics
@@ -62,6 +64,9 @@ more information.)
 
 * `-verbose`: opposite of `-silent`. This is the default setting.
 
+Run latexmk with `-showextraoptions` to get a list of the options that latexmk accepts and that are
+simply passed through to `*latex`. (See also the explanation of the `-showextraoptions` option for
+more information.)
 
 [homepage]: [https://www.cantab.net/users/johncollins/latexmk/index.html]
 
