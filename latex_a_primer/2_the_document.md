@@ -123,8 +123,8 @@ number in the sequence.)
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## 3. Set `\pagenumbering`
 
-The style of page numbers can be specified by the command `\pagenumbering{...}` The possible
-arguments to this command and the resulting style of the numbers are given below:
+The style of page numbers can be specified by the command `\pagenumbering{...}`. This command resets
+the page counter and takes one of the following arguments:
 
 * `arabic`: Indo-Arabic numerals
 * `roman`: lowercase Roman numerals
@@ -132,13 +132,14 @@ arguments to this command and the resulting style of the numbers are given below
 * `alph`: lowercase English letters
 * `Alph`: uppercase English letters
 
-The default value is `arabic`. This command resets the page counter. 
+The default value is `arabic`. 
 
 Thus for example, to number all the pages in the 'Preface' with lowercase Roman numerals and the
 rest of the document with Indo-Arabic numerals, declare `\pagenumbering{roman}` at the beginning of
 the preface and issue the command `\pagestyle{arabic}` immediately after the first `\chapter`
-command. We can make the pages start with any number we want by the command `\setcounter{page}
-{number}` where number is the page number we wish the current page to have.
+command. 
+We can make the pages start with any number we want by the command `\setcounter{page}{number}` where
+number is the page number we wish the current page to have.
 
 ## 4. `\setlength`
 
@@ -243,9 +244,10 @@ class. (Except for `\chapter` all these are available in `article` class also.)
 Each sectioning command also has a "starred" version which does not produce numbers; thus 
 `\section*{name}` has the same effect as `\section{name}`, but produces no number for this section.
   
-Paragraphs and subparagraphs do not have numbers, and they have run-in headings. These sections can
-actually have several paragraphs of text within them. (Subparagraphs have an additional
-indentation.)
+Paragraphs and subparagraphs do not have numbers, and they have run-in headings. The names
+`\paragraph` and `\subparagraph` are unfortunate, since they denote units that are often composed
+of several paragraphs; they have been retained for historical reasons. (Subparagraphs have an
+additional indentation.)
 
 You may have noted that LATEX has a specific format for typesetting the section headings, such as
 the font used, the positioning, the vertical space before and after the heading and so on. All
@@ -260,7 +262,7 @@ However, the package `sectsty` provided some easy interfaces for tweaking some o
   number, and—beneath it—the name of the chapter passed as the argument of the command. Example:
   `Chapter I Name of Chapter`
 
-* the `\section` command produces two numbers(separated by a dot) indicating the chapter number and
+* the `\section` command produces two numbers (separated by a dot) indicating the chapter number and
   the section number followed by the name we have given. It does not produce any text
   like 'Section'. Example: `I.I Name of Section`
 
@@ -274,7 +276,7 @@ However, the package `sectsty` provided some easy interfaces for tweaking some o
 
 #### In the `article` class:
 
-* `\section` is highest in the hierarchy and produces single number like `\chapter` in book.(It does
-  not produce any text like 'Section') 
+* `\section` is highest in the hierarchy and produces a single number like `\chapter` in book.
+  (It does not produce any text like 'Section') 
 
 * subsubsections also have numbers, but none below have numbers

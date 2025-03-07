@@ -87,19 +87,20 @@ parameter: `\protect\numberline{number}{heading}`
 
 **Case 2**
 
-Sometimes `\addcontentsline` is used in the source to complement the actions of standard LaTeX. For
-instance, in the case where you have used the starred form of the sectioning commands(because you
-do not want a heading number) and, thus, no information is written to the `.toc` file, you can
-write something like:
+Sometimes `\addcontentsline` is used in the source to complement the actions of standard LaTeX (to add to the ToC).
+
+For instance, in the case where you have used the starred form of a sectioning command (because you
+do not want a heading number) and, thus, no information has been written to the `.toc` file, you
+can write something like:
 
 ```Latex
 \chapter*{Forward}
 \addcontentsline{toc}{chapter}{\numberline{}Forward}
 ```
 
-This produces an indented "chapter" entry in the table of contents, leaving the space where the
-chapter number would go free. Omitting the `\numberline` command would typeset the word "Forward"
-flush left instead.
+This would produce an indented `chapter` entry in the table of contents, leaving the blank the space
+where the chapter number would go. Omitting the `\numberline` command would typeset the
+word "Forward" flush left instead.
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ### Typesetting a contents list
