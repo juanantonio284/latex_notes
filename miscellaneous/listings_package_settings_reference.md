@@ -1,4 +1,56 @@
-https://www.overleaf.com/learn/latex/Code_listing
+# Setting up the `listings` package in LaTeX
+
+## Sample Code
+
+```LaTeX
+
+%% -------------------------------------------------------------------------------------------------
+%%    Setting up the listings package
+%% -------------------------------------------------------------------------------------------------
+% This package serves to display text, specifically to create boxes with code in them
+% https://www.overleaf.com/learn/latex/Code_listing
+
+\RequirePackage{listings} % Typeset source code listings
+
+% general settings ...................................................
+% These settings apply both when you use the plain \begin{lstlisting} ... construction, and also
+% when using a specific styles (if the style definition has not overridden one of the definitions
+% here)
+\lstset{
+  backgroundcolor=\color{lime!10},    % background color (requires color or xcolor package)
+  commentstyle=\color{blue!30!black}, % comment style
+  basicstyle=\ttfamily\small,         % font family\size (instead of small can try footnotesize)
+  keywordstyle=\color{red!75!black},  % keyword style  
+  stringstyle=\color{green!40!black}, % style of strings in source language
+  frame=single,                       % show a frame surrounding code (see more at note i)
+  % numbers=left,                       % Add line numbers on the left side
+  % numberstyle=\tiny,                  % style used for line-numbers
+  % numbersep=5pt,                      % distance of line-numbers from the code
+  } 
+
+% [style=numbers] ....................................................
+% These settings apply when you use \begin{lstlisting}[style=numbers] ... \end{lstlisting}
+\lstdefinestyle{numbers}
+    {
+    backgroundcolor=\color{cyan!10}, 
+    % frame=none, % notice how this overrides the setting in lstset
+    numbers=left, 
+    numberstyle=\tiny, 
+    numbersep=5pt                 
+    } 
+
+% [style=fitmore] ....................................................
+\lstdefinestyle{fitmore}
+    {
+    % backgroundcolor=\color{orange!10},
+    basicstyle=\ttfamily\footnotesize,
+    % breakatwhitespace=true, % did not work as expected
+    breaklines=true
+    }
+
+```
+
+## More settings
 
 ```LaTeX
 \lstset{
@@ -41,3 +93,8 @@ https://www.overleaf.com/learn/latex/Code_listing
 % iii: supposed to specify the colour of the frame-box, breaks the compilation
 
 ```
+
+## Further
+
+* https://www.overleaf.com/learn/latex/Code_listing
+* https://www.overleaf.com/learn/latex/Using_colors_in_LaTeX
