@@ -1,5 +1,34 @@
 # latex_notes
-basic usage of LaTeX
+
+Personal notes on LaTeX
+
+## 1_latex_companion
+
+Notes from the book **The LaTEX Companion** (Second Edition. Fourth printing (with corrections),
+ISBN 0-201-36299-6.) by Frank Mittelbach and Michel Goossens
+
+* **1_intro** — an overview of the vast array of files used by a typical LaTeX system with its many
+    components.
+
+## miscellaneous
+
+* **latexmk_instructions.md** — simple notes to use the `latexmk` utility
+
+* **listings_package_settings_reference.md** — settings to configure the `listings` package in LaTeX
+
+* **markdown_to_latex_instructions.md** — instructions for using *Pandoc* to convert a text file
+    with markdown syntax to latex syntax
+
+* **recommended_latex_packages.md** — a subset of packages I found interesting from a list of
+    recommended packages
+
+
+## my_frontiers_article_template
+
+* **my_class_1_frontiers_vanc.cls** — class file for a journal article
+
+* **1_my_frontiers_template.tex** — sample file to show how the `.cls` file works
+
 
 ## lamport_latex_ref
 
@@ -44,26 +73,6 @@ Notes from the book *LaTeX Tutorials: A Primer* (September 2003) by the
     [sections on Index and Glossary not summarized yet]
 
 * **6_displayed_text** — distinguish text from other text, lists (bullets, numbers, letters)
-
-
-## my_frontiers_article_template
-
-* **my_class_1_frontiers_vanc.cls** — class file for a journal article
-
-* **1_my_frontiers_template.tex** — sample file to show how the `.cls` file works
-
-
-## miscellaneous
-
-* **latexmk_instructions.md** — simple notes to use the `latexmk` utility
-
-* **listings_package_settings_reference.md** — settings to configure the `listings` package in LaTeX
-
-* **markdown_to_latex_instructions.md** — instructions for using *Pandoc* to convert a text file
-    with markdown syntax to latex syntax
-
-* **recommended_latex_packages.md** — a subset of packages I found interesting from a list of
-    recommended packages
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
