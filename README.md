@@ -4,11 +4,17 @@ Personal notes on LaTeX
 
 ## 1_latex_companion
 
-Notes from the book **The LaTEX Companion** (Second Edition. Fourth printing (with corrections),
-ISBN 0-201-36299-6.) by Frank Mittelbach and Michel Goossens
+Notes from the book *The LaTEX Companion* (Second Edition. Fourth printing 2005. ISBN
+0-201-36299-6) by Frank Mittelbach and Michel Goossens
 
-* **1_intro** — an overview of the vast array of files used by a typical LaTeX system with its many
-    components.
+* **1_intro.md** — an overview of the vast array of files used by a typical LaTeX system with its
+    many components (talks about file extensions such as .tex, .bbl, .ps, .clo, .cls, .sty)
+
+* **2_structure_of_latex_doc.md** — This chapter explains how the general principle of separation
+    between layout and structure (to allow the user to concentrate on content rather than having to
+    worry about layout issues) is implemented in latex. **Topics**: The structure of a source file,
+    Sectioning commands, Combining several files
+
 
 ## miscellaneous
 
@@ -40,7 +46,7 @@ Notes from the book *LaTeX: A Document Preparation System-User's Guide and Refer
 * **abridged_sample2e.tex** — notes from the sample file, includes a little more content (from the
   textbook) and is easier to follow than the original
   
-* **3** — notes from chapter 3 on *changing the type style* and the paragraph, math, and
+* **3** — notes from chapter 3 on *changing the type style* and the paragraph, basic math, and
     left-to-right(LR) *modes* in LaTeX
   
 * **4_moving_info** — LaTeX often has to move information from one place to another. For example,
@@ -56,8 +62,8 @@ Notes from the book *LaTeX: A Document Preparation System-User's Guide and Refer
     document. Commands specifying the visual appearance of the document are usually confined to the
     preamble, either as style declarations or in the definitions of commands and environments for
     specifying logical structures. **Topics**: Document and Page Style, Document-Class Options,
-    Page Styles, Page Numbers, Configuring `headings` and `myheadings`, The Title Page and
-    Abstract, Line and Page Breaking, Numbering, Length, Spaces, and Boxes
+    Page Styles, Page Numbers, Configuring `headings` and `myheadings`, Title Page and Abstract,
+    Line and Page Breaking, Numbering, Length, Spaces, and Boxes
 
 
 ## latex_a_primer
@@ -65,14 +71,14 @@ Notes from the book *LaTeX: A Document Preparation System-User's Guide and Refer
 Notes from the book *LaTeX Tutorials: A Primer* (September 2003) by the 
 [Indian TeX Users Group][tug_india]
 
-* **1_simple_typesetting_and_fonts** — basic typesetting tricks and how fonts work
+* **1_simple_typesetting_and_fonts.md** — basic typesetting tricks and how fonts work
 
-* **2_the_document** — overall appearance of the document, style for individual pages
+* **2_the_document.md** — overall appearance of the document, style for individual pages
 
-* **5_toc-index-glossary** — creating a Table of Contents (and List of Figures, and List of Tables)
-    [sections on Index and Glossary not summarized yet]
+* **5_toc-index-glossary.md** — creating a Table of Contents (and List of Figures, and List of
+    Tables)[sections on Index and Glossary not summarized yet]
 
-* **6_displayed_text** — distinguish text from other text, lists (bullets, numbers, letters)
+* **6_displayed_text.md** — distinguish text from other text, lists (bullets, numbers, letters)
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
