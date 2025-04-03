@@ -1,30 +1,53 @@
 # The Layout of the Page
 <!-- Chapter 4 -->
 
+In this chapter we will see how to specify different page layouts. Often a single document requires
+several different page layouts. For instance, the layout of the first page of a chapter, which
+carries the chapter title, is generally different from that of the other pages in that chapter.
+
+1. Geometrical dimensions of the layout: an introduction to LaTeX's dimensional parameters for page
+layout (ways to change them and visualize their values)
+
+2. Changing the layout: an in-depth discussion of the packages `typearea` and `geometry`, both of
+which provide sophisticated ways to implement page layout specifications
+
+3. Dynamic page data: page numbers and marks: LaTeX concepts used to provide data for running
+headers and footers
+
+4. Page styles: formatting headers and footers (including many examples deploying the `fancyhdr`
+package)
+
+5. Visual formatting: commands that help in situations when the text does not fit into the layout
+and manual intervention is required
+
+6. Doing layout with class: a brief look at two generic classes that go a long way toward providing
+almost full control over the page layout specification process
+
+
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Dynamic page data: page numbers and marks
 <!-- 4.3 -->
 
-LaTeX's output routine, which produces the typeset pages, works asynchronously. That is, LaTeX
+LaTeX's **output routine**, which produces the typeset pages, works *asynchronously*. That is, LaTeX
 assembles and prepares enough material to be sure that a page can be filled and then builds that
-page, usually leaving some residual material behind to be used on the next page(s).
+page, usually leaving some residual material behind to be used on the next page(s). Thus, while
+preparing headings, paragraphs, and other page elements, it is usually not known on which page this
+material will eventually be placed because LaTeX might eventually decide that this material will
+not fit on the current page.[^this_problem]
 
-Thus, while preparing headings, paragraphs, and other page elements, it is usually not known on
-which page this material will eventually be placed because LaTeX might eventually decide that this
-material will not fit on the current page. (We have already discussed this problem in the section
-about page-wise footnote numbering.) 
-
-<!-- this is the problem: You cannot save this information in commands when the material is collected -->
 When the final page is typeset, we might want to repeat some information from its contents in the
-running header or footer (e.g. the current section head), to give the reader extra guidance. **You
-cannot** save this information in commands when the material is collected; during this phase LaTeX
-often reads too far ahead and your command would then contain data not appearing on the final
-page.
+running header or footer (e.g. the current section head), to give the reader extra guidance.
+Because LaTeX often reads too far ahead, a command might contain data that will actually not appear
+on the final page; so you cannot save this information in commands when the material is collected.
 
-LaTeX solves this problem by providing a mark mechanism through which you can identify data as being
-of interest for the assembled page. In the output routine all marks from the page are collected and
-the first and the last mark are made available. The detailed mechanism is explained in this section
-together with some useful extension packages.
+LaTeX solves the problem of not being able to save this data in a command by providing a mark
+mechanism through which you can identify data as being of interest for the assembled page. In the
+output routine all marks from the page are collected and the first and the last mark are made
+available. The detailed mechanism is explained in this section together with some useful extension
+packages.
+
+[^this_problem]: We have already discussed this problem in the section about page-wise footnote
+numbering.
 
 ### LATEX page numbers
 <!-- 4.3.1 -->
@@ -92,6 +115,7 @@ pending floats are placed first. However, as this hook might also be used by oth
 textual material at the end of the document, there is a chance that the label may be placed too
 early. In that case you can try to load `lastpage` after the package that generates this extra
 material.
+
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Visual formatting

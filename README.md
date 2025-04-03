@@ -10,10 +10,14 @@ Notes from the book *The LaTEX Companion* (Second Edition. Fourth printing 2005.
 * **1_intro.md** — an overview of the vast array of files used by a typical LaTeX system with its
     many components (talks about file extensions such as .tex, .bbl, .ps, .clo, .cls, .sty)
 
-* **2_structure_of_latex_doc.md** — This chapter explains how the general principle of separation
-    between layout and structure (to allow the user to concentrate on content rather than having to
-    worry about layout issues) is implemented in latex. **Topics**: The structure of a source file,
+* **2_structure_of_latex_doc.md** — how the general principle of separation between layout and
+    structure is implemented in LaTeX (This separation helps the user concentrate on content rather
+    than having to worry about layout issues.) **Topics**: The structure of a source file,
     Sectioning commands, Combining several files
+
+* **4_layout_of_page.md** — how to specify different page layouts. **Topics**: Geometrical
+    dimensions of the layout, Changing the layout, Dynamic page data: page numbers and marks, Page
+    styles, Visual formatting, Doing layout with class
 
 
 ## miscellaneous
