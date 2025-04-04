@@ -19,6 +19,12 @@ Notes from the book *The LaTEX Companion* (Second Edition. Fourth printing 2005.
     dimensions of the layout, Changing the layout, Dynamic page data: page numbers and marks, Page
     styles, Visual formatting, Doing layout with class
 
+* **4_layout_of_page.md** — This chapter gives an overview of the basic programming concepts
+    underlying the LaTeX formatter. **Topics**: Linking markup and formatting, Page markup—Boxes
+    and rules, Control structure extensions, Package and class file structure
+
+<!-- * **.md** — -->
+<!-- * **.md** — -->
 
 ## miscellaneous
 
